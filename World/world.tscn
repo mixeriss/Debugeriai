@@ -22,4 +22,5 @@ z_index = 1
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_djg3t")
+rendering_quadrant_size = 17
 format = 2
