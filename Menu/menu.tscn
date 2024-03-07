@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://dael5fsboj5wm"]
 
-[ext_resource type="Script" path="res://Menu/control.gd" id="1_g485u"]
-[ext_resource type="Texture2D" uid="uid://drx5vwsquj5a" path="res://Menu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png" id="2_r33ve"]
-[ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://Menu/buttonsStyle.tres" id="3_djege"]
-[ext_resource type="Texture2D" uid="uid://c08tvx4mjk8rf" path="res://Menu/cooltext453444100061905.png" id="3_lsari"]
+[ext_resource type="Script" path="res://Menu/menu.gd" id="1_nsj62"]
+[ext_resource type="Texture2D" uid="uid://drx5vwsquj5a" path="res://Menu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png" id="2_o8h4t"]
+[ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://Menu/buttonsStyle.tres" id="3_tjoyd"]
+[ext_resource type="Texture2D" uid="uid://c08tvx4mjk8rf" path="res://Menu/cooltext453444100061905.png" id="4_7rshv"]
 
-[node name="Control" type="Control"]
+[node name="Menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +14,7 @@ offset_top = 6.0
 offset_bottom = 6.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_g485u")
+script = ExtResource("1_nsj62")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
@@ -22,7 +22,7 @@ offset_left = -2.0
 offset_top = -10.0
 offset_right = 1154.0
 offset_bottom = 663.0
-texture = ExtResource("2_r33ve")
+texture = ExtResource("2_o8h4t")
 expand_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -44,19 +44,19 @@ scale = Vector2(1.00956, 0.991132)
 show_behind_parent = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
-theme = ExtResource("3_djege")
+theme = ExtResource("3_tjoyd")
 action_mode = 0
 text = "Start"
 
 [node name="OptionsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("3_djege")
+theme = ExtResource("3_tjoyd")
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartButton")
-theme = ExtResource("3_djege")
+theme = ExtResource("3_tjoyd")
 text = "Quit "
 
 [node name="TextureRect2" type="TextureRect" parent="."]
@@ -65,7 +65,7 @@ offset_left = 306.0
 offset_top = 238.0
 offset_right = 851.0
 offset_bottom = 401.0
-texture = ExtResource("3_lsari")
+texture = ExtResource("4_7rshv")
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
