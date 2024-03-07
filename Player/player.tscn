@@ -11,10 +11,12 @@ script = ExtResource("1_1f8vj")
 PRONE_SPEED = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 position = Vector2(0.5, -2.5)
 shape = SubResource("RectangleShape2D_kmh16")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(0.5, -2)
 scale = Vector2(0.0516484, 0.0457064)
 texture = ExtResource("2_pfhrp")
