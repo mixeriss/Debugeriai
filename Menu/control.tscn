@@ -1,0 +1,72 @@
+[gd_scene load_steps=5 format=3 uid="uid://dael5fsboj5wm"]
+
+[ext_resource type="Script" path="res://Menu/control.gd" id="1_g485u"]
+[ext_resource type="Texture2D" uid="uid://drx5vwsquj5a" path="res://Menu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png" id="2_r33ve"]
+[ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://Menu/buttonsStyle.tres" id="3_djege"]
+[ext_resource type="Texture2D" uid="uid://c08tvx4mjk8rf" path="res://Menu/cooltext453444100061905.png" id="3_lsari"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 6.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g485u")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+offset_left = -2.0
+offset_top = -10.0
+offset_right = 1154.0
+offset_bottom = 663.0
+texture = ExtResource("2_r33ve")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -144.0
+offset_right = 150.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1.00956, 0.991132)
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+show_behind_parent = true
+layout_mode = 2
+focus_neighbor_top = NodePath("../QuitButton")
+theme = ExtResource("3_djege")
+action_mode = 0
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_djege")
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../StartButton")
+theme = ExtResource("3_djege")
+text = "Quit "
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 238.0
+offset_right = 851.0
+offset_bottom = 401.0
+texture = ExtResource("3_lsari")
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
