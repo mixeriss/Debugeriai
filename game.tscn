@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckmxcyuy7jenn"]
+
+[ext_resource type="PackedScene" uid="uid://dmo51rmnyy3h4" path="res://PLAYER.tscn" id="1_gm57g"]
+[ext_resource type="Texture2D" uid="uid://76tps242hylf" path="res://20230519_224356.jpg" id="2_rp1wu"]
+
+[node name="Node" type="Node2D"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 6320.0
+offset_bottom = 4624.0
+texture = ExtResource("2_rp1wu")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_gm57g")]
