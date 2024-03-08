@@ -30,3 +30,13 @@ func _physics_process(delta): # code in "_physics_process" is run every frame
 
 	move_and_slide() # in-built method for detecting collisions and making the object slide around
 	# the collisioned object
+
+
+func config_player_camera(size_px):
+	var c = $Camera2D
+	c.limit_top = 0
+	c.limit_left = 0
+	c.limit_bottom = size_px.y
+	c.limit_right = size_px.x
+	pass
+

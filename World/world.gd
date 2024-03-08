@@ -2,8 +2,6 @@ extends Node2D
 
 
 @onready var tilemap = $TileMap
-@onready var player = $Player
-@onready var player_camera = $Player/Camera2D
 @onready var top_border = $Borders/TopBorder
 @onready var left_border = $Borders/LeftBorder
 @onready var bottom_border = $Borders/BottomBorder
@@ -16,7 +14,6 @@ const size_px = Vector2(size.x*px, size.y*px)
 func _ready():
 	tilemap.clear()
 	generate_map()
-	set_player()
 	pass
 
 
@@ -33,18 +30,5 @@ func generate_map():
 	for x in size.x:
 		for y in size.y:
 			tilemap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0), 0)
-	pass
-
-
-func set_player():
-	player_camera.limit_top = 0
-	player_camera.limit_left = 0
-	player_camera.limit_bottom = size_px.y
-	player_camera.limit_right = size_px.x
-	
-	var r = RandomNumberGenerator.new()
-	var x = r.randi_range(0, size_px.x)
-	var y = r.randi_range(0, size_px.y)
-	player.position = Vector2(x, y)
 	pass
 
