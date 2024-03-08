@@ -17,10 +17,8 @@ func load_world():
 func load_player():
 	var pl = preload("res://Player/player.tscn").instantiate()
 	pl.config_player_camera(w.size_px)
-	var r = RandomNumberGenerator.new()
-	var x = r.randi_range(0, w.size_px.x)
-	var y = r.randi_range(0, w.size_px.y)
-	pl.position = Vector2(x, y)
+	var spawn_point = w.find_spawn_point()
+	pl.position = spawn_point
 	add_child(pl)
 	pass
 

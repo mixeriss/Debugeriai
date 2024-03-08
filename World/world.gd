@@ -32,3 +32,10 @@ func generate_map():
 			tilemap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0), 0)
 	pass
 
+
+func find_spawn_point():
+	var r = RandomNumberGenerator.new()
+	var x = r.randi_range(0, size_px.x)
+	var y = r.randi_range(0, size_px.y)
+	return Vector2(x, y)
+
