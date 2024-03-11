@@ -6,7 +6,7 @@ extends Node2D
 @onready var left_border = $Borders/LeftBorder
 @onready var bottom_border = $Borders/BottomBorder
 @onready var right_border = $Borders/RightBorder
-const size = Vector2(50, 50)
+const size = Vector2(100, 100)
 const px = 34
 const size_px = Vector2(size.x*px, size.y*px)
 
@@ -27,9 +27,16 @@ func generate_map():
 	right_border.position = Vector2(size_px.x+1, size_px.y/2)
 	right_border.scale = Vector2(1, size_px.y/2)
 	
+	var noise = FastNoiseLite.new()
+	noise.setup_local_to_scene()
+	noise.frequency = 0.25
+	randomize()
+	noise.seed = randi()
+	
 	for x in size.x:
 		for y in size.y:
-			tilemap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0), 0)
+			var random = abs(noise.get_noise_2d(x, y))*2
+			tilemap.set_cell(0, Vector2(x, y), random, Vector2(0, 0), 0)
 	pass
 
 
