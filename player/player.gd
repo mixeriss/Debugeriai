@@ -1,9 +1,9 @@
 extends CharacterBody2D # shows what type of object the code belongs to
 
 # constant variables
-@export var NORMAL_SPEED = 300.0
-@export var SPRINT_SPEED = 450.0
-@export var CROUCH_SPEED = 175.0
+@export var NORMAL_SPEED = 150.0
+@export var SPRINT_SPEED = 200.0
+@export var CROUCH_SPEED = 110.0
 @export var PRONE_SPEED = 80.0
 
 # access unique objects
