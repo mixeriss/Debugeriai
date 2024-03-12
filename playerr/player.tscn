@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmo51rmnyy3h4"]
 
-[ext_resource type="Script" path="res://player/player.gd" id="1_1f8vj"]
-[ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="2_pfhrp"]
-[ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://guns/pistol/pistol.tscn" id="3_gpmh3"]
+[ext_resource type="Script" path="res://playerr/player.gd" id="1_1f8vj"]
+[ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://playerr/model/received_1267155343965116.jpg" id="2_pfhrp"]
+[ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://gunss/pistol/pistol.tscn" id="3_g7pyl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmh16"]
 size = Vector2(34, 34)
@@ -23,7 +23,7 @@ texture = ExtResource("2_pfhrp")
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="Pistol" parent="." instance=ExtResource("3_gpmh3")]
+[node name="Pistol" parent="." instance=ExtResource("3_g7pyl")]
 unique_name_in_owner = true
 z_index = 1
 scale = Vector2(0.5, 0.5)

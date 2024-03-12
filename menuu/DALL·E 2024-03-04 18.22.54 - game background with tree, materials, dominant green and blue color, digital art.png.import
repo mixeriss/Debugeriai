@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drx5vwsquj5a"
-path="res://.godot/imported/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png-418ce7fb6b32618c753a2c0f5a202563.ctex"
+path="res://.godot/imported/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png-fb3a407822bd9ab137f9ebf051c213cc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://menu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png"
-dest_files=["res://.godot/imported/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png-418ce7fb6b32618c753a2c0f5a202563.ctex"]
+source_file="res://menuu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png"
+dest_files=["res://.godot/imported/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png-fb3a407822bd9ab137f9ebf051c213cc.ctex"]
 
 [params]
 
