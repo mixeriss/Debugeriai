@@ -35,14 +35,20 @@ func generate_map():
 	
 	for x in size.x:
 		for y in size.y:
-			var random = abs(noise.get_noise_2d(x, y))*2
-			tilemap.set_cell(0, Vector2(x, y), random, Vector2(0, 0), 0)
+			var random = abs(noise.get_noise_2d(x, y))
+			if abs(random) >= 0.51:
+				tilemap.set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
+			elif abs(random) >= 0.45:
+				tilemap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0), 0)
+			else:
+				tilemap.set_cell(0, Vector2(x, y), 0, Vector2(0, 0), 0)
+
 	pass
 
 
 func find_spawn_point():
 	var r = RandomNumberGenerator.new()
-	var x = r.randi_range(0, size_px.x)
-	var y = r.randi_range(0, size_px.y)
+	var x = r.randi_range(px*2, size_px.x-px*2)
+	var y = r.randi_range(px*2, size_px.y-px*2)
 	return Vector2(x, y)
 

@@ -10,21 +10,30 @@ resource_name = "ground"
 texture = ExtResource("3_xqpl5")
 texture_region_size = Vector2i(34, 34)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hwolf"]
 resource_name = "tree"
 texture = ExtResource("4_qkf7e")
 texture_region_size = Vector2i(34, 34)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-10, -17, 10, -17, 15, 17, -14.75, 17)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_65sq4"]
 resource_name = "rock"
 texture = ExtResource("3_1gx87")
 texture_region_size = Vector2i(34, 34)
 0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-11.25, -17, 12.25, -12.75, 14, 10.5, -14.75, 13)
 
 [sub_resource type="TileSet" id="TileSet_djg3t"]
 tile_size = Vector2i(34, 34)
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_pkv3c")
 sources/1 = SubResource("TileSetAtlasSource_hwolf")
 sources/2 = SubResource("TileSetAtlasSource_65sq4")
