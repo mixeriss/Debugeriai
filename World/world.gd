@@ -29,16 +29,16 @@ func generate_map():
 	
 	var noise = FastNoiseLite.new()
 	noise.setup_local_to_scene()
-	noise.frequency = 0.25
+	noise.frequency = 0.175
 	randomize()
 	noise.seed = randi()
 	
 	for x in size.x:
 		for y in size.y:
 			var random = abs(noise.get_noise_2d(x, y))
-			if abs(random) >= 0.505:
+			if abs(random) > 0.515:
 				tilemap.set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
-			elif abs(random) >= 0.445:
+			elif abs(random) > 0.405:
 				tilemap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0), 0)
 			else:
 				tilemap.set_cell(0, Vector2(x, y), 0, Vector2(0, 0), 0)
