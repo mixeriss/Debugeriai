@@ -15,7 +15,7 @@ func load_world():
 func load_player():
 	var player = preload("res://player/player.tscn").instantiate()
 	add_child(player)
-	player.config_player_camera(map.pxsize)
+	player.config_player_camera(map.pxSize)
 	var coords = map.find_spawn_point()
-	player.set_pos(coords)
+	player.set_pos(coords.x, coords.y)
 	pass

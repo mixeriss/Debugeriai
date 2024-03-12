@@ -38,25 +38,22 @@ func _physics_process(delta): # code in "_physics_process" is run every frame
 	move_and_slide() # in-built method for detecting collisions and making the object slide around
 	# the collisioned object
 
-
 func _input(event):
 	if event.is_action_pressed("zoom in"):
-		if camera.zoom < Vector2(2.5, 2.5):
+		if camera.zoom < Vector2(5, 5):
 			camera.zoom = Vector2(camera.zoom.x+0.25, camera.zoom.y+0.25)
 	elif event.is_action_pressed("zoom out"):
-		if camera.zoom > Vector2(1.75, 1.75):
+		if camera.zoom > Vector2(2.5, 2.5):
 			camera.zoom = Vector2(camera.zoom.x-0.25, camera.zoom.y-0.25)
 	pass
 
-
-func config_player_camera(size_px):
+func config_player_camera(pxSize):
 	camera.limit_top = 0
 	camera.limit_left = 0
-	camera.limit_bottom = size_px.y
-	camera.limit_right = size_px.x
+	camera.limit_bottom = pxSize.y
+	camera.limit_right = pxSize.x
 	pass
 
-
-func set_pos(vec2):
-	position = vec2
+func set_pos(x, y):
+	position = Vector2(x, y)
 	pass
