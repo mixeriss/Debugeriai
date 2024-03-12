@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dael5fsboj5wm"]
 
-[ext_resource type="Script" path="res://Menu/menu.gd" id="1_nsj62"]
-[ext_resource type="Texture2D" uid="uid://drx5vwsquj5a" path="res://Menu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png" id="2_o8h4t"]
-[ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://Menu/buttonsStyle.tres" id="3_tjoyd"]
-[ext_resource type="Texture2D" uid="uid://c08tvx4mjk8rf" path="res://Menu/cooltext453444100061905.png" id="4_7rshv"]
+[ext_resource type="Script" path="res://menu/menu.gd" id="1_nsj62"]
+[ext_resource type="Texture2D" uid="uid://drx5vwsquj5a" path="res://menu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png" id="2_o8h4t"]
+[ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://menu/buttonsStyle.tres" id="3_tjoyd"]
+[ext_resource type="Texture2D" uid="uid://c08tvx4mjk8rf" path="res://menu/cooltext453444100061905.png" id="4_7rshv"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3

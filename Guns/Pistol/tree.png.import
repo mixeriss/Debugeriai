@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://sf0efqmyku0w"
-path="res://.godot/imported/tree.png-fcc4390c4482f077cbccfa6d20473e4c.ctex"
+path="res://.godot/imported/tree.png-b28389a11169001507d6b6b4b474449f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Guns/Pistol/tree.png"
-dest_files=["res://.godot/imported/tree.png-fcc4390c4482f077cbccfa6d20473e4c.ctex"]
+source_file="res://guns/pistol/tree.png"
+dest_files=["res://.godot/imported/tree.png-b28389a11169001507d6b6b4b474449f.ctex"]
 
 [params]
 
