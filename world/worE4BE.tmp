@@ -54,6 +54,7 @@ size = Vector2(2, 2)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_jf2b5")
+size = Vector2(100, 100)
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_djg3t")

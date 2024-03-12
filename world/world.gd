@@ -1,54 +1,28 @@
 extends Node2D
 
+@export var size = Vector2(250, 250)
 
 @onready var tilemap = $TileMap
-@onready var top_border = $Borders/TopBorder
-@onready var left_border = $Borders/LeftBorder
-@onready var bottom_border = $Borders/BottomBorder
-@onready var right_border = $Borders/RightBorder
-const size = Vector2(100, 100)
-const px = 34
-const size_px = Vector2(size.x*px, size.y*px)
-
+@onready var borders = $Borders
+@onready var pxSize = Vector2(tilemap.tile_set.tile_size.x*size.x, tilemap.tile_set.tile_size.y*size.y)
 
 func _ready():
-	tilemap.clear()
-	generate_map()
-	pass
-
-
-func generate_map():
-	top_border.position = Vector2(size_px.x/2, -1)
-	top_border.scale = Vector2(size_px.x/2, 1)
-	left_border.position = Vector2(-1, size_px.y/2)
-	left_border.scale = Vector2(1, size_px.y/2)
-	bottom_border.position = Vector2(size_px.x/2, size_px.y+1)
-	bottom_border.scale = Vector2(size_px.x/2, 1)
-	right_border.position = Vector2(size_px.x+1, size_px.y/2)
-	right_border.scale = Vector2(1, size_px.y/2)
-	
-	var noise = FastNoiseLite.new()
-	noise.setup_local_to_scene()
-	noise.frequency = 0.175
 	randomize()
-	noise.seed = randi()
-	
-	for x in size.x:
-		for y in size.y:
-			var random = abs(noise.get_noise_2d(x, y))
-			if abs(random) > 0.535:
-				tilemap.set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
-			elif abs(random) > 0.4:
-				tilemap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0), 0)
-			else:
-				tilemap.set_cell(0, Vector2(x, y), 0, Vector2(0, 0), 0)
-
+	tilemap.generate_map(size)
+	borders.set_borders(pxSize)
 	pass
-
 
 func find_spawn_point():
-	randomize()
-	var x = randi_range(px, size_px.x-px)
-	var y = randi_range(px, size_px.y-px)
-	return Vector2(x, y)
-
+	var pxX = randi_range(tilemap.tile_set.tile_size.x, pxSize.x-tilemap.tile_set.tile_size.x)
+	var pxY = randi_range(tilemap.tile_set.tile_size.y, pxSize.y-tilemap.tile_set.tile_size.y)
+	var x = pxX/tilemap.tile_set.tile_size.x
+	var y = pxY/tilemap.tile_set.tile_size.y
+	if tilemap.tile_has_collision(x, y):
+		tilemap.clear_cell(x, y)
+	if tilemap.tile_has_collision(x+1, y):
+		tilemap.clear_cell(x+1, y)
+	if tilemap.tile_has_collision(x, y+1):
+		tilemap.clear_cell(x, y+1)
+	if tilemap.tile_has_collision(x+1, y+1):
+		tilemap.clear_cell(x+1, y+1)
+	return Vector2(pxX, pxY)
