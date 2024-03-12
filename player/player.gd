@@ -43,8 +43,8 @@ func _input(event):
 		if camera.zoom < Vector2(5, 5):
 			camera.zoom = Vector2(camera.zoom.x+0.25, camera.zoom.y+0.25)
 	elif event.is_action_pressed("zoom out"):
-		if camera.zoom > Vector2(2.5, 2.5):
-			camera.zoom = Vector2(camera.zoom.x-0.25, camera.zoom.y-0.25)
+		if camera.zoom > Vector2(2, 2):
+			camera.zoom = Vector2(camera.zoom.x-0.3, camera.zoom.y-0.3)
 	pass
 
 func config_player_camera(pxSize):
