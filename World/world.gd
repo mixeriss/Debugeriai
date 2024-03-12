@@ -36,9 +36,9 @@ func generate_map():
 	for x in size.x:
 		for y in size.y:
 			var random = abs(noise.get_noise_2d(x, y))
-			if abs(random) > 0.515:
+			if abs(random) > 0.535:
 				tilemap.set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
-			elif abs(random) > 0.405:
+			elif abs(random) > 0.4:
 				tilemap.set_cell(0, Vector2(x, y), 1, Vector2(0, 0), 0)
 			else:
 				tilemap.set_cell(0, Vector2(x, y), 0, Vector2(0, 0), 0)
