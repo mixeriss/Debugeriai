@@ -7,18 +7,18 @@ func _ready():
 	pass
 
 
-var w
+var worldmap
 func load_world():
-	w = preload("res://World/world.tscn").instantiate()
-	add_child(w)
+	worldmap = preload("res://world/world.tscn").instantiate()
+	add_child(worldmap)
 	pass
 
 
 func load_player():
-	var pl = preload("res://Player/player.tscn").instantiate()
-	pl.config_player_camera(w.size_px)
-	var spawn_point = w.find_spawn_point()
-	pl.position = spawn_point
-	add_child(pl)
+	var player = preload("res://player/player.tscn").instantiate()
+	player.config_player_camera(worldmap.size_px)
+	var spawnpoint = worldmap.find_spawn_point()
+	player.position = spawnpoint
+	add_child(player)
 	pass
 
