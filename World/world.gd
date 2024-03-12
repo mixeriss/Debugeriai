@@ -48,7 +48,7 @@ func generate_map():
 
 func find_spawn_point():
 	randomize()
-	var x = randi_range(px, size_px.x-px*2)
-	var y = randi_range(px, size_px.y-px*2)
+	var x = randi_range(px, size_px.x-px)
+	var y = randi_range(px, size_px.y-px)
 	return Vector2(x, y)
 
