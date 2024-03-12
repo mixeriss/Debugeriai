@@ -1,6 +1,6 @@
 extends Node2D
 
-var worldmap
+var map
 
 func _ready():
 	load_world()
@@ -8,14 +8,14 @@ func _ready():
 	pass
 
 func load_world():
-	worldmap = preload("res://world/world.tscn").instantiate()
-	add_child(worldmap)
+	map = preload("res://world/world.tscn").instantiate()
+	add_child(map)
 	pass
 
 func load_player():
 	var player = preload("res://player/player.tscn").instantiate()
 	add_child(player)
-	player.config_player_camera(worldmap.pxsize)
-	var spawnpoint = worldmap.create_spawn_point()
-	player.set_pos(spawnpoint)
+	player.config_player_camera(map.pxsize)
+	var coords = map.find_spawn_point()
+	player.set_pos(coords)
 	pass

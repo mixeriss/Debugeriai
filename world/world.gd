@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var size = Vector2(300, 300)
+@export var size = Vector2(100, 100)
 
 @onready var tilemap = $TileMap
 @onready var borders = $Borders
@@ -12,8 +12,17 @@ func _ready():
 	borders.set_borders(pxsize)
 	pass
 
-func create_spawn_point():
+func find_spawn_point():
 	var x_px = randi_range(tilemap.tile_set.tile_size.x, pxsize.x-tilemap.tile_set.tile_size.x)
 	var y_px = randi_range(tilemap.tile_set.tile_size.y, pxsize.y-tilemap.tile_set.tile_size.y)
-	tilemap.clear_space_around_pixel(x_px, y_px)
+	var x = x_px/tilemap.tile_set.tile_size.x
+	var y = y_px/tilemap.tile_set.tile_size.y
+	if tilemap.tile_has_collision(x, y):
+		tilemap.clear_cell(x, y)
+	if tilemap.tile_has_collision(x+1, y):
+		tilemap.clear_cell(x+1, y)
+	if tilemap.tile_has_collision(x, y+1):
+		tilemap.clear_cell(x, y+1)
+	if tilemap.tile_has_collision(x+1, y+1):
+		tilemap.clear_cell(x+1, y+1)
 	return Vector2(x_px, y_px)

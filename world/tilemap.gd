@@ -15,11 +15,10 @@ func generate_map(size):
 				set_cell(0, Vector2(x, y), 0, Vector2(0, 0), 0)
 	pass
 
-func clear_space_around_pixel(x_px, y_px):
-	var x = x_px/tile_set.tile_size.x
-	var y = y_px/tile_set.tile_size.y
-	set_cell(0, Vector2(x, y), 0, Vector2(0, 0), 0)
-	set_cell(0, Vector2(x+1, y), 0, Vector2(0, 0), 0)
-	set_cell(0, Vector2(x, y+1), 0, Vector2(0, 0), 0)
-	set_cell(0, Vector2(x+1, y+1), 0, Vector2(0, 0), 0)
+func tile_has_collision(x, y):
+	return get_cell_tile_data(0, Vector2(x, y)).get_collision_polygons_count(0) > 0
+
+func clear_cell(x, y):
+	var cell_alt = get_cell_alternative_tile(0, Vector2(x, y))
+	set_cell(0, Vector2(x, y), 0, Vector2(0, 0), cell_alt)
 	pass
