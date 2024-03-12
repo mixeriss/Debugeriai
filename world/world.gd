@@ -6,13 +6,14 @@ extends Node2D
 @onready var left_border = $Borders/LeftBorder
 @onready var bottom_border = $Borders/BottomBorder
 @onready var right_border = $Borders/RightBorder
-const size = Vector2(100, 100)
+const size = Vector2(1000, 1000)
 const px = 34
 const size_px = Vector2(size.x*px, size.y*px)
 
 
 func _ready():
 	tilemap.clear()
+	randomize()
 	generate_map()
 	pass
 
@@ -30,7 +31,6 @@ func generate_map():
 	var noise = FastNoiseLite.new()
 	noise.setup_local_to_scene()
 	noise.frequency = 0.175
-	randomize()
 	noise.seed = randi()
 	
 	for x in size.x:
@@ -47,7 +47,6 @@ func generate_map():
 
 
 func find_spawn_point():
-	randomize()
 	var x = randi_range(px, size_px.x-px)
 	var y = randi_range(px, size_px.y-px)
 	return Vector2(x, y)
