@@ -1,14 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://dmo51rmnyy3h4"]
 
-[ext_resource type="Script" path="res://playerr/player.gd" id="1_1f8vj"]
-[ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://playerr/model/received_1267155343965116.jpg" id="2_pfhrp"]
-[ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://gunss/pistol/pistol.tscn" id="3_g7pyl"]
+[ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
+[ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="2_r7c4l"]
+[ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://guns/pistol/pistol.tscn" id="3_seoce"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmh16"]
 size = Vector2(34, 34)
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_1f8vj")
+script = ExtResource("1_h50mc")
 PRONE_SPEED = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -18,12 +18,12 @@ shape = SubResource("RectangleShape2D_kmh16")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
 scale = Vector2(0.037, 0.023)
-texture = ExtResource("2_pfhrp")
+texture = ExtResource("2_r7c4l")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="Pistol" parent="." instance=ExtResource("3_g7pyl")]
+[node name="Pistol" parent="." instance=ExtResource("3_seoce")]
 unique_name_in_owner = true
 z_index = 1
 scale = Vector2(0.5, 0.5)

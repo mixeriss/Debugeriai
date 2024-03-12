@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvwsc8ncghr76"
-path="res://.godot/imported/pistol.png-281c14985ae5b7bda65061793d0ca9a0.ctex"
+uid="uid://c2fnemhmva7fn"
+path="res://.godot/imported/Tree.png-1696aa0ede054063f975f952f5f68f18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gunss/pistol/pistol.png"
-dest_files=["res://.godot/imported/pistol.png-281c14985ae5b7bda65061793d0ca9a0.ctex"]
+source_file="res://world/textures/Tree.png"
+dest_files=["res://.godot/imported/Tree.png-1696aa0ede054063f975f952f5f68f18.ctex"]
 
 [params]
 

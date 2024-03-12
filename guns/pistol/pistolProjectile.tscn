@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c1mgtjgb0te6l"]
 
-[ext_resource type="Script" path="res://gunss/pistol/pistolProjectile.gd" id="1_gidgl"]
-[ext_resource type="Texture2D" uid="uid://sf0efqmyku0w" path="res://gunss/pistol/tree.png" id="2_4i063"]
+[ext_resource type="Script" path="res://guns/pistol/pistolProjectile.gd" id="1_gidgl"]
+[ext_resource type="Texture2D" uid="uid://sf0efqmyku0w" path="res://guns/pistol/tree.png" id="2_4i063"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjaan"]
 radius = 6.0
