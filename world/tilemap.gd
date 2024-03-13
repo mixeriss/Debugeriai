@@ -8,7 +8,6 @@ func generate_map(size):
 func generate_land(size):
 	var noise = FastNoiseLite.new()
 	noise.noise_type = FastNoiseLite.TYPE_VALUE_CUBIC
-	noise.seed = randi()
 	noise.frequency = 0.025
 	noise.fractal_type = FastNoiseLite.FRACTAL_PING_PONG
 	noise.fractal_octaves = 4
@@ -16,6 +15,7 @@ func generate_land(size):
 	noise.fractal_gain = 0.65
 	noise.fractal_weighted_strength = 0.35
 	noise.fractal_ping_pong_strength = 2
+	noise.seed = randi()
 	for x in size.x:
 		for y in size.y:
 			var random = noise.get_noise_2d(x, y)+1
@@ -23,6 +23,23 @@ func generate_land(size):
 	pass
 	
 func generate_resources(size):
+	var noise = FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise.frequency = 0.115
+	noise.seed = randi()
+	for x in size.x:
+		for y in size.y:
+			var random = abs(noise.get_noise_2d(x, y))
+			if random > 0.5 && get_cell_source_id(0, Vector2(x, y)) == 0:
+				set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
+	noise.frequency = 0.15
+	noise.seed = randi()
+	for x in size.x:
+		for y in size.y:
+			var random = abs(noise.get_noise_2d(x, y))
+			if random > 0.65 && get_cell_source_id(0, Vector2(x, y)) == 0:
+				set_cell(0, Vector2(x, y), 3, Vector2(0, 0), 0)
+	pass
 	
 	pass
 

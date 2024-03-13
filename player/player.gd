@@ -1,17 +1,14 @@
-extends CharacterBody2D # shows what type of object the code belongs to
+extends CharacterBody2D
 
-# constant variables
 @export var NORMAL_SPEED = 150.0
 @export var SPRINT_SPEED = 200.0
 @export var CROUCH_SPEED = 110.0
 @export var PRONE_SPEED = 80.0
 
-# access unique objects
 @onready var pistol = %Pistol
 @onready var camera = $Camera2D
 
-# variables that are to be changed during runtime
-var currentSpeed = NORMAL_SPEED # assigns the default speed value
+var currentSpeed = NORMAL_SPEED
 
 func _physics_process(delta):
 	currentSpeed = NORMAL_SPEED
@@ -30,7 +27,6 @@ func _physics_process(delta):
 	
 	pass
 	
-
 func _input(event):
 	if event.is_action_pressed("zoom in") && camera.zoom < Vector2(4, 4):
 		camera.zoom = Vector2(camera.zoom.x+0.25, camera.zoom.y+0.25)
