@@ -30,18 +30,16 @@ func generate_resources(size):
 	for x in size.x:
 		for y in size.y:
 			var random = abs(noise.get_noise_2d(x, y))
-			if random > 0.5 && get_cell_source_id(0, Vector2(x, y)) == 0:
+			if random > 0.5 and get_cell_source_id(0, Vector2(x, y)) == 0:
 				set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
 	noise.frequency = 0.15
 	noise.seed = randi()
 	for x in size.x:
 		for y in size.y:
 			var random = abs(noise.get_noise_2d(x, y))
-			if random > 0.65 && get_cell_source_id(0, Vector2(x, y)) == 0:
+			if random > 0.65 and get_cell_source_id(0, Vector2(x, y)) == 0:
 				set_cell(0, Vector2(x, y), 3, Vector2(0, 0), 0)
-	pass
-	
 	pass
 
 func tile_has_collision(coords):
-	return (get_cell_tile_data(0, coords).get_collision_polygons_count(0)) > 0
+	return get_cell_tile_data(0, coords).get_collision_polygons_count(0) > 0
