@@ -21,7 +21,7 @@ scale = Vector2(0.037, 0.023)
 texture = ExtResource("2_r7c4l")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2.5, 2.5)
+zoom = Vector2(2, 2)
 
 [node name="Pistol" parent="." instance=ExtResource("3_seoce")]
 unique_name_in_owner = true
