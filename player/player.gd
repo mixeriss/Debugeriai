@@ -13,38 +13,29 @@ extends CharacterBody2D # shows what type of object the code belongs to
 # variables that are to be changed during runtime
 var currentSpeed = NORMAL_SPEED # assigns the default speed value
 
-func _physics_process(delta): # code in "_physics_process" is run every frame
-	#look_at(get_global_mouse_position())
-	# switching movement speed depending on input
+func _physics_process(delta):
+	currentSpeed = NORMAL_SPEED
 	if Input.is_action_pressed("sprint"):
 		currentSpeed = SPRINT_SPEED
-	else:
-		if Input.is_action_pressed("crouch"):
-			currentSpeed = CROUCH_SPEED
-		else:
-			if Input.is_action_pressed("prone"):
-				currentSpeed = PRONE_SPEED
-			else:
-				currentSpeed = NORMAL_SPEED
-	
-	# getting the direction of movement and , must have set input controls in project >> project
-	# settings >> input map beforehand
+	elif Input.is_action_pressed("crouch"):
+		currentSpeed = CROUCH_SPEED
+	elif Input.is_action_pressed("prone"):
+		currentSpeed = PRONE_SPEED
 	var direction = Input.get_vector("left", "right", "up", "down") 
 	velocity = direction * currentSpeed
+	move_and_slide()
 	
 	if Input.is_action_pressed("shoot gun"):
 		pistol.shoot()
 	
-	move_and_slide() # in-built method for detecting collisions and making the object slide around
-	# the collisioned object
+	pass
+	
 
 func _input(event):
-	if event.is_action_pressed("zoom in"):
-		if camera.zoom < Vector2(5, 5):
-			camera.zoom = Vector2(camera.zoom.x+0.25, camera.zoom.y+0.25)
-	elif event.is_action_pressed("zoom out"):
-		if camera.zoom > Vector2(2, 2):
-			camera.zoom = Vector2(camera.zoom.x-0.3, camera.zoom.y-0.3)
+	if event.is_action_pressed("zoom in") && camera.zoom < Vector2(4, 4):
+		camera.zoom = Vector2(camera.zoom.x+0.25, camera.zoom.y+0.25)
+	if event.is_action_pressed("zoom out") && camera.zoom > Vector2(2, 2):
+		camera.zoom = Vector2(camera.zoom.x-0.25, camera.zoom.y-0.25)
 	pass
 
 func config_player_camera(pxSize):
@@ -54,6 +45,6 @@ func config_player_camera(pxSize):
 	camera.limit_right = pxSize.x
 	pass
 
-func set_pos(x, y):
-	position = Vector2(x, y)
+func set_pos(pxCoords):
+	position = pxCoords
 	pass

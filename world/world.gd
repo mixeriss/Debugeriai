@@ -1,28 +1,23 @@
 extends Node2D
 
-@export var size = Vector2(250, 250)
+@onready var _tilemap = $TileMap
+@onready var _borders = $Borders
 
-@onready var tilemap = $TileMap
-@onready var borders = $Borders
-@onready var pxSize = Vector2(tilemap.tile_set.tile_size.x*size.x, tilemap.tile_set.tile_size.y*size.y)
+var _size = Vector2(25, 25)
 
 func _ready():
 	randomize()
-	tilemap.generate_map(size)
-	borders.set_borders(pxSize)
+	_tilemap.generate_map(_size)
+	_borders.set_borders(get_pixel_size())
 	pass
 
 func find_spawn_point():
-	var pxX = randi_range(tilemap.tile_set.tile_size.x, pxSize.x-tilemap.tile_set.tile_size.x)
-	var pxY = randi_range(tilemap.tile_set.tile_size.y, pxSize.y-tilemap.tile_set.tile_size.y)
-	var x = pxX/tilemap.tile_set.tile_size.x
-	var y = pxY/tilemap.tile_set.tile_size.y
-	if tilemap.tile_has_collision(x, y):
-		tilemap.clear_cell(x, y)
-	if tilemap.tile_has_collision(x+1, y):
-		tilemap.clear_cell(x+1, y)
-	if tilemap.tile_has_collision(x, y+1):
-		tilemap.clear_cell(x, y+1)
-	if tilemap.tile_has_collision(x+1, y+1):
-		tilemap.clear_cell(x+1, y+1)
-	return Vector2(pxX, pxY)
+	var x = randi_range(1, _size.x-1)
+	var y = randi_range(1, _size.y-1)
+	if _tilemap.tile_has_collision(Vector2(x, y)):
+		return find_spawn_point()
+	else:
+		return Vector2(17+34*x, 17+34*y)
+
+func get_pixel_size():
+	return Vector2(_tilemap.tile_set.tile_size.x*_size.x, _tilemap.tile_set.tile_size.y*_size.y)
