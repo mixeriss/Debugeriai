@@ -3,20 +3,22 @@ extends Node2D
 @onready var _tilemap = $TileMap
 @onready var _borders = $Borders
 
-var _size = Vector2(250, 250)
+var _size = Vector2(500, 500)
 
 func _ready():
 	randomize()
 	_tilemap.generate_map(_size)
-	_borders.set_borders(get_pixel_size())
+	_borders.set_borders(get_pixelSize())
 	pass
 
 func find_spawn_point():
-	var x = randi_range(1, _size.x-2)
-	var y = randi_range(1, _size.y-2)
-	if _tilemap.tile_has_collision(Vector2(x+1, y+1)):
-		return find_spawn_point()
-	return Vector2(17+34*x, 17+34*y)
+	var coords = Vector2(randi_range(0, _size.x-1), randi_range(0, _size.y-1))
+	if _tilemap.tile_is_land(coords):
+		return to_pixelCoords(coords)
+	return find_spawn_point()
 
-func get_pixel_size():
+func get_pixelSize():
 	return Vector2(_tilemap.tile_set.tile_size.x*_size.x, _tilemap.tile_set.tile_size.y*_size.y)
+
+func to_pixelCoords(coords: Vector2):
+	return Vector2(_tilemap.tile_set.tile_size.x/2+_tilemap.tile_set.tile_size.x*coords.x, _tilemap.tile_set.tile_size.y/2+_tilemap.tile_set.tile_size.y*coords.y)

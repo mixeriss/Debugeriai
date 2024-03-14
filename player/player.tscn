@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=6 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="2_r7c4l"]
@@ -6,6 +6,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmh16"]
 size = Vector2(33, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aa4a0"]
+size = Vector2(1, 1)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_h50mc")
@@ -15,6 +18,13 @@ PRONE_SPEED = 100.0
 z_index = 1
 shape = SubResource("RectangleShape2D_kmh16")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="WaterDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterDetection"]
+shape = SubResource("RectangleShape2D_aa4a0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
@@ -28,3 +38,6 @@ zoom = Vector2(2, 2)
 unique_name_in_owner = true
 z_index = 1
 scale = Vector2(0.5, 0.5)
+
+[connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
+[connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]
