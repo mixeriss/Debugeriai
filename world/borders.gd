@@ -8,10 +8,14 @@ extends StaticBody2D
 func set_borders(size_px):
 	_top_border.position = Vector2(size_px.x/2, -1)
 	_top_border.scale = Vector2(size_px.x/2, 1)
+	print("25%")
 	_left_border.position = Vector2(-1, size_px.y/2)
 	_left_border.scale = Vector2(1, size_px.y/2)
+	print("50%")
 	_bottom_border.position = Vector2(size_px.x/2, size_px.y+1)
 	_bottom_border.scale = Vector2(size_px.x/2, 1)
+	print("75%")
 	_right_border.position = Vector2(size_px.x+1, size_px.y/2)
 	_right_border.scale = Vector2(1, size_px.y/2)
+	print("100%")
 	pass

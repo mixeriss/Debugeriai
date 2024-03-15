@@ -18,8 +18,8 @@ func generate_land(size):
 	noise.seed = randi()
 	for x in size.x:
 		for y in size.y:
-			var random = noise.get_noise_2d(x, y)+1
-			set_cell(0, Vector2(x, y), random, Vector2(0, 0), 0)
+			set_cell(0, Vector2(x, y), noise.get_noise_2d(x, y)+1, Vector2(0, 0), 0)
+	print("33%")
 	pass
 	
 func generate_resources(size):
@@ -29,16 +29,16 @@ func generate_resources(size):
 	noise.seed = randi()
 	for x in size.x:
 		for y in size.y:
-			var random = abs(noise.get_noise_2d(x, y))
-			if random > 0.5 and tile_is_land(Vector2(x, y)):
+			if abs(noise.get_noise_2d(x, y)) > 0.5 and tile_is_land(Vector2(x, y)):
 				set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
+	print("66%")
 	noise.frequency = 0.15
 	noise.offset = Vector3(size.x, size.y, 0)
 	for x in size.x:
 		for y in size.y:
-			var random = abs(noise.get_noise_2d(x, y))
-			if random > 0.65 and tile_is_land(Vector2(x, y)):
+			if abs(noise.get_noise_2d(x, y)) > 0.65 and tile_is_land(Vector2(x, y)):
 				set_cell(0, Vector2(x, y), 3, Vector2(0, 0), 0)
+	print("100%")
 	pass
 
 func tile_is_land(coords):
