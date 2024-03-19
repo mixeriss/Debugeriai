@@ -7,13 +7,17 @@ var _size = Vector2(500, 500)
 
 func _ready():
 	randomize()
+	print("generating map...")
 	_tilemap.generate_map(_size)
+	print("setting borders...")
 	_borders.set_borders(get_pixelSize())
 	pass
 
 func find_spawn_point():
+	print("finding spawn point...")
 	var coords = Vector2(randi_range(0, _size.x-1), randi_range(0, _size.y-1))
 	if _tilemap.tile_is_land(coords):
+		print("100%")
 		return to_pixelCoords(coords)
 	return find_spawn_point()
 
