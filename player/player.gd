@@ -6,29 +6,33 @@ extends CharacterBody2D
 @export var PRONE_SPEED = 80.0
 
 @onready var pistol = %Pistol
-
+@onready var cam = $Camera2D
 var currentSpeed = NORMAL_SPEED
 
 func _physics_process(delta):
-	currentSpeed = NORMAL_SPEED
-	if Input.is_action_pressed("sprint"):
-		currentSpeed = SPRINT_SPEED
-	elif Input.is_action_pressed("crouch"):
-		currentSpeed = CROUCH_SPEED
-	elif Input.is_action_pressed("prone"):
-		currentSpeed = PRONE_SPEED
-	var direction = Input.get_vector("left", "right", "up", "down") 
-	velocity = direction * currentSpeed
-	move_and_slide()
-	if Input.is_action_pressed("shoot gun"):
-		pistol.shoot()
+	if is_multiplayer_authority():
+		currentSpeed = NORMAL_SPEED
+		if Input.is_action_pressed("sprint"):
+			currentSpeed = SPRINT_SPEED
+		elif Input.is_action_pressed("crouch"):
+			currentSpeed = CROUCH_SPEED
+		elif Input.is_action_pressed("prone"):
+			currentSpeed = PRONE_SPEED	
+		var direction = Input.get_vector("left", "right", "up", "down") 
+		velocity = direction * currentSpeed
+		move_and_slide()
+		if Input.is_action_pressed("shoot gun"):
+			pistol.shoot()
+		if Input.is_action_just_pressed("exit"):
+			$"../".exit_game(name)
+			get_tree().quit()
 	pass
 	
 func _input(event):
 	if event.is_action_pressed("zoom in") && $Camera2D.zoom < Vector2(4, 4):
 		$Camera2D.zoom = Vector2($Camera2D.zoom.x+0.25, $Camera2D.zoom.y+0.25)
-	if event.is_action_pressed("zoom out") && $Camera2D.zoom > Vector2(2, 2):
-		$Camera2D.zoom = Vector2($Camera2D.zoom.x-0.25, $Camera2D.zoom.y-0.25)
+	if event.is_action_pressed("zoom out") && $Camera2D.zoom > Vector2(1.8,1.8):
+		$Camera2D.zoom = Vector2($Camera2D.zoom.x-0.3, $Camera2D.zoom.y-0.3)
 	pass
 
 func config_player_camera(pixels):
@@ -57,3 +61,7 @@ func _on_water_detection_body_exited(body):
 	PRONE_SPEED = 80.0
 	$Sprite2D.modulate = Color(1, 1, 1, 1)
 	pass
+
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+	$Camera2D.enabled = is_multiplayer_authority()
