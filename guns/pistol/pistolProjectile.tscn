@@ -13,6 +13,7 @@ collision_layer = 0
 script = ExtResource("1_gidgl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
 position = Vector2(0, -2.13163e-14)
 rotation = 1.5708
 scale = Vector2(0.0592715, 0.071469)

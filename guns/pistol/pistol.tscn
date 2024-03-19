@@ -17,6 +17,7 @@ script = ExtResource("1_1dntr")
 [node name="weaponPivot" type="Marker2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="weaponPivot"]
+z_index = 1
 texture_filter = 1
 position = Vector2(58, 10)
 scale = Vector2(3.40909, 3.40909)
