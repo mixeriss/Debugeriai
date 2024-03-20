@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=6 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="2_r7c4l"]
@@ -9,11 +9,6 @@ size = Vector2(33, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aa4a0"]
 size = Vector2(1, 1)
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cayj0"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_h50mc")
@@ -36,16 +31,10 @@ z_index = 1
 scale = Vector2(0.037, 0.023)
 texture = ExtResource("2_r7c4l")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-
 [node name="Pistol" parent="." instance=ExtResource("3_seoce")]
 unique_name_in_owner = true
 z_index = 1
 scale = Vector2(0.5, 0.5)
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_cayj0")
 
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]

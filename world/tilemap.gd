@@ -40,3 +40,19 @@ func generate_resources(size):
 
 func tile_is_land(coords):
 	return get_cell_tile_data(0, coords).get_custom_data("spawnable")
+
+func get_data_array(size):
+	var data = []
+	data.resize(size.x)
+	for x in size.x:
+		data[x] = []
+		data[x].resize(size.y)
+		for y in size.y:
+			data[x][y] = get_cell_source_id(0, Vector2(x, y))
+	return data
+
+func load_data_from_array(size, data):
+	for x in size.x:
+		for y in size.y:
+			set_cell(0, Vector2(x, y), data[x][y], Vector2(0, 0), 0)
+	pass

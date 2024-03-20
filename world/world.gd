@@ -3,12 +3,18 @@ extends Node2D
 @onready var _tilemap = $TileMap
 @onready var _borders = $Borders
 
-var _size = Vector2(500, 500)
+var _size = Vector2(25, 25)
 
-func _ready():
+func generate_map():
 	randomize()
 	_tilemap.generate_map(_size)
 	_borders.set_borders(get_pixelSize())
+
+func get_data_array():
+	return _tilemap.get_data_array(_size)
+
+func load_map_from_data_array(data_array):
+	_tilemap.load_data_from_array(_size, data_array)
 	pass
 
 func find_spawn_point():
