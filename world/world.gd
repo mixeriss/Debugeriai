@@ -14,6 +14,7 @@ func get_data_array():
 	return _tilemap.get_data_array(_size)
 
 func load_map_from_data_array(data_array):
+	_borders.set_borders(get_pixelSize())
 	_tilemap.load_data_from_array(_size, data_array)
 	pass
 
