@@ -75,6 +75,11 @@ func load_game():
 	get_tree().root.add_child(scene)
 	scene.generate_map()
 	self.hide()
+	
+	var player_scene = load("res://player/player.tscn").instantiate()
+	player_scene.set_pos(scene.find_spawn_point())
+	scene.add_child(player_scene)
+	
 	rpc("sync_game", scene.get_map_data())
 	pass
 
@@ -84,4 +89,8 @@ func sync_game(map_data_array):
 	get_tree().root.add_child(scene)
 	scene.load_map(map_data_array)
 	self.hide()
+	
+	var player_scene = load("res://player/player.tscn").instantiate()
+	player_scene.set_pos(scene.find_spawn_point())
+	scene.add_child(player_scene)
 	pass

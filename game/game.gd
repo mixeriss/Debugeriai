@@ -10,3 +10,6 @@ func load_map(data_array):
 
 func get_map_data():
 	return $World.get_data_array()
+
+func find_spawn_point():
+	return $World.find_spawn_point()
