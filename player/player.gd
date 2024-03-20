@@ -26,6 +26,15 @@ func _physics_process(delta):
 		get_tree().quit()
 	pass
 
+func _input(event):
+	if event.is_action_pressed("zoom in"):
+		if $Camera2D.zoom < Vector2(4, 4):
+			$Camera2D.zoom = Vector2($Camera2D.zoom.x + 0.5, $Camera2D.zoom.y + 0.5)
+	if event.is_action_pressed("zoom out"):
+		if $Camera2D.zoom > Vector2(2, 2):
+			$Camera2D.zoom = Vector2($Camera2D.zoom.x - 0.5, $Camera2D.zoom.y - 0.5)
+	pass
+
 func set_pos(pixelCoords):
 	position = pixelCoords
 	pass

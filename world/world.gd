@@ -3,7 +3,7 @@ extends Node2D
 @onready var _tilemap = $TileMap
 @onready var _borders = $Borders
 
-var _size = Vector2(25, 25)
+var _size = Vector2(100, 100)
 
 func generate_map():
 	randomize()
