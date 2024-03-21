@@ -56,3 +56,7 @@ func load_data_from_array(size, data):
 		for y in size.y:
 			set_cell(0, Vector2(x, y), data[x][y], Vector2(0, 0), 0)
 	pass
+
+func FindFacingTile(mousePos):
+	return map_to_local(local_to_map(mousePos))
+	pass
