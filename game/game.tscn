@@ -42,7 +42,7 @@ editor_draw_limits = true
 _spawnable_scenes = PackedStringArray("res://player/player.tscn")
 spawn_path = NodePath("..")
 
-[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Join" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
 [connection signal="pressed" from="Host" to="." method="_on_button_2_pressed"]
