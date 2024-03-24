@@ -60,6 +60,17 @@ shape = SubResource("CircleShape2D_gfgd2")
 wait_time = 0.2
 autostart = true
 
+[node name="DodgeInterval" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
+[node name="DodgeCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]
 [connection signal="timeout" from="BlockDetectionTimer" to="." method="_on_block_detection_timer_timeout"]
+[connection signal="timeout" from="DodgeInterval" to="." method="_on_dodge_interval_timeout"]
