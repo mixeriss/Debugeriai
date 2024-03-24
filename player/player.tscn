@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=9 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="2_r7c4l"]
 [ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://guns/pistol/pistol.tscn" id="3_seoce"]
-[ext_resource type="Script" path="res://player/blockDetection.gd" id="4_3tn3w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmh16"]
 size = Vector2(33, 33)
@@ -11,10 +10,32 @@ size = Vector2(33, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aa4a0"]
 size = Vector2(1, 1)
 
+[sub_resource type="GDScript" id="GDScript_btydo"]
+script/source = "extends Marker2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	look_at(get_global_mouse_position())
+	pass
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_gfgd2"]
 radius = 5.09902
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7w65u"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Player" type="CharacterBody2D"]
+platform_floor_layers = 4294967040
+platform_wall_layers = 17
 script = ExtResource("1_h50mc")
 PRONE_SPEED = 100.0
 
@@ -45,9 +66,18 @@ scale = Vector2(0.5, 0.5)
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
+limit_left = 220
+limit_top = 140
+limit_right = 3615
+limit_bottom = 815
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
 
 [node name="blockDetection" type="Marker2D" parent="."]
-script = ExtResource("4_3tn3w")
+script = SubResource("GDScript_btydo")
 
 [node name="Area2D" type="Area2D" parent="blockDetection"]
 
@@ -60,17 +90,9 @@ shape = SubResource("CircleShape2D_gfgd2")
 wait_time = 0.2
 autostart = true
 
-[node name="DodgeInterval" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 0.2
-one_shot = true
-
-[node name="DodgeCooldown" type="Timer" parent="."]
-unique_name_in_owner = true
-wait_time = 2.0
-one_shot = true
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7w65u")
 
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]
 [connection signal="timeout" from="BlockDetectionTimer" to="." method="_on_block_detection_timer_timeout"]
-[connection signal="timeout" from="DodgeInterval" to="." method="_on_dodge_interval_timeout"]

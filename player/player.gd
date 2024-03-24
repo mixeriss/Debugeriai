@@ -4,49 +4,42 @@ extends CharacterBody2D
 @export var SPRINT_SPEED = 200.0
 @export var CROUCH_SPEED = 110.0
 @export var PRONE_SPEED = 80.0
-@export var DODGE_MULTIPLIER = 2
 
 @onready var pistol = %Pistol
 @onready var camera_2d = %Camera2D
 @onready var sprite_2d = %Sprite2D
 @onready var collision_shape_2d = %CollisionShape2D
-@onready var dodge_interval = %DodgeInterval
-@onready var dodge_cooldown = %DodgeCooldown
 
 var currentSpeed = NORMAL_SPEED
 var blockDetectionMode = false
-var dodging = false
-var vulnerable = true
-var lastDirection
+
+func _enter_tree():
+	var size = World.new()
+	$Camera2D.limit_right = (size.mapSize * 34) + 220
+	$Camera2D.limit_bottom = (size.mapSize * 34) + 140
+	set_multiplayer_authority(name.to_int())
+	$Camera2D.enabled = is_multiplayer_authority()
 
 func _physics_process(delta):
-	if(dodging == false):
+	if is_multiplayer_authority():
 		currentSpeed = NORMAL_SPEED
-	if Input.is_action_pressed("sprint"):
-		currentSpeed = SPRINT_SPEED
-	elif Input.is_action_pressed("crouch"):
-		currentSpeed = CROUCH_SPEED
-	elif Input.is_action_pressed("prone"):
-		currentSpeed = PRONE_SPEED	
-	var direction = Input.get_vector("left", "right", "up", "down") 
-	if vulnerable == true:
+		if Input.is_action_pressed("sprint"):
+			currentSpeed = SPRINT_SPEED
+		elif Input.is_action_pressed("crouch"):
+			currentSpeed = CROUCH_SPEED
+		elif Input.is_action_pressed("prone"):
+			currentSpeed = PRONE_SPEED	
+		var direction = Input.get_vector("left", "right", "up", "down") 
 		velocity = direction * currentSpeed
-		lastDirection = direction
-	else:
-		velocity = lastDirection * currentSpeed
-	move_and_slide()
-	if Input.is_action_pressed("primary") && blockDetectionMode == false:
-		pistol.shoot()
-	if Input.is_action_just_pressed("exit"):
-		get_tree().quit()
-	if Input.is_action_just_pressed("block detection mode"):
-		blockDetectionMode = !blockDetectionMode
-		pistol.visible = !blockDetectionMode
-	if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped():
-		dodging = true;
-		vulnerable = false
-		currentSpeed = currentSpeed * DODGE_MULTIPLIER
-		dodge_interval.start()
+		move_and_slide()
+		if Input.is_action_pressed("primary") && blockDetectionMode == false:
+			pistol.shoot()
+		if Input.is_action_just_pressed("exit"):
+			get_tree().quit()
+		if Input.is_action_just_pressed("block detection mode"):
+			blockDetectionMode = !blockDetectionMode
+			pistol.visible = !blockDetectionMode
+	
 	pass
 
 func _input(event):
@@ -78,12 +71,8 @@ func _on_water_detection_body_exited(body):
 	sprite_2d.modulate = Color(1, 1, 1, 1)
 	pass
 
+
 func _on_block_detection_timer_timeout():
 	if blockDetectionMode == true:
 		var facingTile = get_parent().get_child(0).get_child(0).FindFacingTile(collision_shape_2d.global_position)
 		print(facingTile)
-
-func _on_dodge_interval_timeout():
-	dodging = false
-	vulnerable = true
-	dodge_cooldown.start()

@@ -1,9 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://ch7snygft3665"]
+[gd_scene load_steps=4 format=3 uid="uid://ch7snygft3665"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_npnxe"]
 [ext_resource type="PackedScene" uid="uid://ckmxcyuy7jenn" path="res://world/world.tscn" id="2_dd7tk"]
+[ext_resource type="Texture2D" uid="uid://oro8upcigrmg" path="res://world/textures/Ground.png" id="2_r1t15"]
 
 [node name="Game" type="Node2D"]
+position = Vector2(452, 232)
 script = ExtResource("1_npnxe")
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -998.0
+offset_top = -752.0
+offset_right = 4733.0
+offset_bottom = 4049.0
+texture = ExtResource("2_r1t15")
+stretch_mode = 1
+
+[node name="Join" type="Button" parent="."]
+offset_left = 90.0
+offset_top = 44.0
+offset_right = 169.0
+offset_bottom = 96.0
+text = "Join"
+
+[node name="Host" type="Button" parent="."]
+offset_left = -70.0
+offset_top = 45.0
+offset_right = 8.0
+offset_bottom = 96.0
+text = "Host"
+
 [node name="World" parent="." instance=ExtResource("2_dd7tk")]
+position = Vector2(-234, -92)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(47, 63)
+zoom = Vector2(2, 2)
+editor_draw_limits = true
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://player/player.tscn")
+spawn_path = NodePath("..")
+
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Host" to="." method="_on_button_2_pressed"]
