@@ -27,14 +27,13 @@ func _enter_tree():
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
+		var direction = Input.get_vector("left", "right", "up", "down") 
 		if(dodging == false):
 			currentSpeed = NORMAL_SPEED
 			if Input.is_action_pressed("sprint"):
 				currentSpeed = SPRINT_SPEED
 			elif Input.is_action_pressed("crouch"):
 				currentSpeed = CROUCH_SPEED
-		var direction = Input.get_vector("left", "right", "up", "down") 
-		if dodging == false:
 			velocity = direction * currentSpeed
 			lastDirection = direction
 		else:
