@@ -24,6 +24,8 @@ func _on_join_pressed():
 	peer.create_client("localhost", port)
 	multiplayer.multiplayer_peer = peer
 	$Camera2D.enabled = false
+	$Join.queue_free()
+	$Host.queue_free()
 	pass
 
 
@@ -34,6 +36,8 @@ func _on_host_pressed():
 	multiplayer.peer_connected.connect(spawn_player)
 	spawn_player()
 	$Camera2D.enabled = false
+	$Join.queue_free()
+	$Host.queue_free()
 	pass
 
 @rpc
