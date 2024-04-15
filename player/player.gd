@@ -41,8 +41,6 @@ func _physics_process(delta):
 		move_and_slide()
 		if Input.is_action_pressed("primary") && blockDetectionMode == false:
 			pistol.shoot()
-		if Input.is_action_just_pressed("exit"):
-			get_tree().quit()
 		if Input.is_action_just_pressed("block detection mode"):
 			blockDetectionMode = !blockDetectionMode
 			pistol.visible = !blockDetectionMode

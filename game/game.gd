@@ -3,7 +3,6 @@ extends Node2D
 var peer = ENetMultiplayerPeer.new()
 var port = 135
 var generated = false
-
 func generate_map():
 	$World.generate_map()
 	return $World.get_data_array()
@@ -35,9 +34,14 @@ func _on_host_pressed():
 	multiplayer.multiplayer_peer = peer
 	multiplayer.peer_connected.connect(spawn_player)
 	spawn_player()
+	var canvas = $CanvasLayer
+	var transform = canvas.transform
+	transform.origin = Vector2(20, 70);
+	canvas.transform = transform
 	$Camera2D.enabled = false
 	$Join.queue_free()
 	$Host.queue_free()
+
 	pass
 
 @rpc
