@@ -31,3 +31,8 @@ func get_pixelSize():
 
 func to_pixelCoords(coords: Vector2):
 	return Vector2(_tilemap.tile_set.tile_size.x/2+_tilemap.tile_set.tile_size.x*coords.x, _tilemap.tile_set.tile_size.y/2+_tilemap.tile_set.tile_size.y*coords.y)
+
+func break_tile(coords: Vector2):
+	if _tilemap.tile_is_breakable(coords):
+		_tilemap.break_tile(coords)
+	pass

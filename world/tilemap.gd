@@ -41,6 +41,13 @@ func generate_resources(size):
 func tile_is_land(coords):
 	return get_cell_tile_data(0, coords).get_custom_data("spawnable")
 
+func tile_is_breakable(coords):
+	return get_cell_tile_data(0, coords).get_custom_data("breakable")
+
+func break_tile(coords):
+	set_cell(0, coords, 0, Vector2(0, 0), 0)
+	pass
+
 func get_data_array(size):
 	var data = []
 	data.resize(size.x)

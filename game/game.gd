@@ -41,7 +41,6 @@ func _on_host_pressed():
 	$Camera2D.enabled = false
 	$Join.queue_free()
 	$Host.queue_free()
-
 	pass
 
 @rpc

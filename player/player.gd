@@ -41,6 +41,14 @@ func _physics_process(delta):
 		move_and_slide()
 		if Input.is_action_pressed("primary") && blockDetectionMode == false:
 			pistol.shoot()
+		if Input.is_action_pressed("primary") and blockDetectionMode:
+			var xc = get_global_mouse_position().x - 220
+			var yc = get_global_mouse_position().y - 140
+			var realposx = position.x + 218+17
+			var realposy = position.y + 76+17
+			if abs(xc - realposx) <= 68.0 and abs(yc - realposy) <= 68.0:
+				var w = get_parent().get_child(2)
+				w.break_tile(Vector2(floor((get_global_mouse_position().x-220)/34), floor((get_global_mouse_position().y-140)/34)))
 		if Input.is_action_just_pressed("block detection mode"):
 			blockDetectionMode = !blockDetectionMode
 			pistol.visible = !blockDetectionMode
@@ -80,8 +88,8 @@ func _on_water_detection_body_exited(body):
 
 func _on_block_detection_timer_timeout():
 	if blockDetectionMode == true:
-		var facingTile = get_parent().get_child(0).get_child(0).FindFacingTile(collision_shape_2d.global_position)
-		print(facingTile)
+		var facingTile = get_parent().get_child(2).get_child(0).FindFacingTile(collision_shape_2d.global_position)
+	pass
 
 func _on_dodge_interval_timeout():
 	dodging = false
