@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=11 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="2_r7c4l"]
@@ -9,6 +9,12 @@ size = Vector2(33, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aa4a0"]
 size = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq7xs"]
+bg_color = Color(0.976471, 0, 0, 0.67451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijc83"]
+bg_color = Color(0, 0.690196, 0, 1)
 
 [sub_resource type="GDScript" id="GDScript_btydo"]
 script/source = "extends Marker2D
@@ -74,6 +80,42 @@ position_smoothing_speed = 8.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_limits = true
+
+[node name="Panel" type="Panel" parent="Camera2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -31.0
+offset_right = 78.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.439292, 1.00304)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Camera2D/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -4.5
+offset_right = 45.0
+offset_bottom = 4.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_vq7xs")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ijc83")
+value = 100.0
+show_percentage = false
 
 [node name="blockDetection" type="Marker2D" parent="."]
 script = SubResource("GDScript_btydo")

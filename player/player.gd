@@ -1,9 +1,12 @@
 extends CharacterBody2D
 
+signal HealthDepleted
+
 @export var NORMAL_SPEED = 150.0
-@export var SPRINT_SPEED = 200.0
-@export var CROUCH_SPEED = 110.0
-@export var DODGE_MULTIPLIER = 2
+@export var SPRINT_MULT = 1.5
+@export var CROUCH_MULT = 0.5
+@export var DODGE_MULTIPLIER = 2.0
+@export var HEALTH = 100
 
 @onready var pistol = %Pistol
 @onready var camera_2d = %Camera2D
@@ -11,7 +14,9 @@ extends CharacterBody2D
 @onready var collision_shape_2d = %CollisionShape2D
 @onready var dodge_interval = %DodgeInterval
 @onready var dodge_cooldown = %DodgeCooldown
+@onready var progress_bar = %ProgressBar
 
+var alive = true
 var currentSpeed = NORMAL_SPEED
 var blockDetectionMode = false
 var dodging = false
@@ -31,17 +36,17 @@ func _physics_process(delta):
 		if(dodging == false):
 			currentSpeed = NORMAL_SPEED
 			if Input.is_action_pressed("sprint"):
-				currentSpeed = SPRINT_SPEED
+				currentSpeed = NORMAL_SPEED * SPRINT_MULT
 			elif Input.is_action_pressed("crouch"):
-				currentSpeed = CROUCH_SPEED
+				currentSpeed = NORMAL_SPEED * CROUCH_MULT
 			velocity = direction * currentSpeed
 			lastDirection = direction
 		else:
 			velocity = lastDirection * currentSpeed
 		move_and_slide()
-		if Input.is_action_pressed("primary") && blockDetectionMode == false:
+		if Input.is_action_pressed("primary") && blockDetectionMode == false && alive:
 			pistol.shoot()
-		if Input.is_action_pressed("primary") and blockDetectionMode:
+		if Input.is_action_pressed("primary") and blockDetectionMode && alive:
 			var xc = get_global_mouse_position().x - 220
 			var yc = get_global_mouse_position().y - 140
 			var realposx = position.x + 218+17
@@ -49,10 +54,10 @@ func _physics_process(delta):
 			if abs(xc - realposx) <= 68.0 and abs(yc - realposy) <= 68.0:
 				var w = get_parent().get_child(2)
 				w.break_tile(Vector2(floor((get_global_mouse_position().x-220)/34), floor((get_global_mouse_position().y-140)/34)))
-		if Input.is_action_just_pressed("block detection mode"):
+		if Input.is_action_just_pressed("block detection mode") && alive:
 			blockDetectionMode = !blockDetectionMode
 			pistol.visible = !blockDetectionMode
-		if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped():
+		if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped() && alive:
 			dodging = true;
 			vulnerable = false
 			currentSpeed = NORMAL_SPEED * DODGE_MULTIPLIER
@@ -74,15 +79,11 @@ func set_pos(pixelCoords):
 
 func _on_water_detection_body_entered(body):
 	NORMAL_SPEED /= 3
-	SPRINT_SPEED /= 3
-	CROUCH_SPEED = NORMAL_SPEED
 	sprite_2d.modulate = Color(0.39, 0.61, 1, 0.7)
 	pass
 
 func _on_water_detection_body_exited(body):
 	NORMAL_SPEED *= 3
-	SPRINT_SPEED *= 3
-	CROUCH_SPEED = 110.0
 	sprite_2d.modulate = Color(1, 1, 1, 1)
 	pass
 
@@ -95,3 +96,11 @@ func _on_dodge_interval_timeout():
 	dodging = false
 	vulnerable = true
 	dodge_cooldown.start()
+
+func takeDamage(damage):
+	HEALTH -= damage
+	progress_bar.value = HEALTH
+	if HEALTH <= 0.0:
+		HealthDepleted.emit()
+		NORMAL_SPEED = 0
+		alive = false
