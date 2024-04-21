@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 signal HealthDepleted
+signal TileHit(mouse_pos)
 
 @export var NORMAL_SPEED = 150.0
 @export var SPRINT_MULT = 1.5
@@ -23,10 +24,11 @@ var dodging = false
 var vulnerable = true
 var lastDirection
 
+var wood_am = 0
+var stone_am = 0
+var iron_am = 0
+
 func _enter_tree():
-	var size = World.new()
-	$Camera2D.limit_right = (size.mapSize * 34) + 220
-	$Camera2D.limit_bottom = (size.mapSize * 34) + 140
 	set_multiplayer_authority(name.to_int())
 	$Camera2D.enabled = is_multiplayer_authority()
 
@@ -44,16 +46,12 @@ func _physics_process(delta):
 		else:
 			velocity = lastDirection * currentSpeed
 		move_and_slide()
-		if Input.is_action_pressed("primary") && blockDetectionMode == false && alive:
+		if Input.is_action_pressed("primary") and !blockDetectionMode and alive:
 			pistol.shoot()
-		if Input.is_action_pressed("primary") and blockDetectionMode && alive:
-			var xc = get_global_mouse_position().x - 220
-			var yc = get_global_mouse_position().y - 140
-			var realposx = position.x + 218+17
-			var realposy = position.y + 76+17
-			if abs(xc - realposx) <= 68.0 and abs(yc - realposy) <= 68.0:
-				var w = get_parent().get_child(2)
-				w.break_tile(Vector2(floor((get_global_mouse_position().x-220)/34), floor((get_global_mouse_position().y-140)/34)))
+		if Input.is_action_pressed("primary") and blockDetectionMode and alive:
+			var h = get_global_mouse_position()
+			if abs(position.x - h.x) <= 68 and abs(position.y - h.y) <= 68:
+				TileHit.emit(get_global_mouse_position())
 		if Input.is_action_just_pressed("block detection mode") && alive:
 			blockDetectionMode = !blockDetectionMode
 			pistol.visible = !blockDetectionMode
@@ -104,3 +102,8 @@ func takeDamage(damage):
 		HealthDepleted.emit()
 		NORMAL_SPEED = 0
 		alive = false
+
+func setCameraLimits(pixel_size):
+	$Camera2D.limit_right = pixel_size.x
+	$Camera2D.limit_bottom = pixel_size.y
+	pass

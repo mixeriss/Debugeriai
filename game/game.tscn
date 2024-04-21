@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://cw5l0y2duk2as" path="res://menu/pause.tscn" id="4_82ejf"]
 
 [node name="Game" type="Node2D"]
-position = Vector2(452, 232)
 script = ExtResource("1_npnxe")
 
 [node name="Menu" parent="." instance=ExtResource("2_3rqyd")]
@@ -39,7 +38,6 @@ offset_bottom = 95.0
 text = "Host"
 
 [node name="World" parent="." instance=ExtResource("2_dd7tk")]
-position = Vector2(-234, -92)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(47, 63)
