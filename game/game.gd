@@ -55,4 +55,3 @@ func spawn_player(player_id=1):
 	add_child(player)  # Add player to the scene
 	rpc("receive_map_data", scene.get_map_data())
 	pass
-

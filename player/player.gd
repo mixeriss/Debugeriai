@@ -23,7 +23,7 @@ var blockDetectionMode = false
 var dodging = false
 var vulnerable = true
 var lastDirection
-
+var range = Vector2(68, 68)
 var wood_am = 0
 var stone_am = 0
 var iron_am = 0
@@ -46,11 +46,11 @@ func _physics_process(delta):
 		else:
 			velocity = lastDirection * currentSpeed
 		move_and_slide()
-		if Input.is_action_pressed("primary") and !blockDetectionMode and alive:
+		if Input.is_action_pressed("primary") and !blockDetectionMode:
 			pistol.shoot()
-		if Input.is_action_pressed("primary") and blockDetectionMode and alive:
-			var h = get_global_mouse_position()
-			if abs(position.x - h.x) <= 68 and abs(position.y - h.y) <= 68:
+		if Input.is_action_pressed("primary") and blockDetectionMode:
+			var mp = get_global_mouse_position()
+			if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
 				TileHit.emit(get_global_mouse_position())
 		if Input.is_action_just_pressed("block detection mode") && alive:
 			blockDetectionMode = !blockDetectionMode
