@@ -1,7 +1,8 @@
-extends Node2D
+extends Area2D
 
 @onready var shootingpoint = %shootingPoint
 @onready var firerate = %firerate
+@onready var color_rect = %ColorRect
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -16,3 +17,12 @@ func shoot():
 			newProjectile.global_rotation = shootingpoint.global_rotation
 			shootingpoint.add_child(newProjectile)
 			firerate.start()
+
+func slice():
+	color_rect.visible = true
+	var slashiedEnemies = get_overlapping_bodies()
+	for enemy in slashiedEnemies:
+		if enemy.has_method("takeDamage"):
+			enemy.takeDamage(2)
+	await get_tree().create_timer(0.1).timeout
+	color_rect.visible = false

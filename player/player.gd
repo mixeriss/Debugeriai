@@ -33,9 +33,17 @@ func _enter_tree():
 	$Camera2D.enabled = is_multiplayer_authority()
 
 func _physics_process(delta):
-	if is_multiplayer_authority():
+	if is_multiplayer_authority() && alive:
 		var direction = Input.get_vector("left", "right", "up", "down") 
-		if(dodging == false):
+		if dodging == false:
+			if direction == Vector2.ZERO:
+				sprite_2d.animation = "default"
+			else:
+				sprite_2d.animation = "walk"
+				if(direction.x < 0):
+					sprite_2d.flip_h = true
+				else:
+					sprite_2d.flip_h = false
 			currentSpeed = NORMAL_SPEED
 			if Input.is_action_pressed("sprint"):
 				currentSpeed = NORMAL_SPEED * SPRINT_MULT
@@ -60,6 +68,8 @@ func _physics_process(delta):
 			vulnerable = false
 			currentSpeed = NORMAL_SPEED * DODGE_MULTIPLIER
 			dodge_interval.start()
+		if Input.is_action_just_pressed("melee"):
+			pistol.slice()
 	pass
 
 func _input(event):

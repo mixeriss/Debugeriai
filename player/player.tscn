@@ -1,14 +1,58 @@
-[gd_scene load_steps=11 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=19 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
-[ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="2_r7c4l"]
+[ext_resource type="Texture2D" uid="uid://dn5ff63j6e6db" path="res://world/textures/idle.png" id="2_m68wf"]
+[ext_resource type="Texture2D" uid="uid://87qwdxgksbxt" path="res://world/textures/1.png" id="3_54suc"]
 [ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://guns/pistol/pistol.tscn" id="3_seoce"]
+[ext_resource type="Texture2D" uid="uid://dyytda6rwsoap" path="res://world/textures/2.png" id="4_c17oy"]
+[ext_resource type="Texture2D" uid="uid://cupxf335juoa2" path="res://world/textures/3.png" id="5_rw311"]
+[ext_resource type="Texture2D" uid="uid://dqyrcc7jikina" path="res://world/textures/4.png" id="6_xrcqa"]
+[ext_resource type="Texture2D" uid="uid://gjgy2dagt0jn" path="res://world/textures/5.png" id="7_5qo2a"]
+[ext_resource type="Texture2D" uid="uid://dwlcwk1ll1mlc" path="res://world/textures/6.png" id="8_n232e"]
+[ext_resource type="Texture2D" uid="uid://cy26hb23hkxeu" path="res://world/textures/7.png" id="9_n3fch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmh16"]
-size = Vector2(33, 33)
+size = Vector2(8, 9)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aa4a0"]
 size = Vector2(1, 1)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_411af"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_m68wf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_54suc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c17oy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_rw311")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xrcqa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_5qo2a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_n232e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_n3fch")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 8.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq7xs"]
 bg_color = Color(0.976471, 0, 0, 0.67451)
@@ -46,6 +90,7 @@ script = ExtResource("1_h50mc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_kmh16")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
@@ -56,11 +101,15 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterDetection"]
 shape = SubResource("RectangleShape2D_aa4a0")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 z_index = 1
-scale = Vector2(0.037, 0.023)
-texture = ExtResource("2_r7c4l")
+position = Vector2(9.53674e-07, 6.55651e-07)
+scale = Vector2(0.941176, 0.693878)
+sprite_frames = SubResource("SpriteFrames_411af")
+animation = &"walk"
+autoplay = "default"
+frame_progress = 0.0163823
 
 [node name="Pistol" parent="." instance=ExtResource("3_seoce")]
 unique_name_in_owner = true
