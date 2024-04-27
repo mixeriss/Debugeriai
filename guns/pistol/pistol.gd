@@ -3,11 +3,16 @@ extends Area2D
 @onready var shootingpoint = %shootingPoint
 @onready var firerate = %firerate
 @onready var color_rect = %ColorRect
+@onready var sprite_2d = $weaponPivot/Sprite2D
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	look_at(get_global_mouse_position())
+	if(get_global_mouse_position().x < get_parent().global_position.x):
+		sprite_2d.flip_v = true
+	else:
+		sprite_2d.flip_v = false
 
 func shoot():
 		if firerate.is_stopped():
