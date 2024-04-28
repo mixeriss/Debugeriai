@@ -71,10 +71,10 @@ scale = Vector2(0.5, 0.5)
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
-limit_left = 0
-limit_top = 0
-limit_right = 3400
-limit_bottom = 3400
+limit_left = 240
+limit_top = 160
+limit_right = 3622
+limit_bottom = 3550
 position_smoothing_speed = 8.0
 editor_draw_limits = true
 

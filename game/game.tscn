@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://menu/buttonsStyle.tres" id="4_ebf1x"]
 
 [node name="Game" type="Node2D"]
+position = Vector2(452, 232)
 script = ExtResource("1_npnxe")
 
 [node name="Menu" parent="." instance=ExtResource("2_3rqyd")]
@@ -17,10 +18,10 @@ offset_right = -361.0
 offset_bottom = -98.0
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -910.0
-offset_top = -561.0
-offset_right = 4821.0
-offset_bottom = 4240.0
+offset_left = -998.0
+offset_top = -752.0
+offset_right = 3775.0
+offset_bottom = 3297.0
 texture = ExtResource("2_r1t15")
 stretch_mode = 1
 
@@ -41,10 +42,13 @@ theme = ExtResource("4_ebf1x")
 text = "Host"
 
 [node name="World" parent="." instance=ExtResource("2_dd7tk")]
+position = Vector2(-214, -72)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(47, 63)
 zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
 editor_draw_limits = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
@@ -71,7 +75,7 @@ render_target_update_mode = 4
 [node name="Pause" parent="CanvasLayer/SubViewportContainer" instance=ExtResource("4_82ejf")]
 layout_mode = 2
 
-[connection signal="pressed" from="Join" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="Host" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Host" to="." method="_on_button_2_pressed"]

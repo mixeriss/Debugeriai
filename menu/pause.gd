@@ -12,9 +12,18 @@ func _process(delta):
 
 func _on_pause_pressed():
 	var canvas = $"../.."
-	var transform = canvas.transform
-	transform.origin = Vector2(20, 125);
-	canvas.transform = transform
+	if paused == false:
+		var transform = canvas.transform
+		transform.origin = Vector2(20, 125)
+		canvas.transform = transform
+		paused = true
+		$VBoxContainer/Pause.text = "Unpause"
+	else:
+		paused = false
+		var transform = canvas.transform
+		transform.origin = Vector2(20, 70)
+		canvas.transform = transform
+		$VBoxContainer/Pause.text = "Pause"
 	pass # Replace with function body.
 
 func _on_exit_pressed():
