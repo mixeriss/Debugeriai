@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ch7snygft3665"]
+[gd_scene load_steps=7 format=3 uid="uid://ch7snygft3665"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_npnxe"]
-[ext_resource type="PackedScene" uid="uid://d2ugfxt8agpl7" path="res://menu/options_menu.tscn" id="2_3rqyd"]
+[ext_resource type="PackedScene" uid="uid://docv67bssy33n" path="res://menu/options_menu.tscn" id="2_3rqyd"]
 [ext_resource type="PackedScene" uid="uid://ckmxcyuy7jenn" path="res://world/world.tscn" id="2_dd7tk"]
 [ext_resource type="Texture2D" uid="uid://oro8upcigrmg" path="res://world/textures/Ground.png" id="2_r1t15"]
 [ext_resource type="PackedScene" uid="uid://cw5l0y2duk2as" path="res://menu/pause.tscn" id="4_82ejf"]
+[ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://menu/buttonsStyle.tres" id="4_ebf1x"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_npnxe")
@@ -16,10 +17,10 @@ offset_right = -361.0
 offset_bottom = -98.0
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -1022.0
-offset_top = -689.0
-offset_right = 4709.0
-offset_bottom = 4112.0
+offset_left = -910.0
+offset_top = -561.0
+offset_right = 4821.0
+offset_bottom = 4240.0
 texture = ExtResource("2_r1t15")
 stretch_mode = 1
 
@@ -28,6 +29,7 @@ offset_left = 90.0
 offset_top = 44.0
 offset_right = 169.0
 offset_bottom = 96.0
+theme = ExtResource("4_ebf1x")
 text = "Join"
 
 [node name="Host" type="Button" parent="."]
@@ -35,6 +37,7 @@ offset_left = -72.0
 offset_top = 44.0
 offset_right = 6.0
 offset_bottom = 95.0
+theme = ExtResource("4_ebf1x")
 text = "Host"
 
 [node name="World" parent="." instance=ExtResource("2_dd7tk")]
@@ -55,20 +58,20 @@ anchors_preset = -1
 anchor_left = 0.013
 anchor_right = 0.013
 offset_left = -20.976
-offset_top = -103.0
+offset_top = -120.0
 offset_right = -20.976
 offset_bottom = 41.0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="CanvasLayer/SubViewportContainer"]
 handle_input_locally = false
-size = Vector2i(2, 144)
+size = Vector2i(2, 161)
 render_target_update_mode = 4
 
 [node name="Pause" parent="CanvasLayer/SubViewportContainer" instance=ExtResource("4_82ejf")]
 layout_mode = 2
 
-[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Join" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
 [connection signal="pressed" from="Host" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
