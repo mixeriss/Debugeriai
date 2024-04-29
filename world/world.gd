@@ -3,8 +3,9 @@ class_name World
 
 @onready var _tilemap = $TileMap
 @onready var _borders = $Borders
+var mapSize = 100
 
-var _size = Vector2(100, 100)
+var _size = Vector2(mapSize, mapSize)
 
 func generate_map():
 	randomize()
