@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal HealthDepleted
 signal TileHit(mouse_pos)
+signal TileBoom(mouse_pos)
 signal TilePlace(mouse_pos)
 
 @export var NORMAL_SPEED = 150.0
@@ -9,6 +10,7 @@ signal TilePlace(mouse_pos)
 @export var CROUCH_MULT = 0.5
 @export var DODGE_MULTIPLIER = 2.0
 @export var HEALTH = 100
+@export var GRENADE_COUNT = 5
 
 @onready var pistol = %Pistol
 @onready var camera_2d = %Camera2D
@@ -42,7 +44,7 @@ func _enter_tree():
 	$Camera2D.enabled = is_multiplayer_authority()
 
 func _physics_process(delta):
-	if is_multiplayer_authority() && alive:
+	if is_multiplayer_authority():
 		direction = Input.get_vector("left", "right", "up", "down") 
 		if dodging == false:
 			if direction == Vector2.ZERO:
@@ -63,29 +65,37 @@ func _physics_process(delta):
 		else:
 			velocity = lastDirection * currentSpeed
 		move_and_slide()
-		if Input.is_action_pressed("primary") and !blockDetectionMode:
-			pistol.shoot()
-		if Input.is_action_pressed("primary") and blockDetectionMode:
-			var mp = get_global_mouse_position()
-			if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
-				TileHit.emit(get_global_mouse_position())
-		if Input.is_action_pressed("place") and blockDetectionMode:
-			var mp = get_global_mouse_position()
-			if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
-				if wood_am >= 5:
-					TilePlace.emit(get_global_mouse_position())
-			pass
-		if Input.is_action_just_pressed("block detection mode") && alive:
-			blockDetectionMode = !blockDetectionMode
-			pistol.visible = !blockDetectionMode
-		if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped() && alive:
-			dodging = true;
-			vulnerable = false
-			currentSpeed = NORMAL_SPEED * DODGE_MULTIPLIER
-			dodge_interval.start()
-		if Input.is_action_just_pressed("melee"):
-			pistol.slice()
+		if(alive):
+			if Input.is_action_pressed("primary") and !blockDetectionMode:
+				pistol.shoot()
+			if Input.is_action_pressed("primary") and blockDetectionMode:
+				var mp = get_global_mouse_position()
+				if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
+					TileHit.emit(get_global_mouse_position())
+			if Input.is_action_pressed("place") and blockDetectionMode:
+				var mp = get_global_mouse_position()
+				if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
+					if wood_am >= 5:
+						TilePlace.emit(get_global_mouse_position())
+				pass
+			if Input.is_action_just_pressed("block detection mode"):
+				blockDetectionMode = !blockDetectionMode
+				pistol.visible = !blockDetectionMode
+			if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped():
+				dodgeStart()
+			if Input.is_action_just_pressed("melee"):
+				pistol.slice()
+			if Input.is_action_just_pressed("grenade") && GRENADE_COUNT > 0:
+				throw_grenade()
+				GRENADE_COUNT -= 1
+			
 	pass
+
+func dodgeStart():
+	dodging = true;
+	vulnerable = false
+	currentSpeed = NORMAL_SPEED * DODGE_MULTIPLIER
+	dodge_interval.start()
 
 func _input(event):
 	if event.is_action_pressed("zoom in"):
@@ -127,8 +137,11 @@ func takeDamage(damage):
 	progress_bar.value = HEALTH
 	if HEALTH <= 0.0:
 		HealthDepleted.emit()
-		NORMAL_SPEED = 0
+		visible = false;
 		alive = false
+		collision_shape_2d.disabled = true
+		sprite_2d.animation = "default"
+		
 
 func setCameraLimits(pixel_size):
 	$Camera2D.limit_right = pixel_size.x
@@ -136,7 +149,7 @@ func setCameraLimits(pixel_size):
 	pass
 
 func _on_ftp_timer_timeout():	
-	if (!body_on_water && direction !=  Vector2.ZERO):
+	if (!body_on_water && direction !=  Vector2.ZERO && alive):
 		const footprint = preload("res://footprint.tscn")
 		var new_footprint = footprint.instantiate()
 		new_footprint.global_position = global_position
@@ -157,9 +170,9 @@ func _give_resources(type, amount):
 	pass
 	
 func update_inv():
-	$resource_gui/wood_text.text = str(wood_am)
-	$resource_gui/stone_text.text = str(stone_am)
-	$resource_gui/iron_text.text = str(iron_am)
+	$Camera2D/resource_gui/wood_text.text = str(wood_am)
+	$Camera2D/resource_gui/stone_text.text = str(stone_am)
+	$Camera2D/resource_gui/iron_text.text = str(iron_am)
 	pass
 
 func _block_placed(sig):
@@ -170,3 +183,13 @@ func _block_placed(sig):
 			pass
 	update_inv()
 	pass
+
+func throw_grenade():
+	const grenade = preload("res://grenade.tscn")
+	var newGrenade = grenade.instantiate()
+	var mouse_pos = get_global_mouse_position()
+	newGrenade.global_position = global_position
+	get_parent().add_child(newGrenade)
+	newGrenade.activate(mouse_pos)
+	await get_tree().create_timer(2).timeout
+	TileBoom.emit(mouse_pos)

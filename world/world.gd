@@ -47,7 +47,14 @@ func _on_TileHit(mouse_pos):
 			_:
 				pass
 	pass
-	
+
+func _on_TileBoom(mousePos):
+	var hit_coords = Vector2(floor(mousePos.x/_tilemap.tile_set.tile_size.x), floor(mousePos.y/_tilemap.tile_set.tile_size.y))
+	var hits = [hit_coords+Vector2(-1,-1), hit_coords+Vector2(-1,0), hit_coords+Vector2(-1,1), hit_coords+Vector2(0,-1), hit_coords+Vector2(0,0), hit_coords+Vector2(0,1), hit_coords+Vector2(1,-1), hit_coords+Vector2(1,0), hit_coords+Vector2(1,1), ]
+	for x in hits:
+		if _tilemap.tile_is_breakable(x):
+			var type = _tilemap.break_tile(x)
+
 func _on_TilePlace(mouse_pos):
 	var place_coords = Vector2(floor(mouse_pos.x/_tilemap.tile_set.tile_size.x), floor(mouse_pos.y/_tilemap.tile_set.tile_size.y))
 	if _tilemap.tile_is_land(place_coords):
@@ -57,6 +64,7 @@ func _on_TilePlace(mouse_pos):
 
 func connect_player(player):
 	player.TileHit.connect(_on_TileHit)
+	player.TileBoom.connect(_on_TileBoom)
 	player.TilePlace.connect(_on_TilePlace)
 	player.setCameraLimits(get_pixel_size())
 	block_breaked.connect(player._give_resources)

@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://dh5enj50efe"]
+
+[ext_resource type="Texture2D" uid="uid://myagkp73kd4s" path="res://guns/pistol/grenade.png" id="1_icbox"]
+[ext_resource type="Script" path="res://grenade.gd" id="1_tr66l"]
+[ext_resource type="Texture2D" uid="uid://5hybatr7npws" path="res://guns/pistol/EXPLOSION.png" id="3_0ubpx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rerk8"]
+atlas = ExtResource("3_0ubpx")
+region = Rect2(0, 0, 176, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1schp"]
+atlas = ExtResource("3_0ubpx")
+region = Rect2(176, 0, 176, 176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j81kj"]
+atlas = ExtResource("3_0ubpx")
+region = Rect2(352, 0, 176, 176)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cnk5n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_icbox")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rerk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1schp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j81kj")
+}],
+"loop": false,
+"name": &"explode",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l1hd3"]
+radius = 85.0
+
+[node name="Grenade" type="Area2D"]
+script = ExtResource("1_tr66l")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_cnk5n")
+animation = &"explode"
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+shape = SubResource("CircleShape2D_l1hd3")
