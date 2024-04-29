@@ -19,7 +19,6 @@ func get_map_data():
 func _on_join_pressed():
 	peer.create_client("localhost", port)
 	multiplayer.multiplayer_peer = peer
-	$Camera2D.enabled = false
 	$Join.queue_free()
 	$Host.queue_free()
 	pass
@@ -34,7 +33,6 @@ func _on_host_pressed():
 	var transform = canvas.transform
 	transform.origin = Vector2(20, 70);
 	canvas.transform = transform
-	$Camera2D.enabled = false
 	$Join.queue_free()
 	$Host.queue_free()
 	pass
@@ -50,6 +48,8 @@ func spawn_player(player_id=1):
 	var scene = get_tree().root.get_node("Game")
 	var player = load("res://player/player.tscn").instantiate()  # Instantiate player scene
 	player.name = str(player_id)  # Set player name to player_id
+	player.set_pos($World.find_spawn_point())
+	$World.connect_player(player)
 	add_child(player)  # Add player to the scene
 	rpc("receive_map_data", scene.get_map_data())
 	pass

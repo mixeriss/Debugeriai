@@ -8,7 +8,6 @@
 [ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://menu/buttonsStyle.tres" id="4_ebf1x"]
 
 [node name="Game" type="Node2D"]
-position = Vector2(452, 232)
 script = ExtResource("1_npnxe")
 
 [node name="Menu" parent="." instance=ExtResource("2_3rqyd")]
@@ -34,22 +33,14 @@ theme = ExtResource("4_ebf1x")
 text = "Join"
 
 [node name="Host" type="Button" parent="."]
-offset_left = -72.0
-offset_top = 44.0
-offset_right = 6.0
-offset_bottom = 95.0
+offset_left = 10.0
+offset_top = 45.0
+offset_right = 88.0
+offset_bottom = 96.0
 theme = ExtResource("4_ebf1x")
 text = "Host"
 
 [node name="World" parent="." instance=ExtResource("2_dd7tk")]
-position = Vector2(-214, -72)
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(47, 63)
-zoom = Vector2(2, 2)
-limit_left = 0
-limit_top = 0
-editor_draw_limits = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://player/player.tscn")
