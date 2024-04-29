@@ -163,6 +163,14 @@ action_name = "primary"
 layout_mode = 2
 action_name = "block detection mode"
 
+[node name="Rebind12" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "place"
+
+[node name="Rebind13" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "melee"
+
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 

@@ -31,5 +31,5 @@ theme = ExtResource("2_ak7h7")
 text = "Pause"
 
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="VBoxContainer/Pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="VBoxContainer/Pause" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Pause" to="." method="_on_pause_pressed"]

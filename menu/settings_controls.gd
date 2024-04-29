@@ -36,6 +36,11 @@ func set_action_name() -> void:
 			label.text = "Switch to break blocks"
 		"dodge":
 			label.text = "Dodge"
+		"melee":
+			label.text = "Melee"
+		"place":
+			label.text = "Place block"
+		
 func set_text_for_key() -> void:
 	var action_events = InputMap.action_get_events(action_name)
 	var action_event = action_events[0]
@@ -51,6 +56,8 @@ func set_text_for_key() -> void:
 				button_name = "Mouse Wheel Scroll Up"
 			MOUSE_BUTTON_WHEEL_DOWN:
 				button_name = "Mouse Wheel Scroll Down"
+			MOUSE_BUTTON_RIGHT:
+				button_name = "Mouse 2"
 		
 		$HBoxContainer/Button.text = "%s" % button_name
 	else:
