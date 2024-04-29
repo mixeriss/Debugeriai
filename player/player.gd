@@ -133,14 +133,15 @@ func _on_dodge_interval_timeout():
 	dodge_cooldown.start()
 
 func takeDamage(damage):
-	HEALTH -= damage
-	progress_bar.value = HEALTH
-	if HEALTH <= 0.0:
-		HealthDepleted.emit()
-		visible = false;
-		alive = false
-		collision_shape_2d.disabled = true
-		sprite_2d.animation = "default"
+	if vulnerable:
+		HEALTH -= damage
+		progress_bar.value = HEALTH
+		if HEALTH <= 0.0:
+			HealthDepleted.emit()
+			visible = false;
+			alive = false
+			collision_shape_2d.disabled = true
+			sprite_2d.animation = "default"
 		
 
 func setCameraLimits(pixel_size):
@@ -149,7 +150,7 @@ func setCameraLimits(pixel_size):
 	pass
 
 func _on_ftp_timer_timeout():	
-	if (!body_on_water && direction !=  Vector2.ZERO && alive):
+	if (!body_on_water && direction !=  Vector2.ZERO && alive && !Input.is_action_pressed("crouch")):
 		const footprint = preload("res://footprint.tscn")
 		var new_footprint = footprint.instantiate()
 		new_footprint.global_position = global_position
