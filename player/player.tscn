@@ -1,15 +1,18 @@
-[gd_scene load_steps=19 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=22 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="Texture2D" uid="uid://dn5ff63j6e6db" path="res://world/textures/idle.png" id="2_m68wf"]
 [ext_resource type="Texture2D" uid="uid://87qwdxgksbxt" path="res://world/textures/1.png" id="3_54suc"]
+[ext_resource type="Texture2D" uid="uid://piqeir80d3vp" path="res://world/resource_textures/rock.png" id="3_ho0c7"]
 [ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://guns/pistol/pistol.tscn" id="3_seoce"]
 [ext_resource type="Texture2D" uid="uid://dyytda6rwsoap" path="res://world/textures/2.png" id="4_c17oy"]
+[ext_resource type="Texture2D" uid="uid://bpue84jhpisrj" path="res://world/resource_textures/Iron.png" id="4_snjl6"]
 [ext_resource type="Texture2D" uid="uid://cupxf335juoa2" path="res://world/textures/3.png" id="5_rw311"]
 [ext_resource type="Texture2D" uid="uid://dqyrcc7jikina" path="res://world/textures/4.png" id="6_xrcqa"]
 [ext_resource type="Texture2D" uid="uid://gjgy2dagt0jn" path="res://world/textures/5.png" id="7_5qo2a"]
 [ext_resource type="Texture2D" uid="uid://dwlcwk1ll1mlc" path="res://world/textures/6.png" id="8_n232e"]
 [ext_resource type="Texture2D" uid="uid://cy26hb23hkxeu" path="res://world/textures/7.png" id="9_n3fch"]
+[ext_resource type="Texture2D" uid="uid://dc5mr0xq4hbgk" path="res://world/resource_textures/Wood.png" id="11_6t3po"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kmh16"]
 size = Vector2(8, 9)
@@ -116,6 +119,61 @@ unique_name_in_owner = true
 z_index = 1
 texture_filter = 1
 scale = Vector2(0.5, 0.5)
+
+[node name="resource_gui" type="Control" parent="."]
+custom_minimum_size = Vector2(40, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 200.0
+offset_top = 100.0
+offset_right = 250.0
+offset_bottom = 169.0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="resource_gui"]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 17.0
+offset_bottom = 20.0
+texture = ExtResource("11_6t3po")
+
+[node name="wood_text" type="Label" parent="resource_gui"]
+custom_minimum_size = Vector2(17, 17)
+layout_mode = 0
+offset_left = 19.0
+offset_right = 44.0
+offset_bottom = 23.0
+text = "0"
+
+[node name="TextureRect2" type="TextureRect" parent="resource_gui"]
+layout_mode = 0
+offset_top = 23.0
+offset_right = 17.0
+offset_bottom = 40.0
+texture = ExtResource("3_ho0c7")
+
+[node name="stone_text" type="Label" parent="resource_gui"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 20.0
+offset_right = 44.0
+offset_bottom = 43.0
+text = "0"
+
+[node name="TextureRect3" type="TextureRect" parent="resource_gui"]
+layout_mode = 0
+offset_top = 44.0
+offset_right = 17.0
+offset_bottom = 61.0
+texture = ExtResource("4_snjl6")
+
+[node name="iron_text" type="Label" parent="resource_gui"]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 40.0
+offset_right = 44.0
+offset_bottom = 63.0
+text = "0"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true

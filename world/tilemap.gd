@@ -45,8 +45,9 @@ func tile_is_breakable(coords):
 	return get_cell_tile_data(0, coords).get_custom_data("breakable")
 
 func break_tile(coords):
+	var type = get_cell_source_id(0, coords)
 	set_cell(0, coords, 0, Vector2(0, 0), 0)
-	pass
+	return type
 
 func get_data_array(size):
 	var data = []
@@ -66,4 +67,8 @@ func load_data_from_array(size, data):
 
 func FindFacingTile(mousePos):
 	return map_to_local(local_to_map(mousePos))
+	pass
+
+func setCell(coords, id):
+	set_cell(0, coords, id, Vector2(0, 0), 0)
 	pass

@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal HealthDepleted
 signal TileHit(mouse_pos)
+signal TilePlace(mouse_pos)
 
 @export var NORMAL_SPEED = 150.0
 @export var SPRINT_MULT = 1.5
@@ -31,6 +32,10 @@ var stone_am = 0
 var iron_am = 0
 var mirr_footprint = false
 var direction
+
+func _ready():
+	update_inv()
+	pass
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -64,6 +69,12 @@ func _physics_process(delta):
 			var mp = get_global_mouse_position()
 			if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
 				TileHit.emit(get_global_mouse_position())
+		if Input.is_action_pressed("place") and blockDetectionMode:
+			var mp = get_global_mouse_position()
+			if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
+				if wood_am >= 5:
+					TilePlace.emit(get_global_mouse_position())
+			pass
 		if Input.is_action_just_pressed("block detection mode") && alive:
 			blockDetectionMode = !blockDetectionMode
 			pistol.visible = !blockDetectionMode
@@ -132,5 +143,30 @@ func _on_ftp_timer_timeout():
 		get_parent().add_child(new_footprint)	
 		new_footprint.mirror(mirr_footprint)
 		mirr_footprint = !mirr_footprint
+	pass
+
+func _give_resources(type, amount):
+	match type:
+		"wood":
+			wood_am += amount
+		"stone":
+			stone_am += amount
+		"iron":
+			iron_am += amount
+	update_inv()
+	pass
 	
+func update_inv():
+	$resource_gui/wood_text.text = str(wood_am)
+	$resource_gui/stone_text.text = str(stone_am)
+	$resource_gui/iron_text.text = str(iron_am)
+	pass
+
+func _block_placed(sig):
+	match sig:
+		0:
+			wood_am -= 5
+		_:
+			pass
+	update_inv()
 	pass

@@ -4,8 +4,9 @@ class_name World
 @onready var _tilemap = $TileMap
 @onready var _borders = $Borders
 var mapSize = 100
-
 var _size = Vector2(mapSize, mapSize)
+signal block_breaked(type, amount)
+signal block_placed(sig)
 
 func generate_map():
 	randomize()
@@ -35,10 +36,29 @@ func to_pixelCoords(coords: Vector2):
 func _on_TileHit(mouse_pos):
 	var hit_coords = Vector2(floor(mouse_pos.x/_tilemap.tile_set.tile_size.x), floor(mouse_pos.y/_tilemap.tile_set.tile_size.y))
 	if _tilemap.tile_is_breakable(hit_coords):
-		_tilemap.break_tile(hit_coords)
+		var type = _tilemap.break_tile(hit_coords)
+		match type:
+			2:
+				block_breaked.emit("wood", 5)
+			3:
+				block_breaked.emit("stone", 5)
+				if randi_range(0, 2) == 2:
+					block_breaked.emit("iron", 1)
+			_:
+				pass
+	pass
+	
+func _on_TilePlace(mouse_pos):
+	var place_coords = Vector2(floor(mouse_pos.x/_tilemap.tile_set.tile_size.x), floor(mouse_pos.y/_tilemap.tile_set.tile_size.y))
+	if !_tilemap.tile_is_breakable(place_coords):
+		_tilemap.setCell(place_coords, 4)
+		block_placed.emit(0)
 	pass
 
 func connect_player(player):
 	player.TileHit.connect(_on_TileHit)
+	player.TilePlace.connect(_on_TilePlace)
 	player.setCameraLimits(get_pixel_size())
+	block_breaked.connect(player._give_resources)
+	block_placed.connect(player._block_placed)
 	pass

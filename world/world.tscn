@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ckmxcyuy7jenn"]
+[gd_scene load_steps=19 format=3 uid="uid://ckmxcyuy7jenn"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_jf2b5"]
 [ext_resource type="Texture2D" uid="uid://oro8upcigrmg" path="res://world/textures/Ground.png" id="2_jvdgo"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bjfeg3bcywstf" path="res://world/textures/Rocks.png" id="4_qatps"]
 [ext_resource type="Script" path="res://world/borders.gd" id="5_33q26"]
 [ext_resource type="Script" path="res://world/tilemap.gd" id="5_bikga"]
+[ext_resource type="Texture2D" uid="uid://du4yrky6wlehb" path="res://world/player_structures/wood_structure.png" id="6_jbi6w"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkv3c"]
 resource_name = "ground"
@@ -54,6 +55,16 @@ texture_region_size = Vector2i(34, 34)
 0:0/0/physics_layer_1/angular_velocity = 0.0
 0:0/0/custom_data_1 = true
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0gjmn"]
+texture = ExtResource("6_jbi6w")
+texture_region_size = Vector2i(34, 34)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+
 [sub_resource type="TileSet" id="TileSet_djg3t"]
 tile_size = Vector2i(34, 34)
 physics_layer_0/collision_layer = 1
@@ -68,6 +79,7 @@ sources/0 = SubResource("TileSetAtlasSource_pkv3c")
 sources/3 = SubResource("TileSetAtlasSource_65sq4")
 sources/2 = SubResource("TileSetAtlasSource_hwolf")
 sources/1 = SubResource("TileSetAtlasSource_24aw2")
+sources/4 = SubResource("TileSetAtlasSource_0gjmn")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ofkf6"]
 size = Vector2(2, 2)
