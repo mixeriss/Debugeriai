@@ -191,7 +191,12 @@ unique_name_in_owner = true
 wait_time = 2.0
 one_shot = true
 
+[node name="FtpTimer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]
 [connection signal="timeout" from="BlockDetectionTimer" to="." method="_on_block_detection_timer_timeout"]
 [connection signal="timeout" from="DodgeInterval" to="." method="_on_dodge_interval_timeout"]
+[connection signal="timeout" from="FtpTimer" to="." method="_on_ftp_timer_timeout"]
