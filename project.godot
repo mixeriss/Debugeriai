@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
 
+[dotnet]
+
+project/assembly_name="DEBUGERIAI"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

@@ -16,17 +16,21 @@ signal TileHit(mouse_pos)
 @onready var dodge_interval = %DodgeInterval
 @onready var dodge_cooldown = %DodgeCooldown
 @onready var progress_bar = %ProgressBar
+@onready var footprint_sprite_2d = %footprintSprite2D
 
 var alive = true
 var currentSpeed = NORMAL_SPEED
 var blockDetectionMode = false
 var dodging = false
 var vulnerable = true
+var body_on_water = false
 var lastDirection
 var range = Vector2(68, 68)
 var wood_am = 0
 var stone_am = 0
 var iron_am = 0
+var mirr_footprint = false
+var direction
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
@@ -34,7 +38,7 @@ func _enter_tree():
 
 func _physics_process(delta):
 	if is_multiplayer_authority() && alive:
-		var direction = Input.get_vector("left", "right", "up", "down") 
+		direction = Input.get_vector("left", "right", "up", "down") 
 		if dodging == false:
 			if direction == Vector2.ZERO:
 				sprite_2d.animation = "default"
@@ -86,11 +90,13 @@ func set_pos(pixelCoords):
 	pass
 
 func _on_water_detection_body_entered(body):
+	body_on_water = true
 	NORMAL_SPEED /= 3
 	sprite_2d.modulate = Color(0.39, 0.61, 1, 0.7)
 	pass
 
 func _on_water_detection_body_exited(body):
+	body_on_water = false
 	NORMAL_SPEED *= 3
 	sprite_2d.modulate = Color(1, 1, 1, 1)
 	pass
@@ -116,4 +122,15 @@ func takeDamage(damage):
 func setCameraLimits(pixel_size):
 	$Camera2D.limit_right = pixel_size.x
 	$Camera2D.limit_bottom = pixel_size.y
+	pass
+
+func _on_ftp_timer_timeout():	
+	if (!body_on_water && direction !=  Vector2.ZERO):
+		const footprint = preload("res://footprint.tscn")
+		var new_footprint = footprint.instantiate()
+		new_footprint.global_position = global_position
+		get_parent().add_child(new_footprint)	
+		new_footprint.mirror(mirr_footprint)
+		mirr_footprint = !mirr_footprint
+	
 	pass

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctby407ghepwb"]
+
+[ext_resource type="Script" path="res://player/Footprint.gd" id="1_jfxem"]
+[ext_resource type="Texture2D" uid="uid://c1vwudplnsuli" path="res://player/model/Ftp_Back.png" id="2_pnmj2"]
+
+[node name="Footprint" type="Node2D"]
+script = ExtResource("1_jfxem")
+
+[node name="footprintSprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+texture = ExtResource("2_pnmj2")
+offset = Vector2(0, -6)
