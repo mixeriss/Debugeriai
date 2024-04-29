@@ -50,7 +50,7 @@ func _on_TileHit(mouse_pos):
 	
 func _on_TilePlace(mouse_pos):
 	var place_coords = Vector2(floor(mouse_pos.x/_tilemap.tile_set.tile_size.x), floor(mouse_pos.y/_tilemap.tile_set.tile_size.y))
-	if !_tilemap.tile_is_breakable(place_coords):
+	if _tilemap.tile_is_land(place_coords):
 		_tilemap.setCell(place_coords, 4)
 		block_placed.emit(0)
 	pass
