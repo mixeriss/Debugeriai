@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b0af6fd4abnu5"]
+
+[ext_resource type="PackedScene" uid="uid://ca5cj3bsjs0tn" path="res://menu/settings_display.tscn" id="1_akkbj"]
+[ext_resource type="Script" path="res://menu/settings_resolution.gd" id="2_py6rl"]
+
+[node name="SettingsResolution" instance=ExtResource("1_akkbj")]
+script = ExtResource("2_py6rl")
+
+[node name="Label" parent="HBoxContainer" index="0"]
+text = "Resolution"
