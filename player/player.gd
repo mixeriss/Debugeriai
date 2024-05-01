@@ -158,7 +158,7 @@ func _on_ftp_timer_timeout():
 	pass
 
 func _give_resources(type: String, amount: int):
-	resource_inv[type] += 5
+	resource_inv[type] += amount
 	update_inv()
 	pass
 	
