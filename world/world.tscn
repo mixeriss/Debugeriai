@@ -99,6 +99,7 @@ script = ExtResource("1_jf2b5")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_djg3t")
+rendering_quadrant_size = 5
 format = 2
 script = ExtResource("5_bikga")
 

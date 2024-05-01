@@ -28,17 +28,17 @@ func generate_resources(size):
 	noise.seed = randi()
 	for x in size.x:
 		for y in size.y:
-			if abs(noise.get_noise_2d(x, y)) > 0.5 and tile_is_land(Vector2(x, y)):
+			if abs(noise.get_noise_2d(x, y)) > 0.5 and tile_is_spawnable(Vector2(x, y)):
 				set_cell(0, Vector2(x, y), 2, Vector2(0, 0), 0)
 	noise.frequency = 0.15
 	noise.offset = Vector3(size.x, size.y, 0)
 	for x in size.x:
 		for y in size.y:
-			if abs(noise.get_noise_2d(x, y)) > 0.65 and tile_is_land(Vector2(x, y)):
+			if abs(noise.get_noise_2d(x, y)) > 0.65 and tile_is_spawnable(Vector2(x, y)):
 				set_cell(0, Vector2(x, y), 3, Vector2(0, 0), 0)
 	pass
 
-func tile_is_land(coords):
+func tile_is_spawnable(coords):
 	return get_cell_tile_data(0, coords).get_custom_data("spawnable")
 
 func tile_is_breakable(coords):
@@ -49,7 +49,7 @@ func break_tile(coords):
 	set_cell(0, coords, 0, Vector2(0, 0), 0)
 	return type
 
-func get_data_array(size):
+func get_data_array(size: Vector2):
 	var data = []
 	data.resize(size.x)
 	for x in size.x:

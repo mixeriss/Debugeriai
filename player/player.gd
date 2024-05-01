@@ -171,14 +171,14 @@ func _give_resources(type, amount):
 	pass
 	
 func update_inv():
-	$Camera2D/resource_gui/wood_text.text = str(wood_am)
-	$Camera2D/resource_gui/stone_text.text = str(stone_am)
-	$Camera2D/resource_gui/iron_text.text = str(iron_am)
+	$resource_gui/wood_amount.text = str(wood_am)
+	$resource_gui/stone_amount.text = str(stone_am)
+	$resource_gui/iron_amount.text = str(iron_am)
 	pass
 
 func _block_placed(sig):
 	match sig:
-		0:
+		4:
 			wood_am -= 5
 		_:
 			pass
