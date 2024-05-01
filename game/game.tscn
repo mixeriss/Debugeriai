@@ -67,7 +67,7 @@ render_target_update_mode = 4
 [node name="Pause" parent="CanvasLayer/SubViewportContainer" instance=ExtResource("4_82ejf")]
 layout_mode = 2
 
-[connection signal="pressed" from="Join" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
-[connection signal="pressed" from="Host" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Host" to="." method="_on_button_2_pressed"]

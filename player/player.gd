@@ -29,11 +29,9 @@ var vulnerable = true
 var body_on_water = false
 var lastDirection
 var range = Vector2(68, 68)
-var wood_am = 0
-var stone_am = 0
-var iron_am = 0
 var mirr_footprint = false
 var direction
+var resource_inv = {"wood": 0, "stone": 0, "iron": 0}
 
 func _ready():
 	update_inv()
@@ -75,7 +73,7 @@ func _physics_process(delta):
 			if Input.is_action_pressed("place") and blockDetectionMode:
 				var mp = get_global_mouse_position()
 				if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
-					if wood_am >= 5:
+					if resource_inv["wood"] >= 5:
 						TilePlace.emit(get_global_mouse_position())
 				pass
 			if Input.is_action_just_pressed("block detection mode"):
@@ -159,27 +157,21 @@ func _on_ftp_timer_timeout():
 		mirr_footprint = !mirr_footprint
 	pass
 
-func _give_resources(type, amount):
-	match type:
-		"wood":
-			wood_am += amount
-		"stone":
-			stone_am += amount
-		"iron":
-			iron_am += amount
+func _give_resources(type: String, amount: int):
+	resource_inv[type] += 5
 	update_inv()
 	pass
 	
 func update_inv():
-	$resource_gui/wood_amount.text = str(wood_am)
-	$resource_gui/stone_amount.text = str(stone_am)
-	$resource_gui/iron_amount.text = str(iron_am)
+	$resource_gui/wood_amount.text = str(resource_inv["wood"])
+	$resource_gui/stone_amount.text = str(resource_inv["stone"])
+	$resource_gui/iron_amount.text = str(resource_inv["iron"])
 	pass
 
 func _block_placed(sig):
 	match sig:
 		4:
-			wood_am -= 5
+			resource_inv["wood"] -= 5
 		_:
 			pass
 	update_inv()
