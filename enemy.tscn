@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpjtuo2q0sg3a"]
+
+[ext_resource type="Texture2D" uid="uid://c1ycchdm0kjem" path="res://player/model/received_1267155343965116.jpg" id="1_4opa8"]
+[ext_resource type="Script" path="res://enemy.gd" id="1_qtbhw"]
+[ext_resource type="Script" path="res://PlayerDetect.gd" id="2_cq2cy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_572in"]
+radius = 22.0227
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f4a4o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_4opa8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vmd4n"]
+radius = 454.744
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjhye"]
+bg_color = Color(0.976471, 0, 0, 0.67451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4a85n"]
+bg_color = Color(0, 0.690196, 0, 1)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_qtbhw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_572in")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.0527473, 0.0290859)
+sprite_frames = SubResource("SpriteFrames_f4a4o")
+autoplay = "default"
+
+[node name="PlayerDetect" type="Area2D" parent="."]
+script = ExtResource("2_cq2cy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetect"]
+shape = SubResource("CircleShape2D_vmd4n")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -39.0
+offset_right = 78.0
+offset_bottom = -27.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.439292, 1.00304)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_wjhye")
+theme_override_styles/fill = SubResource("StyleBoxFlat_4a85n")
+value = 100.0
+show_percentage = false
+
+[connection signal="PlayerFound" from="PlayerDetect" to="." method="_on_player_detect_player_found"]
