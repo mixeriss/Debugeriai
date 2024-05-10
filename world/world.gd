@@ -12,14 +12,6 @@ func generate_map():
 	_tilemap.generate_map(size)
 	_borders.set_borders(get_pixel_size())
 
-func get_data_array():
-	return _tilemap.get_data_array(size)
-
-func load_map_from_data_array(data_array):
-	_borders.set_borders(get_pixel_size())
-	_tilemap.load_data_from_array(size, data_array)
-	pass
-
 func find_spawn_point():
 	var coords = Vector2(randi_range(0, size.x-1), randi_range(0, size.y-1))
 	if _tilemap.tile_is_spawnable(coords):
@@ -62,7 +54,6 @@ func _on_TilePlace(mouse_pos):
 	pass
 
 func connect_player(player):
-	player.setCameraLimits(get_pixel_size())
 	player.TileHit.connect(_on_TileHit)
 	player.TileBoom.connect(_on_TileBoom)
 	player.TilePlace.connect(_on_TilePlace)

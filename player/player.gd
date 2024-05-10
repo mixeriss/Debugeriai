@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal HealthDepleted
 signal TileHit(mouse_pos)
 signal TileBoom(mouse_pos)
-signal TilePlace(mouse_pos)
+signal TilePlace(mouse_pos) 
 
 @export var NORMAL_SPEED = 150.0
 @export var SPRINT_MULT = 1.5
@@ -36,10 +36,6 @@ var resource_inv = {"wood": 0, "stone": 0, "iron": 0}
 func _ready():
 	update_inv()
 	pass
-
-func _enter_tree():
-	set_multiplayer_authority(name.to_int())
-	$Camera2D.enabled = is_multiplayer_authority()
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -121,8 +117,8 @@ func _on_water_detection_body_exited(body):
 	pass
 
 func _on_block_detection_timer_timeout():
-	if blockDetectionMode == true:
-		var facingTile = get_parent().get_child(2).get_child(0).FindFacingTile(collision_shape_2d.global_position)
+	#if blockDetectionMode == true:
+		#var facingTile = $World.FindFacingTile(collision_shape_2d.global_position)
 	pass
 
 func _on_dodge_interval_timeout():

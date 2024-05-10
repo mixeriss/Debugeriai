@@ -1,55 +1,10 @@
 extends Node2D
 
-var peer = ENetMultiplayerPeer.new()
-var port = 135
-var generated = false
-
-func generate_map():
+func _ready():
 	$World.generate_map()
-	return $World.get_data_array()
-	pass
-
-func load_map(data_array):
-	$World.load_map_from_data_array(data_array)
-	pass
-
-func get_map_data():
-	return $World.get_data_array()
-
-func _on_join_pressed():
-	peer.create_client("localhost", port)
-	multiplayer.multiplayer_peer = peer
-	$Join.queue_free()
-	$Host.queue_free()
-	pass
-
-func _on_host_pressed():
-	generate_map()
-	peer.create_server(port)
-	multiplayer.multiplayer_peer = peer
-	multiplayer.peer_connected.connect(spawn_player)
-	spawn_player()
-	var canvas = $CanvasLayer
-	var transform = canvas.transform
-	transform.origin = Vector2(20, 70);
-	canvas.transform = transform
-	$Join.queue_free()
-	$Host.queue_free()
-	pass
-
-@rpc
-func receive_map_data(data_array):
-	var scene = load("res://game/game.tscn").instantiate()
-	get_tree().root.add_child(scene)
-	scene.load_map(data_array)
-	pass
-
-func spawn_player(player_id=1):
-	var scene = get_tree().root.get_node("Game")
-	var player = load("res://player/player.tscn").instantiate()  # Instantiate player scene
-	player.name = str(player_id)  # Set player name to player_id
-	player.set_pos($World.find_spawn_point())
-	$World.connect_player(player)
-	add_child(player)  # Add player to the scene
-	rpc("receive_map_data", scene.get_map_data())
+	var coords = $World.find_spawn_point()
+	$Player.set_pos(coords)
+	var px_size = $World.get_pixel_size()
+	$Player.setCameraLimits(px_size)
+	$World.connect_player($Player)
 	pass
