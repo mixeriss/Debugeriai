@@ -6,5 +6,4 @@ func _ready():
 	$Player.set_pos(coords)
 	var px_size = $World.get_pixel_size()
 	$Player.setCameraLimits(px_size)
-	$World.connect_player($Player)
 	pass

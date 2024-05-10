@@ -10,3 +10,9 @@ script = ExtResource("1_npnxe")
 [node name="Player" parent="." instance=ExtResource("3_f55k7")]
 
 [node name="World" parent="." instance=ExtResource("2_dd7tk")]
+
+[connection signal="TileBoom" from="Player" to="World" method="_on_player_tile_boom"]
+[connection signal="TileHit" from="Player" to="World" method="_on_player_tile_hit"]
+[connection signal="TilePlace" from="Player" to="World" method="_on_player_tile_place"]
+[connection signal="_block_breaked" from="World" to="Player" method="_on_world__block_breaked"]
+[connection signal="_block_placed" from="World" to="Player" method="_on_world__block_placed"]

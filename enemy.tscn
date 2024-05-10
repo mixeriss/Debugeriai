@@ -31,6 +31,8 @@ bg_color = Color(0, 0.690196, 0, 1)
 script = ExtResource("1_qtbhw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 2
+visibility_layer = 0
 shape = SubResource("CircleShape2D_572in")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

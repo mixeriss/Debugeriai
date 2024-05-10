@@ -18,6 +18,8 @@ properties/1/replication_mode = 1
 script = ExtResource("1_1dntr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 0
+visibility_layer = 2
 position = Vector2(54.5, 0)
 shape = SubResource("RectangleShape2D_bci6m")
 

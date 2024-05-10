@@ -152,25 +152,11 @@ func _on_ftp_timer_timeout():
 		new_footprint.mirror(mirr_footprint)
 		mirr_footprint = !mirr_footprint
 	pass
-
-func _give_resources(type: String, amount: int):
-	resource_inv[type] += amount
-	update_inv()
-	pass
 	
 func update_inv():
 	$resource_gui/wood_amount.text = str(resource_inv["wood"])
 	$resource_gui/stone_amount.text = str(resource_inv["stone"])
 	$resource_gui/iron_amount.text = str(resource_inv["iron"])
-	pass
-
-func _block_placed(sig):
-	match sig:
-		4:
-			resource_inv["wood"] -= 5
-		_:
-			pass
-	update_inv()
 	pass
 
 func throw_grenade():
@@ -182,3 +168,15 @@ func throw_grenade():
 	newGrenade.activate(mouse_pos)
 	await get_tree().create_timer(2).timeout
 	TileBoom.emit(mouse_pos)
+
+func _on_world__block_breaked(type, amount):
+	resource_inv[type] += amount
+	update_inv()
+
+func _on_world__block_placed(sig):
+	match sig:
+		4:
+			resource_inv["wood"] -= 5
+		_:
+			pass
+	update_inv()
