@@ -20,8 +20,8 @@ signal TilePlace(mouse_pos)
 @onready var dodge_cooldown = %DodgeCooldown
 @onready var progress_bar = %ProgressBar
 @onready var footprint_sprite_2d = %footprintSprite2D
+@onready var hurtbox = %Hurtbox
 
-var alive = true
 var currentSpeed = NORMAL_SPEED
 var blockDetectionMode = false
 var dodging = false
@@ -38,52 +38,56 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	if is_multiplayer_authority():
-		direction = Input.get_vector("left", "right", "up", "down") 
-		if dodging == false:
-			if direction == Vector2.ZERO:
-				sprite_2d.animation = "default"
-			else:
-				sprite_2d.animation = "walk"
-				if(direction.x < 0):
-					sprite_2d.flip_h = true
-				else:
-					sprite_2d.flip_h = false
-			currentSpeed = NORMAL_SPEED
-			if Input.is_action_pressed("sprint"):
-				currentSpeed = NORMAL_SPEED * SPRINT_MULT
-			elif Input.is_action_pressed("crouch"):
-				currentSpeed = NORMAL_SPEED * CROUCH_MULT
-			velocity = direction * currentSpeed
-			lastDirection = direction
+	direction = Input.get_vector("left", "right", "up", "down") 
+	if dodging == false:
+		if direction == Vector2.ZERO:
+			sprite_2d.animation = "default"
 		else:
-			velocity = lastDirection * currentSpeed
-		move_and_slide()
-		if(alive):
-			if Input.is_action_pressed("primary") and !blockDetectionMode:
-				pistol.shoot()
-			if Input.is_action_pressed("primary") and blockDetectionMode:
-				var mp = get_global_mouse_position()
-				if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
-					TileHit.emit(get_global_mouse_position())
-			if Input.is_action_pressed("place") and blockDetectionMode:
-				var mp = get_global_mouse_position()
-				if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
-					if resource_inv["wood"] >= 5:
-						TilePlace.emit(get_global_mouse_position())
-				pass
-			if Input.is_action_just_pressed("block detection mode"):
-				blockDetectionMode = !blockDetectionMode
-				pistol.visible = !blockDetectionMode
-			if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped():
-				dodgeStart()
-			if Input.is_action_just_pressed("melee"):
-				pistol.slice()
-			if Input.is_action_just_pressed("grenade") && GRENADE_COUNT > 0:
-				throw_grenade()
-				GRENADE_COUNT -= 1
-			
-	pass
+			sprite_2d.animation = "walk"
+			if(direction.x < 0):
+				sprite_2d.flip_h = true
+			else:
+				sprite_2d.flip_h = false
+		currentSpeed = NORMAL_SPEED
+		if Input.is_action_pressed("sprint"):
+			currentSpeed = NORMAL_SPEED * SPRINT_MULT
+		elif Input.is_action_pressed("crouch"):
+			currentSpeed = NORMAL_SPEED * CROUCH_MULT
+		velocity = direction * currentSpeed
+		lastDirection = direction
+	else:
+		velocity = lastDirection * currentSpeed
+	move_and_slide()
+	if Input.is_action_pressed("primary") and !blockDetectionMode:
+		pistol.shoot()
+	if Input.is_action_pressed("primary") and blockDetectionMode:
+		var mp = get_global_mouse_position()
+		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
+			TileHit.emit(get_global_mouse_position())
+	if Input.is_action_pressed("place") and blockDetectionMode:
+		var mp = get_global_mouse_position()
+		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
+			if resource_inv["wood"] >= 5:
+				TilePlace.emit(get_global_mouse_position())
+		pass
+	if Input.is_action_just_pressed("block detection mode"):
+		blockDetectionMode = !blockDetectionMode
+		pistol.visible = !blockDetectionMode
+	if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped():
+		dodgeStart()
+	if Input.is_action_just_pressed("melee"):
+		pistol.slice()
+	if Input.is_action_just_pressed("grenade") && GRENADE_COUNT > 0:
+		throw_grenade()
+		GRENADE_COUNT -= 1
+	
+	var overlappingMobs = hurtbox.get_overlapping_bodies()
+	const damageRate = 5.0
+	if overlappingMobs.size() > 0:
+		HEALTH -= damageRate * overlappingMobs.size() * delta
+		progress_bar.value = HEALTH
+		if HEALTH <= 0.0:
+			HealthDepleted.emit()
 
 func dodgeStart():
 	dodging = true;
@@ -116,11 +120,6 @@ func _on_water_detection_body_exited(body):
 	sprite_2d.modulate = Color(1, 1, 1, 1)
 	pass
 
-func _on_block_detection_timer_timeout():
-	#if blockDetectionMode == true:
-		#var facingTile = $World.FindFacingTile(collision_shape_2d.global_position)
-	pass
-
 func _on_dodge_interval_timeout():
 	dodging = false
 	vulnerable = true
@@ -132,11 +131,6 @@ func takeDamage(damage):
 		progress_bar.value = HEALTH
 		if HEALTH <= 0.0:
 			HealthDepleted.emit()
-			visible = false;
-			alive = false
-			collision_shape_2d.disabled = true
-			sprite_2d.animation = "default"
-		
 
 func setCameraLimits(pixel_size):
 	$Camera2D.limit_right = pixel_size.x
@@ -144,7 +138,7 @@ func setCameraLimits(pixel_size):
 	pass
 
 func _on_ftp_timer_timeout():	
-	if (!body_on_water && direction !=  Vector2.ZERO && alive && !Input.is_action_pressed("crouch")):
+	if (!body_on_water && direction !=  Vector2.ZERO && !Input.is_action_pressed("crouch")):
 		const footprint = preload("res://footprint.tscn")
 		var new_footprint = footprint.instantiate()
 		new_footprint.global_position = global_position

@@ -9,7 +9,7 @@ func activate(mousePos):
 	var bodies = get_overlapping_bodies()
 	for x in bodies:
 		if x.has_method("takeDamage"):
-			x.takeDamage(30)
+			x.takeDamage(40)
 	sprite_2d.animation = "explode"
 	await get_tree().create_timer(0.3).timeout
 	queue_free()

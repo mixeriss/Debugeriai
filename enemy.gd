@@ -3,21 +3,18 @@ extends CharacterBody2D
 @export var SPEED = 150.0
 @export var HEALTH = 50.0
 
+@onready var sprite_2d = %AnimatedSprite2D
 @onready var progress_bar = %ProgressBar
-
-var foundPlayer = false;
-var target = null
+@onready var player = get_node("/root/Game/Player")
 
 func _physics_process(delta):
-	if foundPlayer:
-		var direction = global_position.direction_to(target.global_position)
-		velocity = direction * SPEED
-	
+	var direction = global_position.direction_to(player.global_position)
+	velocity = direction * SPEED
+	if(direction.x < 0):
+		sprite_2d.flip_h = true
+	else:
+		sprite_2d.flip_h = false
 	move_and_slide()
-
-func _on_player_detect_player_found(player):
-	var target = player
-	foundPlayer = true
 
 func takeDamage(damage):
 	HEALTH -= damage

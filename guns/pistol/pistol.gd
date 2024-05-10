@@ -28,6 +28,6 @@ func slice():
 	var slashiedEnemies = get_overlapping_bodies()
 	for enemy in slashiedEnemies:
 		if enemy.has_method("takeDamage"):
-			enemy.takeDamage(2)
+			enemy.takeDamage(20)
 	await get_tree().create_timer(0.1).timeout
 	color_rect.visible = false
