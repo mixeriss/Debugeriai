@@ -9,7 +9,7 @@ size = Vector2(6.00007, 18)
 [node name="Area2D" type="Area2D"]
 top_level = true
 collision_layer = 0
-collision_mask = 4
+collision_mask = 5
 script = ExtResource("1_gidgl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
