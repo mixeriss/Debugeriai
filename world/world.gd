@@ -50,6 +50,7 @@ func _on_player_tile_hit(mouse_pos):
 				_block_breaked.emit("stone", randi_range(0, 25))
 				_block_breaked.emit("iron", randi_range(0, 5))
 				_block_breaked.emit("gun", randi_range(0, 9))
+				_block_breaked.emit("grenade", randi_range(0, 2))
 				pass
 			_:
 				pass

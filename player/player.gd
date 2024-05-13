@@ -275,6 +275,8 @@ func update_inv():
 			pass
 		_:
 			pass
+	
+	grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 	pass
 
 func throw_grenade():
@@ -297,6 +299,8 @@ func _on_world__block_breaked(type, amount):
 			newGun = pistolPre.instantiate()
 			add_child(newGun)
 			newGun.visible = false
+	elif type == "grenade":
+		GRENADE_COUNT = GRENADE_COUNT + amount;
 	else:
 		resource_inv[type] += amount
 	update_inv()
