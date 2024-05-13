@@ -160,8 +160,6 @@ autoplay = "default"
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
-limit_left = 0
-limit_top = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
@@ -175,6 +173,7 @@ wait_time = 0.3
 one_shot = true
 
 [node name="MeleeCooldown" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="DodgeCooldown" type="Timer" parent="."]
