@@ -62,6 +62,7 @@ func _physics_process(delta):
 				"grenade":
 					GRENADE_COUNT = GRENADE_COUNT + 1;
 					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
+					pickups[0].queue_free()
 				"pistol":
 					if hasGun == false:
 						inv[2] = "gun"
@@ -71,8 +72,8 @@ func _physics_process(delta):
 						newGun = pistolPre.instantiate()
 						add_child(newGun)
 						newGun.visible = false
-						
-			pickups[0].queue_free()
+						pickups[0].queue_free()
+			
 	
 	#updates score
 	if (currentScore != showingScore):
@@ -126,7 +127,7 @@ func _physics_process(delta):
 		dodgeStart()
 	
 	#melee attack
-	if Input.is_action_just_pressed("melee") && inv[sel_n-1] == "melee":
+	if Input.is_action_just_pressed("primary") && inv[sel_n-1] == "melee" && melee_cooldown.is_stopped():
 		melee.slice()
 		melee_cooldown.start()
 		
