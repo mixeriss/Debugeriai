@@ -45,8 +45,17 @@ func _on_player_tile_hit(mouse_pos):
 			_:
 				pass
 
-func _on_player_tile_place(mouse_pos):
+func _on_player_tile_place(mouse_pos, n):
 	var place_coords = Vector2(floor(mouse_pos.x/_tilemap.tile_set.tile_size.x), floor(mouse_pos.y/_tilemap.tile_set.tile_size.y))
 	if _tilemap.tile_is_spawnable(place_coords):
-		_tilemap.setCell(place_coords, 4)
-		_block_placed.emit(4)
+		match n:
+			1:
+				_tilemap.setCell(place_coords, 4)
+				_block_placed.emit(4)
+				pass
+			2:
+				_tilemap.setCell(place_coords, 5)
+				_block_placed.emit(5)
+				pass
+			_:
+				pass

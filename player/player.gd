@@ -3,7 +3,7 @@ extends CharacterBody2D
 signal HealthDepleted(points)
 signal TileHit(mouse_pos)
 signal TileBoom(mouse_pos)
-signal TilePlace(mouse_pos) 
+signal TilePlace(mouse_pos, n) 
 
 @export var NORMAL_SPEED = 150.0
 @export var SPRINT_MULT = 1.5
@@ -36,6 +36,9 @@ var range = Vector2(68, 68)
 var mirr_footprint = false
 var direction
 var resource_inv = {"wood": 0, "stone": 0, "iron": 0}
+var inv = ["pickaxe", "melee", "", ""]
+var sel_n = 1
+var sel_block_n = 1
 var currentScore = 0
 var showingScore = 0
 var gunName = "none"
@@ -62,6 +65,8 @@ func _physics_process(delta):
 					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 				"pistol":
 					if hasGun == false:
+						inv[2] = "gun"
+						$inventory_gui/inventory_control/inv3item.visible = true
 						gunName = "pistol"
 						hasGun = true
 						newGun = pistolPre.instantiate()
@@ -97,33 +102,31 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	#shoot gun
-	if Input.is_action_pressed("primary") && !blockDetectionMode && hasGun:
+	if Input.is_action_pressed("primary") and inv[sel_n-1] == "gun":
 		newGun.shoot()
 	
 	#break block
-	if Input.is_action_pressed("primary") and blockDetectionMode:
+	if Input.is_action_pressed("primary") and inv[sel_n-1] == "pickaxe":
 		var mp = get_global_mouse_position()
 		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
 			TileHit.emit(get_global_mouse_position())
 	
 	#place block
-	if Input.is_action_pressed("place") and blockDetectionMode:
+	if Input.is_action_pressed("place"):
 		var mp = get_global_mouse_position()
 		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
-			if resource_inv["wood"] >= 5:
-				TilePlace.emit(get_global_mouse_position())
+			if sel_block_n == 1 and resource_inv["wood"] >= 5:
+				TilePlace.emit(get_global_mouse_position(), 1)
+			if sel_block_n == 2 and resource_inv["stone"] >= 5:
+				TilePlace.emit(get_global_mouse_position(), 2)
 		pass
-	if Input.is_action_just_pressed("block detection mode"):
-		blockDetectionMode = !blockDetectionMode
-		if hasGun:
-			newGun.visible = !blockDetectionMode
 	
 	#dodge 
 	if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped():
 		dodgeStart()
 	
 	#melee attack
-	if Input.is_action_just_pressed("melee") && !blockDetectionMode && melee_cooldown.is_stopped():
+	if Input.is_action_just_pressed("melee") && inv[sel_n-1] == "melee":
 		melee.slice()
 		melee_cooldown.start()
 		
@@ -155,6 +158,24 @@ func _input(event):
 	if event.is_action_pressed("zoom out"):
 		if camera_2d.zoom > Vector2(2, 2):
 			camera_2d.zoom = Vector2(camera_2d.zoom.x - 0.5, camera_2d.zoom.y - 0.5)
+	if event.is_action_pressed("inventory_1"):
+		sel_n = 1
+		update_inv()
+	if event.is_action_pressed("inventory_2"):
+		sel_n = 2
+		update_inv()
+	if event.is_action_pressed("inventory_3"):
+		sel_n = 3
+		update_inv()
+	if event.is_action_pressed("inventory_4"):
+		sel_n = 4
+		update_inv()
+	if event.is_action_pressed("select_wood"):
+		sel_block_n = 1
+		update_inv()
+	if event.is_action_pressed("select_stone"):
+		sel_block_n = 2
+		update_inv()
 	pass
 
 func set_pos(pixelCoords):
@@ -204,6 +225,50 @@ func update_inv():
 	$resource_gui/wood_amount.text = str(resource_inv["wood"])
 	$resource_gui/stone_amount.text = str(resource_inv["stone"])
 	$resource_gui/iron_amount.text = str(resource_inv["iron"])
+	
+	$inventory_gui/inventory_control/inv1.visible = true
+	$inventory_gui/inventory_control/inv2.visible = true
+	$inventory_gui/inventory_control/inv3.visible = true
+	$inventory_gui/inventory_control/inv4.visible = true
+	$inventory_gui/inventory_control/inv1s.visible = false
+	$inventory_gui/inventory_control/inv2s.visible = false
+	$inventory_gui/inventory_control/inv3s.visible = false
+	$inventory_gui/inventory_control/inv4s.visible = false
+	match sel_n:
+		1:
+			$inventory_gui/inventory_control/inv1.visible = false
+			$inventory_gui/inventory_control/inv1s.visible = true
+			pass
+		2:
+			$inventory_gui/inventory_control/inv2.visible = false
+			$inventory_gui/inventory_control/inv2s.visible = true
+			pass
+		3:
+			$inventory_gui/inventory_control/inv3.visible = false
+			$inventory_gui/inventory_control/inv3s.visible = true
+			pass
+		4:
+			$inventory_gui/inventory_control/inv4.visible = false
+			$inventory_gui/inventory_control/inv4s.visible = true
+			pass
+		_:
+			pass
+			
+	$inventory_gui/inventory_control/inv5.visible = true
+	$inventory_gui/inventory_control/inv6.visible = true
+	$inventory_gui/inventory_control/inv5s.visible = false
+	$inventory_gui/inventory_control/inv6s.visible = false
+	match sel_block_n:
+		1:
+			$inventory_gui/inventory_control/inv5.visible = false
+			$inventory_gui/inventory_control/inv5s.visible = true
+			pass
+		2:
+			$inventory_gui/inventory_control/inv6.visible = false
+			$inventory_gui/inventory_control/inv6s.visible = true
+			pass
+		_:
+			pass
 	pass
 
 func throw_grenade():
@@ -224,6 +289,8 @@ func _on_world__block_placed(sig):
 	match sig:
 		4:
 			resource_inv["wood"] -= 5
+		5:
+			resource_inv["stone"] -= 5
 		_:
 			pass
 	update_inv()
