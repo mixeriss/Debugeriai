@@ -27,7 +27,7 @@ signal TilePlace(mouse_pos)
 @onready var melee_cooldown = $MeleeCooldown
 
 var currentSpeed = NORMAL_SPEED
-var blockDetectionMode = false
+var blockDetectionMode = true
 var dodging = false
 var vulnerable = true
 var body_on_water = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cpjtuo2q0sg3a"]
+[gd_scene load_steps=14 format=3 uid="uid://cpjtuo2q0sg3a"]
 
 [ext_resource type="Script" path="res://enemy.gd" id="1_qtbhw"]
 [ext_resource type="Texture2D" uid="uid://c7k3gss23o7yj" path="res://sprites/enemy/bot_walking1.png" id="2_6txdl"]
@@ -8,6 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://b4fe4cj3xv8kk" path="res://sprites/enemy/bot_walking5.png" id="6_q3l3v"]
 [ext_resource type="Texture2D" uid="uid://c2l0olecgobhj" path="res://sprites/enemy/bot_walking6.png" id="7_alre0"]
 [ext_resource type="Texture2D" uid="uid://cca6ishxts7xf" path="res://sprites/enemy/bot_walking7.png" id="8_qbisn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8y2lf"]
+size = Vector2(1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7p7rj"]
 size = Vector2(7, 15)
@@ -57,10 +60,17 @@ corner_radius_bottom_left = 8
 
 [node name="Enemy" type="CharacterBody2D"]
 z_index = 2
-collision_layer = 2
-collision_mask = 3
+collision_layer = 4
+collision_mask = 5
 script = ExtResource("1_qtbhw")
 SPEED = 60.0
+
+[node name="WaterDetection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterDetection"]
+shape = SubResource("RectangleShape2D_8y2lf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 4.5)
@@ -99,3 +109,6 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_4a85n")
 max_value = 50.0
 value = 50.0
 show_percentage = false
+
+[connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
+[connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]

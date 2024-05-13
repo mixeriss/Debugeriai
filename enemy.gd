@@ -30,3 +30,12 @@ func takeDamage(damage):
 		player.currentScore += 10
 		queue_free()
 
+func _on_water_detection_body_entered(body):
+	SPEED /= 3
+	sprite_2d.modulate = Color(0.39, 0.61, 1, 0.7)
+	pass
+
+func _on_water_detection_body_exited(body):
+	SPEED *= 3
+	sprite_2d.modulate = Color(1, 1, 1, 1)
+	pass
