@@ -5,7 +5,6 @@ extends Area2D
 @onready var grenade_sprite = $grenadeSprite
 @onready var test = %test
 
-# Called when the node enters the scene tree for the first time.
 func generate():
 	var rng = randi_range(2,2)
 	match rng:
@@ -17,7 +16,7 @@ func generate():
 			label.text = "pistol"
 
 func throw(gunType, pos):
-	label.text = gunType
+	label.text = "pistol"
 	match gunType:
 		"pistol":
 			pistol_sprite.visible = true

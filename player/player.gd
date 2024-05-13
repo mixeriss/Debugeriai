@@ -58,13 +58,16 @@ func _physics_process(delta):
 		var pickups = pick_up_finder.get_overlapping_areas()
 		if pickups.size() > 0:
 			var gunName = pickups[0].label.text
+			print("picking up" + str(gunName))
 			match gunName:
 				"grenade":
 					GRENADE_COUNT = GRENADE_COUNT + 1;
 					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 					pickups[0].queue_free()
 				"pistol":
+					print("yep, picking up pistol")
 					if hasGun == false:
+						print("success?")
 						inv[2] = "gun"
 						$inventory_gui/inventory_control/inv3item.visible = true
 						gunName = "pistol"
@@ -139,6 +142,8 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released("throw") && hasGun:
 		throw_gun()
+		gunName = "none"
+		hasGun = false
 	
 	#calculates number of enemies on player and deals damage
 	var overlappingMobs = hurtbox.get_overlapping_bodies()
@@ -299,10 +304,9 @@ func throw_gun():
 	thrownGun.global_position = global_position
 	get_parent().add_child(thrownGun)
 	thrownGun.throw(gunName, mouse_pos)
-	hasGun = false;
-	gunName = "none"
 	$inventory_gui/inventory_control/inv3item.visible = false
 	newGun.queue_free()
+	
 
 func _on_world__block_breaked(type, amount):
 	if type == "gun":
