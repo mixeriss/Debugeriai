@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bc071osuq2xpx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xuvpm"]
+bg_color = Color(0.45098, 0.623529, 0.756863, 1)
+
+[resource]
+Button/styles/normal = SubResource("StyleBoxFlat_xuvpm")

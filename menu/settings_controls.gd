@@ -27,7 +27,7 @@ func set_action_name() -> void:
 		"sprint":
 			label.text = "Sprint"
 		"primary":
-			label.text = "Shoot"
+			label.text = "Shoot/Break"
 		"zoom in":
 			label.text = "Zoom in"
 		"zoom out":
@@ -42,6 +42,18 @@ func set_action_name() -> void:
 			label.text = "Place block"
 		"grenade":
 			label.text = "Throw grenade"
+		"inventory_1":
+			label.text = "Slot 1"
+		"inventory_2":
+			label.text = "Slot 2"
+		"inventory_3":
+			label.text = "Slot 3"
+		"inventory_4":
+			label.text = "Slot 4"
+		"select_wood":
+			label.text = "Select wood"
+		"select_stone":
+			label.text = "Select stone"
 		"interact":
 			label.text = "Pick up gun"
 		

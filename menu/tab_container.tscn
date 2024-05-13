@@ -177,6 +177,30 @@ action_name = "grenade"
 
 [node name="Rebind15" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
 layout_mode = 2
+action_name = "inventory_1"
+
+[node name="Rebind16" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "inventory_2"
+
+[node name="Rebind17" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "inventory_3"
+
+[node name="Rebind18" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "inventory_4"
+
+[node name="Rebind19" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "select_wood"
+
+[node name="Rebind20" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "select_stone"
+
+[node name="Rebind21" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
 action_name = "interact"
 
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]

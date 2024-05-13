@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cw5l0y2duk2as"]
+[gd_scene load_steps=3 format=3 uid="uid://cw5l0y2duk2as"]
 
 [ext_resource type="Script" path="res://menu/pause.gd" id="1_hjvvt"]
+[ext_resource type="Theme" uid="uid://bc071osuq2xpx" path="res://new_theme.tres" id="2_5o6k1"]
 
 [node name="Pause" type="Control"]
 layout_mode = 3
@@ -20,6 +21,7 @@ offset_bottom = 101.0
 
 [node name="Exit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_5o6k1")
 text = "Exit"
 
 [connection signal="pressed" from="VBoxContainer/Exit" to="." method="_on_exit_pressed"]
