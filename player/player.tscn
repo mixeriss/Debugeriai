@@ -160,6 +160,8 @@ autoplay = "default"
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 

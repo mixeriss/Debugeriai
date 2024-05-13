@@ -70,6 +70,7 @@ func _physics_process(delta):
 						hasGun = true
 						newGun = pistolPre.instantiate()
 						add_child(newGun)
+						newGun.visible = false
 						
 			pickups[0].queue_free()
 	
@@ -111,7 +112,7 @@ func _physics_process(delta):
 			TileHit.emit(get_global_mouse_position())
 	
 	#place block
-	if Input.is_action_pressed("place"):
+	if Input.is_action_pressed("place") and inv[sel_n-1] == "pickaxe":
 		var mp = get_global_mouse_position()
 		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
 			if sel_block_n == 1 and resource_inv["wood"] >= 5:
@@ -225,6 +226,9 @@ func update_inv():
 	$resource_gui/stone_amount.text = str(resource_inv["stone"])
 	$resource_gui/iron_amount.text = str(resource_inv["iron"])
 	
+	if hasGun:
+		newGun.visible = false
+	
 	$inventory_gui/inventory_control/inv1.visible = true
 	$inventory_gui/inventory_control/inv2.visible = true
 	$inventory_gui/inventory_control/inv3.visible = true
@@ -245,6 +249,8 @@ func update_inv():
 		3:
 			$inventory_gui/inventory_control/inv3.visible = false
 			$inventory_gui/inventory_control/inv3s.visible = true
+			if hasGun:
+				newGun.visible = true
 			pass
 		4:
 			$inventory_gui/inventory_control/inv4.visible = false
