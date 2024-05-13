@@ -3,6 +3,7 @@ extends TileMap
 func generate_map(size):
 	generate_land(size)
 	generate_resources(size)
+	generate_chests(size)
 	pass
 
 func generate_land(size):
@@ -36,6 +37,16 @@ func generate_resources(size):
 		for y in size.y:
 			if abs(noise.get_noise_2d(x, y)) > 0.65 and tile_is_spawnable(Vector2(x, y)):
 				set_cell(0, Vector2(x, y), 3, Vector2(0, 0), 0)
+	pass
+	
+func generate_chests(size):
+	var chest_count = 0
+	while chest_count < (size.x + size.y)/5:
+		var ranx = randi_range(0, size.x-1)
+		var rany = randi_range(0, size.y-1)
+		if tile_is_spawnable(Vector2(ranx, rany)):
+			set_cell(0, Vector2(ranx, rany), 6, Vector2(0, 0), 0)
+			chest_count += 1
 	pass
 
 func tile_is_spawnable(coords):

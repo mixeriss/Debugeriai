@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ckmxcyuy7jenn"]
+[gd_scene load_steps=23 format=3 uid="uid://ckmxcyuy7jenn"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_jf2b5"]
 [ext_resource type="Texture2D" uid="uid://oro8upcigrmg" path="res://world/textures/Ground.png" id="2_jvdgo"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://world/tilemap.gd" id="5_bikga"]
 [ext_resource type="Texture2D" uid="uid://du4yrky6wlehb" path="res://world/player_structures/wood_structure.png" id="6_jbi6w"]
 [ext_resource type="Texture2D" uid="uid://dh03cxg7pjxj5" path="res://world/player_structures/stone_structure.png" id="7_t3wn0"]
+[ext_resource type="Texture2D" uid="uid://dkrol6be5mskf" path="res://world/textures/chest.png" id="8_uf8ew"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkv3c"]
 resource_name = "ground"
@@ -79,6 +80,18 @@ texture_region_size = Vector2i(34, 34)
 0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_1/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mxfw0"]
+resource_name = "chest"
+texture = ExtResource("8_uf8ew")
+texture_region_size = Vector2i(34, 34)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-17, -17, 17, -17, 17, 17, -17, 17)
+0:0/0/physics_layer_1/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_1/angular_velocity = 0.0
+0:0/0/custom_data_1 = true
+
 [sub_resource type="TileSet" id="TileSet_djg3t"]
 tile_size = Vector2i(34, 34)
 physics_layer_0/collision_layer = 1
@@ -95,6 +108,7 @@ sources/2 = SubResource("TileSetAtlasSource_hwolf")
 sources/1 = SubResource("TileSetAtlasSource_24aw2")
 sources/4 = SubResource("TileSetAtlasSource_0gjmn")
 sources/5 = SubResource("TileSetAtlasSource_qbktw")
+sources/6 = SubResource("TileSetAtlasSource_mxfw0")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ofkf6"]
 size = Vector2(2, 2)

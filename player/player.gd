@@ -288,8 +288,19 @@ func throw_grenade():
 	TileBoom.emit(mouse_pos)
 
 func _on_world__block_breaked(type, amount):
-	resource_inv[type] += amount
+	if type == "gun":
+		if hasGun == false and amount == 9:
+			inv[2] = "gun"
+			$inventory_gui/inventory_control/inv3item.visible = true
+			gunName = "pistol"
+			hasGun = true
+			newGun = pistolPre.instantiate()
+			add_child(newGun)
+			newGun.visible = false
+	else:
+		resource_inv[type] += amount
 	update_inv()
+	pass
 
 func _on_world__block_placed(sig):
 	match sig:
