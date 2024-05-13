@@ -136,7 +136,7 @@ func _physics_process(delta):
 	#calculates number of enemies on player and deals damage
 	var overlappingMobs = hurtbox.get_overlapping_bodies()
 	const damageRate = 5.0
-	if overlappingMobs.size() > 0:
+	if overlappingMobs.size() > 0 && vulnerable:
 		HEALTH -= damageRate * overlappingMobs.size() * delta
 		progress_bar.value = HEALTH
 		if HEALTH <= 0.0:
