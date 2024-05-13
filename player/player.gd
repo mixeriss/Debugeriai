@@ -103,7 +103,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	#shoot gun
-	if Input.is_action_pressed("primary") and inv[sel_n-1] == "gun":
+	if Input.is_action_pressed("primary") and inv[sel_n-1] == "gun" and hasGun:
 		newGun.shoot()
 	
 	#break block
@@ -136,6 +136,9 @@ func _physics_process(delta):
 		throw_grenade()
 		GRENADE_COUNT -= 1
 		grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
+	
+	if Input.is_action_just_released("throw") && hasGun:
+		throw_gun()
 	
 	#calculates number of enemies on player and deals damage
 	var overlappingMobs = hurtbox.get_overlapping_bodies()
@@ -288,6 +291,18 @@ func throw_grenade():
 	newGrenade.activate(mouse_pos)
 	await get_tree().create_timer(2).timeout
 	TileBoom.emit(mouse_pos)
+
+func throw_gun():
+	const gun = preload("res://gun_pickup.tscn")
+	var thrownGun = gun.instantiate()
+	var mouse_pos = get_global_mouse_position()
+	thrownGun.global_position = global_position
+	get_parent().add_child(thrownGun)
+	thrownGun.throw(gunName, mouse_pos)
+	hasGun = false;
+	gunName = "none"
+	$inventory_gui/inventory_control/inv3item.visible = false
+	newGun.queue_free()
 
 func _on_world__block_breaked(type, amount):
 	if type == "gun":

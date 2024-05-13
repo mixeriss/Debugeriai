@@ -27,6 +27,7 @@ func takeDamage(damage):
 		var newGun = gun.instantiate()
 		newGun.global_position = global_position
 		get_parent().add_child(newGun)
+		newGun.generate()
 		player.currentScore += 10
 		queue_free()
 
