@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ch7snygft3665"]
+[gd_scene load_steps=7 format=3 uid="uid://ch7snygft3665"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_npnxe"]
 [ext_resource type="PackedScene" uid="uid://ckmxcyuy7jenn" path="res://world/world.tscn" id="2_dd7tk"]
 [ext_resource type="PackedScene" uid="uid://cds7b1eobo76o" path="res://menu/over_screen.tscn" id="3_cxuaw"]
 [ext_resource type="PackedScene" uid="uid://dmo51rmnyy3h4" path="res://player/player.tscn" id="3_f55k7"]
+[ext_resource type="Texture2D" uid="uid://mauj3ijqr7fg" path="res://sprites/light.png" id="5_n5c4u"]
 
 [sub_resource type="Curve2D" id="Curve2D_n6lss"]
 _data = {
@@ -29,9 +30,18 @@ rotation = 3.14159
 [node name="overScreen" parent="Player" instance=ExtResource("3_cxuaw")]
 visible = false
 
+[node name="PointLight2D" type="PointLight2D" parent="Player"]
+scale = Vector2(0.671875, 0.671875)
+color = Color(0.992157, 1, 0.917647, 1)
+energy = 0.75
+texture = ExtResource("5_n5c4u")
+
 [node name="MobSpawnTimer" type="Timer" parent="."]
 wait_time = 2.019
 autostart = true
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.180392, 0.180392, 0.180392, 1)
 
 [connection signal="_block_breaked" from="World" to="Player" method="_on_world__block_breaked"]
 [connection signal="_block_placed" from="World" to="Player" method="_on_world__block_placed"]
