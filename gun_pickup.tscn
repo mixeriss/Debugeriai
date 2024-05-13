@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3d12fd1r72as"]
+
+[ext_resource type="Texture2D" uid="uid://cvwsc8ncghr76" path="res://guns/pistol/pistol.png" id="1_kqbyv"]
+[ext_resource type="Script" path="res://gun_pickup.gd" id="1_tvvcn"]
+[ext_resource type="Texture2D" uid="uid://myagkp73kd4s" path="res://guns/pistol/grenade.png" id="3_vrwvg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bds0b"]
+radius = 29.0172
+
+[node name="GunPickup" type="Area2D"]
+script = ExtResource("1_tvvcn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bds0b")
+
+[node name="pistolSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_kqbyv")
+
+[node name="grenadeSprite" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+scale = Vector2(1.125, 0.962963)
+texture = ExtResource("3_vrwvg")
+
+[node name="Label" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0

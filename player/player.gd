@@ -12,7 +12,7 @@ signal TilePlace(mouse_pos)
 @export var HEALTH = 100
 @export var GRENADE_COUNT = 5
 
-@onready var pistol = %Pistol
+@onready var melee = %Melee
 @onready var camera_2d = %Camera2D
 @onready var sprite_2d = %Sprite2D
 @onready var collision_shape_2d = %CollisionShape2D
@@ -22,6 +22,9 @@ signal TilePlace(mouse_pos)
 @onready var footprint_sprite_2d = %footprintSprite2D
 @onready var hurtbox = %Hurtbox
 @onready var scoreUI = %Score
+@onready var pick_up_finder = %PickUpFinder
+@onready var grenade_count_ui = $resource_gui/GrenadeCountUI
+@onready var melee_cooldown = $MeleeCooldown
 
 var currentSpeed = NORMAL_SPEED
 var blockDetectionMode = false
@@ -35,18 +38,44 @@ var direction
 var resource_inv = {"wood": 0, "stone": 0, "iron": 0}
 var currentScore = 0
 var showingScore = 0
+var gunName = "none"
+var hasGun = false
+var newGun
+
+const pistolPre = preload("res://guns/pistol/pistol.tscn")
 
 func _ready():
-	
+	grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 	updateScore(0)
 	var scoreH = preload("res://menu/over_screen.tscn").instantiate()
 	update_inv()
 	pass
 
 func _physics_process(delta):
+	#checks if there are any pickupable guns near the player and picks up the closest one
+	if Input.is_action_just_released("interact"):
+		var pickups = pick_up_finder.get_overlapping_areas()
+		if pickups.size() > 0:
+			var gunName = pickups[0].label.text
+			match gunName:
+				"grenade":
+					GRENADE_COUNT = GRENADE_COUNT + 1;
+					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
+				"pistol":
+					if hasGun == false:
+						gunName = "pistol"
+						hasGun = true
+						newGun = pistolPre.instantiate()
+						add_child(newGun)
+						
+			pickups[0].queue_free()
+	
+	#updates score
 	if (currentScore != showingScore):
 		updateScore(currentScore)
 		showingScore = currentScore
+		
+	#movement
 	direction = Input.get_vector("left", "right", "up", "down") 
 	if dodging == false:
 		if direction == Vector2.ZERO:
@@ -67,12 +96,18 @@ func _physics_process(delta):
 	else:
 		velocity = lastDirection * currentSpeed
 	move_and_slide()
-	if Input.is_action_pressed("primary") and !blockDetectionMode:
-		pistol.shoot()
+	
+	#shoot gun
+	if Input.is_action_pressed("primary") && !blockDetectionMode && hasGun:
+		newGun.shoot()
+	
+	#break block
 	if Input.is_action_pressed("primary") and blockDetectionMode:
 		var mp = get_global_mouse_position()
 		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
 			TileHit.emit(get_global_mouse_position())
+	
+	#place block
 	if Input.is_action_pressed("place") and blockDetectionMode:
 		var mp = get_global_mouse_position()
 		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
@@ -81,15 +116,25 @@ func _physics_process(delta):
 		pass
 	if Input.is_action_just_pressed("block detection mode"):
 		blockDetectionMode = !blockDetectionMode
-		pistol.visible = !blockDetectionMode
+		if hasGun:
+			newGun.visible = !blockDetectionMode
+	
+	#dodge 
 	if Input.is_action_just_pressed("dodge") && dodge_cooldown.is_stopped():
 		dodgeStart()
-	if Input.is_action_just_pressed("melee"):
-		pistol.slice()
+	
+	#melee attack
+	if Input.is_action_just_pressed("melee") && !blockDetectionMode && melee_cooldown.is_stopped():
+		melee.slice()
+		melee_cooldown.start()
+		
+	#throw grenade
 	if Input.is_action_just_pressed("grenade") && GRENADE_COUNT > 0:
 		throw_grenade()
 		GRENADE_COUNT -= 1
+		grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 	
+	#calculates number of enemies on player and deals damage
 	var overlappingMobs = hurtbox.get_overlapping_bodies()
 	const damageRate = 5.0
 	if overlappingMobs.size() > 0:

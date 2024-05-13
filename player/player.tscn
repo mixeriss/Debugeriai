@@ -1,10 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=21 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
+[ext_resource type="PackedScene" uid="uid://fsfokud4uhyg" path="res://melee.tscn" id="2_18dlc"]
 [ext_resource type="Texture2D" uid="uid://dn5ff63j6e6db" path="res://world/textures/idle.png" id="2_m68wf"]
 [ext_resource type="Texture2D" uid="uid://87qwdxgksbxt" path="res://world/textures/1.png" id="3_54suc"]
 [ext_resource type="Texture2D" uid="uid://piqeir80d3vp" path="res://world/resource_textures/rock.png" id="3_ho0c7"]
-[ext_resource type="PackedScene" uid="uid://bylo2vk0wiiit" path="res://guns/pistol/pistol.tscn" id="3_seoce"]
 [ext_resource type="Texture2D" uid="uid://dyytda6rwsoap" path="res://world/textures/2.png" id="4_c17oy"]
 [ext_resource type="Texture2D" uid="uid://bpue84jhpisrj" path="res://world/resource_textures/Iron.png" id="4_snjl6"]
 [ext_resource type="Texture2D" uid="uid://cupxf335juoa2" path="res://world/textures/3.png" id="5_rw311"]
@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://dwlcwk1ll1mlc" path="res://world/textures/6.png" id="8_n232e"]
 [ext_resource type="Texture2D" uid="uid://cy26hb23hkxeu" path="res://world/textures/7.png" id="9_n3fch"]
 [ext_resource type="Texture2D" uid="uid://dc5mr0xq4hbgk" path="res://world/resource_textures/Wood.png" id="11_6t3po"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h52xb"]
+radius = 25.02
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_82rtl"]
 radius = 6.0
@@ -61,24 +64,6 @@ animations = [{
 "speed": 8.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_btydo"]
-script/source = "extends Marker2D
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	look_at(get_global_mouse_position())
-	pass
-"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_gfgd2"]
-radius = 5.09902
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq7xs"]
 bg_color = Color(0.976471, 0, 0, 0.67451)
 corner_radius_top_left = 10
@@ -98,6 +83,14 @@ platform_floor_layers = 4294967040
 platform_wall_layers = 17
 script = ExtResource("1_h50mc")
 NORMAL_SPEED = 100.0
+
+[node name="PickUpFinder" type="Area2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickUpFinder"]
+position = Vector2(1, 0)
+shape = SubResource("CircleShape2D_h52xb")
+debug_color = Color(0, 0.635294, 0.427451, 0.419608)
 
 [node name="Hurtbox" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -122,6 +115,9 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterDetection"]
 shape = SubResource("RectangleShape2D_aa4a0")
 
+[node name="Melee" parent="." instance=ExtResource("2_18dlc")]
+unique_name_in_owner = true
+
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 z_index = 1
@@ -132,28 +128,11 @@ sprite_frames = SubResource("SpriteFrames_411af")
 animation = &"walk"
 autoplay = "default"
 
-[node name="Pistol" parent="." instance=ExtResource("3_seoce")]
-unique_name_in_owner = true
-z_index = 1
-texture_filter = 1
-scale = Vector2(0.5, 0.5)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
-
-[node name="blockDetection" type="Marker2D" parent="."]
-script = SubResource("GDScript_btydo")
-
-[node name="Area2D" type="Area2D" parent="blockDetection"]
-position = Vector2(1, 2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="blockDetection/Area2D"]
-unique_name_in_owner = true
-position = Vector2(42, 0)
-shape = SubResource("CircleShape2D_gfgd2")
 
 [node name="BlockDetectionTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -162,6 +141,9 @@ autostart = true
 [node name="DodgeInterval" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.3
+one_shot = true
+
+[node name="MeleeCooldown" type="Timer" parent="."]
 one_shot = true
 
 [node name="DodgeCooldown" type="Timer" parent="."]
@@ -262,7 +244,7 @@ text = "0"
 [node name="HEALTH" type="Panel" parent="resource_gui"]
 z_index = 1
 offset_left = 19.0
-offset_top = 580.0
+offset_top = 557.0
 offset_right = 936.0
 offset_bottom = 628.0
 scale = Vector2(0.439292, 1.00304)
@@ -274,9 +256,9 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.00981461
-anchor_top = 0.0833333
+anchor_top = 0.478873
 anchor_right = 0.990185
-anchor_bottom = 0.916667
+anchor_bottom = 0.929577
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vq7xs")
@@ -284,6 +266,15 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_ijc83")
 value = 100.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
+
+[node name="GrenadeCountUI" type="Label" parent="resource_gui"]
+z_index = 1
+offset_left = 25.0
+offset_top = 559.0
+offset_right = 143.0
+offset_bottom = 587.0
+theme_override_font_sizes/font_size = 20
+text = "Grenades: "
 
 [node name="Score" type="Label" parent="resource_gui"]
 unique_name_in_owner = true

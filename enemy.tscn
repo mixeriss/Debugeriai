@@ -60,7 +60,7 @@ z_index = 2
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_qtbhw")
-SPEED = 100.0
+SPEED = 75.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_572in")
