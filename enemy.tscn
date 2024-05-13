@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://c2l0olecgobhj" path="res://sprites/enemy/bot_walking6.png" id="7_alre0"]
 [ext_resource type="Texture2D" uid="uid://cca6ishxts7xf" path="res://sprites/enemy/bot_walking7.png" id="8_qbisn"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_572in"]
-radius = 21.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7p7rj"]
+size = Vector2(7, 15)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_f4a4o"]
 animations = [{
@@ -60,16 +60,17 @@ z_index = 2
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_qtbhw")
-SPEED = 75.0
+SPEED = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_572in")
+position = Vector2(-0.5, 4.5)
+shape = SubResource("RectangleShape2D_7p7rj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(0, -4)
-scale = Vector2(1.20588, 1.10204)
+position = Vector2(0, -2)
+scale = Vector2(0.882353, 0.806372)
 sprite_frames = SubResource("SpriteFrames_f4a4o")
 autoplay = "default"
 frame = 3
@@ -77,9 +78,9 @@ frame_progress = 0.486718
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = -20.0
-offset_top = -31.0
+offset_top = -24.0
 offset_right = 71.0
-offset_bottom = -25.0
+offset_bottom = -18.0
 scale = Vector2(0.439292, 1.00304)
 size_flags_horizontal = 4
 size_flags_vertical = 4
