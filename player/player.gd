@@ -113,7 +113,7 @@ func _physics_process(delta):
 			TileHit.emit(get_global_mouse_position())
 	
 	#place block
-	if Input.is_action_pressed("place") and inv[sel_n-1] == "pickaxe":
+	if Input.is_action_pressed("place"):
 		var mp = get_global_mouse_position()
 		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
 			if sel_block_n == 1 and resource_inv["wood"] >= 5:
