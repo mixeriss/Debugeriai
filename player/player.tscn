@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=24 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="PackedScene" uid="uid://fsfokud4uhyg" path="res://melee.tscn" id="2_18dlc"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://dwlcwk1ll1mlc" path="res://world/textures/6.png" id="8_n232e"]
 [ext_resource type="Texture2D" uid="uid://cy26hb23hkxeu" path="res://world/textures/7.png" id="9_n3fch"]
 [ext_resource type="Texture2D" uid="uid://dc5mr0xq4hbgk" path="res://world/resource_textures/Wood.png" id="11_6t3po"]
+[ext_resource type="PackedScene" uid="uid://cw5l0y2duk2as" path="res://menu/pause.tscn" id="14_sndqv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h52xb"]
 radius = 25.02
@@ -77,6 +78,24 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_k1s2f"]
+font_size = 34
+outline_size = 12
+outline_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mmrkl"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(500, 0, 0)
+emission_shape = 3
+emission_box_extents = Vector3(1000, 1, 1)
+direction = Vector3(-1, 1, 0)
+initial_velocity_min = 89.89
+initial_velocity_max = 101.13
+gravity = Vector3(0, 20, 0)
+scale_min = 1.5
+scale_max = 2.0
+color = Color(0.803922, 0.996078, 0.878431, 1)
 
 [node name="Player" type="CharacterBody2D"]
 platform_floor_layers = 4294967040
@@ -278,12 +297,26 @@ text = "Grenades: "
 
 [node name="Score" type="Label" parent="resource_gui"]
 unique_name_in_owner = true
-offset_left = 477.0
-offset_top = 4.0
-offset_right = 633.0
-offset_bottom = 52.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -77.5
+offset_right = 77.5
+offset_bottom = 48.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 30
 text = "Score:"
+label_settings = SubResource("LabelSettings_k1s2f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pause" parent="resource_gui" instance=ExtResource("14_sndqv")]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="resource_gui/Pause"]
+position = Vector2(637, 12)
+amount = 2000
+process_material = SubResource("ParticleProcessMaterial_mmrkl")
+lifetime = 15.0
 
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]

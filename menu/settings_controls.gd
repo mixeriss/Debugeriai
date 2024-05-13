@@ -40,6 +40,10 @@ func set_action_name() -> void:
 			label.text = "Melee"
 		"place":
 			label.text = "Place block"
+		"grenade":
+			label.text = "Throw grenade"
+		"interact":
+			label.text = "Pick up gun"
 		
 func set_text_for_key() -> void:
 	var action_events = InputMap.action_get_events(action_name)

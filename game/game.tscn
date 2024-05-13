@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch7snygft3665"]
+[gd_scene load_steps=6 format=3 uid="uid://ch7snygft3665"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_npnxe"]
 [ext_resource type="PackedScene" uid="uid://ckmxcyuy7jenn" path="res://world/world.tscn" id="2_dd7tk"]
+[ext_resource type="PackedScene" uid="uid://cds7b1eobo76o" path="res://menu/over_screen.tscn" id="3_cxuaw"]
 [ext_resource type="PackedScene" uid="uid://dmo51rmnyy3h4" path="res://player/player.tscn" id="3_f55k7"]
 
 [sub_resource type="Curve2D" id="Curve2D_n6lss"]
@@ -13,6 +14,8 @@ point_count = 5
 [node name="Game" type="Node2D"]
 script = ExtResource("1_npnxe")
 
+[node name="World" parent="." instance=ExtResource("2_dd7tk")]
+
 [node name="Player" parent="." instance=ExtResource("3_f55k7")]
 
 [node name="Path2D" type="Path2D" parent="Player"]
@@ -23,37 +26,17 @@ unique_name_in_owner = true
 position = Vector2(400, 260)
 rotation = 3.14159
 
-[node name="GameOver" type="CanvasLayer" parent="Player"]
-unique_name_in_owner = true
+[node name="overScreen" parent="Player" instance=ExtResource("3_cxuaw")]
 visible = false
-
-[node name="ColorRect" type="ColorRect" parent="Player/GameOver"]
-offset_left = -75.0
-offset_top = -67.0
-offset_right = 1208.0
-offset_bottom = 716.0
-color = Color(0, 0, 0, 0.329412)
-
-[node name="Label" type="Label" parent="Player/GameOver"]
-visible = false
-offset_left = 529.0
-offset_top = 253.0
-offset_right = 657.0
-offset_bottom = 341.0
-theme_override_font_sizes/font_size = 25
-text = "G A M E 
-O V E R"
-
-[node name="World" parent="." instance=ExtResource("2_dd7tk")]
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
 wait_time = 2.019
 autostart = true
 
+[connection signal="_block_breaked" from="World" to="Player" method="_on_world__block_breaked"]
+[connection signal="_block_placed" from="World" to="Player" method="_on_world__block_placed"]
 [connection signal="HealthDepleted" from="Player" to="." method="_on_player_health_depleted"]
 [connection signal="TileBoom" from="Player" to="World" method="_on_player_tile_boom"]
 [connection signal="TileHit" from="Player" to="World" method="_on_player_tile_hit"]
 [connection signal="TilePlace" from="Player" to="World" method="_on_player_tile_place"]
-[connection signal="_block_breaked" from="World" to="Player" method="_on_world__block_breaked"]
-[connection signal="_block_placed" from="World" to="Player" method="_on_world__block_placed"]
 [connection signal="timeout" from="MobSpawnTimer" to="." method="_on_mob_spawn_timer_timeout"]
