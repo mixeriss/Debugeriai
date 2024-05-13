@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal HealthDepleted
+signal HealthDepleted(points)
 signal TileHit(mouse_pos)
 signal TileBoom(mouse_pos)
 signal TilePlace(mouse_pos) 
@@ -47,7 +47,6 @@ const pistolPre = preload("res://guns/pistol/pistol.tscn")
 func _ready():
 	grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 	updateScore(0)
-	var scoreH = preload("res://menu/over_screen.tscn").instantiate()
 	update_inv()
 	pass
 
@@ -141,7 +140,7 @@ func _physics_process(delta):
 		HEALTH -= damageRate * overlappingMobs.size() * delta
 		progress_bar.value = HEALTH
 		if HEALTH <= 0.0:
-			HealthDepleted.emit()
+			HealthDepleted.emit(currentScore)
 
 func dodgeStart():
 	dodging = true;
@@ -184,9 +183,7 @@ func takeDamage(damage):
 		HEALTH -= damage
 		progress_bar.value = HEALTH
 		if HEALTH <= 0.0:
-			HealthDepleted.emit()
-			await get_tree().create_timer(1).timeout
-			get_tree().change_scene_to_file("res://menu/over_screen.tscn")
+			HealthDepleted.emit(currentScore)
 
 func setCameraLimits(pixel_size):
 	$Camera2D.limit_right = pixel_size.x
