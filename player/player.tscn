@@ -285,6 +285,15 @@ value = 100.0
 show_percentage = false
 metadata/_edit_use_anchors_ = true
 
+[node name="Score" type="Label" parent="resource_gui"]
+unique_name_in_owner = true
+offset_left = 477.0
+offset_top = 4.0
+offset_right = 633.0
+offset_bottom = 52.0
+theme_override_font_sizes/font_size = 30
+text = "Score:"
+
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]
 [connection signal="timeout" from="BlockDetectionTimer" to="." method="_on_block_detection_timer_timeout"]

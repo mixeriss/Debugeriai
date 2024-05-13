@@ -21,6 +21,7 @@ signal TilePlace(mouse_pos)
 @onready var progress_bar = %ProgressBar
 @onready var footprint_sprite_2d = %footprintSprite2D
 @onready var hurtbox = %Hurtbox
+@onready var scoreUI = %Score
 
 var currentSpeed = NORMAL_SPEED
 var blockDetectionMode = false
@@ -32,12 +33,20 @@ var range = Vector2(68, 68)
 var mirr_footprint = false
 var direction
 var resource_inv = {"wood": 0, "stone": 0, "iron": 0}
+var currentScore = 0
+var showingScore = 0
 
 func _ready():
+	
+	updateScore(0)
+	var scoreH = preload("res://menu/over_screen.tscn").instantiate()
 	update_inv()
 	pass
 
 func _physics_process(delta):
+	if (currentScore != showingScore):
+		updateScore(currentScore)
+		showingScore = currentScore
 	direction = Input.get_vector("left", "right", "up", "down") 
 	if dodging == false:
 		if direction == Vector2.ZERO:
@@ -131,6 +140,8 @@ func takeDamage(damage):
 		progress_bar.value = HEALTH
 		if HEALTH <= 0.0:
 			HealthDepleted.emit()
+			await get_tree().create_timer(1).timeout
+			get_tree().change_scene_to_file("res://menu/over_screen.tscn")
 
 func setCameraLimits(pixel_size):
 	$Camera2D.limit_right = pixel_size.x
@@ -174,3 +185,6 @@ func _on_world__block_placed(sig):
 		_:
 			pass
 	update_inv()
+
+func updateScore(value):
+	scoreUI.text = "Score: " + str(value)

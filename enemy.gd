@@ -20,4 +20,6 @@ func takeDamage(damage):
 	HEALTH -= damage
 	progress_bar.value = HEALTH
 	if HEALTH <= 0.0:
+		player.currentScore += 10
 		queue_free()
+

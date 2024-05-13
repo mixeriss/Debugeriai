@@ -21,7 +21,7 @@ func _on_mob_spawn_timer_timeout():
 	spawn_mob()
 
 func _on_player_health_depleted():
-	get_tree().paused = true
+	#get_tree().paused = true
 	game_over.visible = true;
 	#await get_tree().create_timer(5).timeout
 	#get_tree().change_scene_to_file("res://menu/menu.tscn")

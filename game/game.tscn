@@ -35,6 +35,7 @@ offset_bottom = 716.0
 color = Color(0, 0, 0, 0.329412)
 
 [node name="Label" type="Label" parent="Player/GameOver"]
+visible = false
 offset_left = 529.0
 offset_top = 253.0
 offset_right = 657.0
