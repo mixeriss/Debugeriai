@@ -354,6 +354,7 @@ offset_bottom = 75.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv3" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 180.0
 offset_top = 25.0
 offset_right = 230.0
@@ -361,6 +362,7 @@ offset_bottom = 75.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv4" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 250.0
 offset_top = 25.0
 offset_right = 300.0
@@ -369,6 +371,7 @@ texture = ExtResource("15_cpkas")
 
 [node name="inv1s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+layout_mode = 0
 offset_left = 40.0
 offset_top = 25.0
 offset_right = 90.0
@@ -377,6 +380,7 @@ texture = ExtResource("16_in5tk")
 
 [node name="inv2s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+layout_mode = 0
 offset_left = 110.0
 offset_top = 25.0
 offset_right = 160.0
@@ -385,6 +389,7 @@ texture = ExtResource("16_in5tk")
 
 [node name="inv3s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+layout_mode = 0
 offset_left = 180.0
 offset_top = 25.0
 offset_right = 230.0
@@ -393,6 +398,7 @@ texture = ExtResource("16_in5tk")
 
 [node name="inv4s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+layout_mode = 0
 offset_left = 250.0
 offset_top = 25.0
 offset_right = 300.0
@@ -400,6 +406,7 @@ offset_bottom = 75.0
 texture = ExtResource("16_in5tk")
 
 [node name="inv1item" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 25.0
 offset_right = 90.0
@@ -407,6 +414,7 @@ offset_bottom = 75.0
 texture = ExtResource("17_aolme")
 
 [node name="inv2item" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 110.0
 offset_top = 25.0
 offset_right = 160.0
@@ -415,6 +423,7 @@ texture = ExtResource("18_pmjiv")
 
 [node name="inv3item" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+layout_mode = 0
 offset_left = 180.0
 offset_top = 25.0
 offset_right = 230.0
@@ -422,6 +431,7 @@ offset_bottom = 75.0
 texture = ExtResource("19_450td")
 
 [node name="inv5" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 40.0
 offset_top = 85.0
 offset_right = 90.0
@@ -429,6 +439,7 @@ offset_bottom = 135.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv6" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 110.0
 offset_top = 85.0
 offset_right = 160.0
@@ -437,6 +448,7 @@ texture = ExtResource("15_cpkas")
 
 [node name="inv5s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+layout_mode = 0
 offset_left = 40.0
 offset_top = 85.0
 offset_right = 90.0
@@ -445,6 +457,7 @@ texture = ExtResource("16_in5tk")
 
 [node name="inv6s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+layout_mode = 0
 offset_left = 110.0
 offset_top = 85.0
 offset_right = 160.0
@@ -452,6 +465,7 @@ offset_bottom = 135.0
 texture = ExtResource("16_in5tk")
 
 [node name="inv5item" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 48.0
 offset_top = 92.0
 offset_right = 82.0
@@ -460,6 +474,7 @@ texture = ExtResource("20_t7dme")
 expand_mode = 1
 
 [node name="inv6item" type="TextureRect" parent="inventory_gui/inventory_control"]
+layout_mode = 0
 offset_left = 118.0
 offset_top = 92.0
 offset_right = 152.0
