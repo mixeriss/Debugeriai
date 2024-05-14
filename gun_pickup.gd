@@ -6,7 +6,7 @@ extends Area2D
 @onready var test = %test
 
 func generate():
-	var rng = randi_range(2,2)
+	var rng = randi_range(0,0)
 	match rng:
 		1:
 			grenade_sprite.visible = true

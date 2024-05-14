@@ -58,16 +58,13 @@ func _physics_process(delta):
 		var pickups = pick_up_finder.get_overlapping_areas()
 		if pickups.size() > 0:
 			var gunName = pickups[0].label.text
-			print("picking up" + str(gunName))
 			match gunName:
 				"grenade":
 					GRENADE_COUNT = GRENADE_COUNT + 1;
 					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 					pickups[0].queue_free()
 				"pistol":
-					print("yep, picking up pistol")
 					if hasGun == false:
-						print("success?")
 						inv[2] = "gun"
 						$inventory_gui/inventory_control/inv3item.visible = true
 						gunName = "pistol"
