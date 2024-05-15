@@ -11,10 +11,20 @@ func _process(delta):
 func pauseMenu():
 	if paused:
 		pause_menu.hide()
+		#$Player/inventory_gui.visible = true
+		#$Player/resource_gui.visible = true
+		$CanvasLayer/Blur.visible = false
+		$Player/inventory_gui/inventory_control/Blur.visible = false
+		$Player/inventory_gui/Blur.visible = false
 		$Player.set_physics_process(true)
 		Engine.time_scale = 1
 	else:
 		pause_menu.show()
+		#$Player/inventory_gui.visible = false
+		#$Player/resource_gui.visible = false
+		$CanvasLayer/Blur.visible = true
+		$Player/inventory_gui/inventory_control/Blur.visible = true
+		$Player/inventory_gui/Blur.visible = true
 		$Player.set_physics_process(false)
 		Engine.time_scale = 0
 	paused = !paused

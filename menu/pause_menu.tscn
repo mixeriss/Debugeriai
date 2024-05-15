@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bplu78msqxbxp"]
+[gd_scene load_steps=3 format=3 uid="uid://bplu78msqxbxp"]
 
 [ext_resource type="Script" path="res://menu/PauseMenu.gd" id="1_wof3t"]
-[ext_resource type="Shader" path="res://menu/pause_menu.gdshader" id="2_q6p3r"]
 [ext_resource type="Theme" uid="uid://dqnnvcqlfco0w" path="res://menu/buttonMenuTheme.tres" id="3_bvwv2"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_urhgs"]
-shader = ExtResource("2_q6p3r")
-shader_parameter/amount = 3.0
 
 [node name="PauseMenu" type="Control"]
 layout_mode = 3
@@ -20,12 +15,6 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wof3t")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_urhgs")
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
