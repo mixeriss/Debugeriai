@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=31 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="PackedScene" uid="uid://fsfokud4uhyg" path="res://melee.tscn" id="2_18dlc"]
@@ -90,6 +90,19 @@ corner_radius_bottom_left = 10
 font_size = 34
 outline_size = 12
 outline_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ng02q"]
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(100, 0, 0)
+emission_shape = 3
+emission_box_extents = Vector3(1000, 1, 1)
+direction = Vector3(-3, 0, 0)
+initial_velocity_min = 55.55
+initial_velocity_max = 92.58
+gravity = Vector3(0, 20, 0)
+scale_min = 1.5
+scale_max = 2.0
+color = Color(0, 0.85098, 0.854902, 1)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 5
@@ -310,6 +323,11 @@ label_settings = SubResource("LabelSettings_k1s2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="resource_gui/Score"]
+amount = 500
+process_material = SubResource("ParticleProcessMaterial_ng02q")
+lifetime = 10.0
+
 [node name="inventory_gui" type="CanvasLayer" parent="."]
 
 [node name="inventory_control" type="Control" parent="inventory_gui"]
@@ -473,7 +491,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -792.0
 offset_top = 535.0
-offset_right = 32.0
+offset_right = 469.0
 offset_bottom = 503.0
 grow_horizontal = 2
 grow_vertical = 2

@@ -17,6 +17,7 @@ func pauseMenu():
 		$Player/inventory_gui/inventory_control/Blur.visible = false
 		$Player/inventory_gui/Blur.visible = false
 		$Player.set_physics_process(true)
+		$Player/resource_gui/Score/GPUParticles2D.visible = true
 		Engine.time_scale = 1
 	else:
 		pause_menu.show()
@@ -25,6 +26,7 @@ func pauseMenu():
 		$CanvasLayer/Blur.visible = true
 		$Player/inventory_gui/inventory_control/Blur.visible = true
 		$Player/inventory_gui/Blur.visible = true
+		$Player/resource_gui/Score/GPUParticles2D.visible = false
 		$Player.set_physics_process(false)
 		Engine.time_scale = 0
 	paused = !paused
