@@ -2,6 +2,22 @@ extends Node2D
 
 @onready var path_follow_2d = %PathFollow2D
 @onready var game_over = %GameOver
+@onready var pause_menu = $CanvasLayer/PauseMenu
+var paused = false
+
+func _process(delta):
+	if Input.is_action_just_pressed('pause'):
+		pauseMenu()
+func pauseMenu():
+	if paused:
+		pause_menu.hide()
+		$Player.set_physics_process(true)
+		Engine.time_scale = 1
+	else:
+		pause_menu.show()
+		$Player.set_physics_process(false)
+		Engine.time_scale = 0
+	paused = !paused
 
 func _ready():
 	$World.generate_map()

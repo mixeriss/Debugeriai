@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch7snygft3665"]
+[gd_scene load_steps=8 format=3 uid="uid://ch7snygft3665"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_npnxe"]
 [ext_resource type="PackedScene" uid="uid://ckmxcyuy7jenn" path="res://world/world.tscn" id="2_dd7tk"]
 [ext_resource type="PackedScene" uid="uid://cds7b1eobo76o" path="res://menu/over_screen.tscn" id="3_cxuaw"]
 [ext_resource type="PackedScene" uid="uid://dmo51rmnyy3h4" path="res://player/player.tscn" id="3_f55k7"]
 [ext_resource type="Texture2D" uid="uid://mauj3ijqr7fg" path="res://sprites/light.png" id="5_n5c4u"]
+[ext_resource type="PackedScene" uid="uid://bplu78msqxbxp" path="res://menu/pause_menu.tscn" id="6_l553b"]
 
 [sub_resource type="Curve2D" id="Curve2D_n6lss"]
 _data = {
@@ -42,6 +43,20 @@ autostart = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("6_l553b")]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 9.0
+offset_top = 7.0
+offset_right = 9.0
+offset_bottom = 7.0
 
 [connection signal="_block_breaked" from="World" to="Player" method="_on_world__block_breaked"]
 [connection signal="_block_placed" from="World" to="Player" method="_on_world__block_placed"]
