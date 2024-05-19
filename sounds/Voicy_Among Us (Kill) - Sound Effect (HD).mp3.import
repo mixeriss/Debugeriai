@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://8ysylv1q23op"
+path="res://.godot/imported/Voicy_Among Us (Kill) - Sound Effect (HD).mp3-635779fc12e1e9ff0cec79874e902554.mp3str"
+
+[deps]
+
+source_file="res://sounds/Voicy_Among Us (Kill) - Sound Effect (HD).mp3"
+dest_files=["res://.godot/imported/Voicy_Among Us (Kill) - Sound Effect (HD).mp3-635779fc12e1e9ff0cec79874e902554.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

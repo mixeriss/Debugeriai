@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dael5fsboj5wm"]
+[gd_scene load_steps=7 format=3 uid="uid://dael5fsboj5wm"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_nsj62"]
-[ext_resource type="Texture2D" uid="uid://drx5vwsquj5a" path="res://menu/DALL·E 2024-03-04 18.22.54 - game background with tree, materials, dominant green and blue color, digital art.png" id="2_o8h4t"]
-[ext_resource type="Theme" uid="uid://bc46ow2hbei3u" path="res://menu/buttonsStyle.tres" id="3_tjoyd"]
+[ext_resource type="Texture2D" uid="uid://cf073dpua63st" path="res://menu/wliv_hcm0_200619.jpg" id="2_5fap5"]
 [ext_resource type="Texture2D" uid="uid://c08tvx4mjk8rf" path="res://menu/cooltext453444100061905.png" id="4_7rshv"]
+[ext_resource type="Theme" uid="uid://dqnnvcqlfco0w" path="res://menu/buttonMenuTheme.tres" id="4_yvmxb"]
 [ext_resource type="PackedScene" uid="uid://docv67bssy33n" path="res://menu/options_menu.tscn" id="5_am23a"]
+[ext_resource type="AudioStream" uid="uid://bmbr66cq86jay" path="res://sounds/mortal-gaming-144000.mp3" id="6_6elvy"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -18,12 +19,13 @@ grow_vertical = 2
 script = ExtResource("1_nsj62")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 2
-offset_left = -5.0
-offset_top = -9.0
-offset_right = 1298.0
-offset_bottom = 654.0
-texture = ExtResource("2_o8h4t")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5fap5")
 expand_mode = 2
 
 [node name="TextureRect2" type="TextureRect" parent="."]
@@ -33,10 +35,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -272.5
-offset_top = -81.5
-offset_right = 272.5
-offset_bottom = 81.5
+offset_left = -271.0
+offset_top = -176.0
+offset_right = 274.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_7rshv")
@@ -48,9 +50,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -150.0
-offset_top = -164.0
-offset_right = 151.0
+offset_left = -167.0
+offset_top = -117.0
+offset_right = 164.0
 grow_horizontal = 2
 grow_vertical = 0
 
@@ -61,24 +63,29 @@ layout_mode = 2
 show_behind_parent = true
 layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
-theme = ExtResource("3_tjoyd")
+theme = ExtResource("4_yvmxb")
 action_mode = 0
 text = "Start"
 
 [node name="OptionsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("3_tjoyd")
+theme = ExtResource("4_yvmxb")
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartButton")
-theme = ExtResource("3_tjoyd")
+theme = ExtResource("4_yvmxb")
 text = "Quit "
 
 [node name="OptionsMenu" parent="." instance=ExtResource("5_am23a")]
 visible = false
 layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_6elvy")
+volume_db = -17.87
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=33 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="PackedScene" uid="uid://fsfokud4uhyg" path="res://melee.tscn" id="2_18dlc"]
@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://du4yrky6wlehb" path="res://world/player_structures/wood_structure.png" id="20_t7dme"]
 [ext_resource type="Texture2D" uid="uid://dh03cxg7pjxj5" path="res://world/player_structures/stone_structure.png" id="21_h2m7y"]
 [ext_resource type="Material" uid="uid://by1w4avt6re86" path="res://menu/blur.tres" id="21_wkymn"]
+[ext_resource type="AudioStream" uid="uid://bisbk5qpxj1vg" path="res://sounds/footsteps-dirt-gravel-6823.mp3" id="22_vyd6k"]
+[ext_resource type="AudioStream" uid="uid://dh56qjweang1k" path="res://sounds/Asian-Graveyard-Remastered(chosic.com).mp3" id="23_iw3r1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h52xb"]
 radius = 25.02
@@ -91,18 +93,18 @@ font_size = 34
 outline_size = 12
 outline_color = Color(0.0313726, 0.0313726, 0.0313726, 1)
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ng02q"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vax70"]
 particle_flag_disable_z = true
 emission_shape_offset = Vector3(100, 0, 0)
 emission_shape = 3
 emission_box_extents = Vector3(1000, 1, 1)
 direction = Vector3(-3, 0, 0)
-initial_velocity_min = 55.55
-initial_velocity_max = 92.58
+initial_velocity_min = 46.29
+initial_velocity_max = 92.59
 gravity = Vector3(0, 20, 0)
 scale_min = 1.5
 scale_max = 2.0
-color = Color(0, 0.85098, 0.854902, 1)
+color = Color(0.717647, 0.980392, 0.960784, 1)
 
 [node name="Player" type="CharacterBody2D"]
 collision_mask = 5
@@ -110,7 +112,6 @@ motion_mode = 1
 platform_floor_layers = 4294967040
 platform_wall_layers = 17
 script = ExtResource("1_h50mc")
-NORMAL_SPEED = 100.0
 
 [node name="PickUpFinder" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -164,6 +165,10 @@ limit_left = 0
 limit_top = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
+
+[node name="ShootCooldown" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
 
 [node name="BlockDetectionTimer" type="Timer" parent="."]
 wait_time = 0.2
@@ -325,7 +330,7 @@ vertical_alignment = 1
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="resource_gui/Score"]
 amount = 500
-process_material = SubResource("ParticleProcessMaterial_ng02q")
+process_material = SubResource("ParticleProcessMaterial_vax70")
 lifetime = 10.0
 
 [node name="inventory_gui" type="CanvasLayer" parent="."]
@@ -508,6 +513,16 @@ offset_right = 952.0
 offset_bottom = -508.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_vyd6k")
+volume_db = 14.4
+pitch_scale = 1.61
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("23_iw3r1")
+volume_db = -13.6
+autoplay = true
 
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]

@@ -38,9 +38,11 @@ func _on_player_tile_hit(mouse_pos):
 		var type = _tilemap.break_tile(hit_coords)
 		match type:
 			2:
+				$BreakWood.play()
 				_block_breaked.emit("wood", 5)
 				pass
 			3:
+				$BreakRock.play()
 				_block_breaked.emit("stone", 5)
 				if randi_range(0, 2) == 2:
 					_block_breaked.emit("iron", 1)

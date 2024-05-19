@@ -3,6 +3,7 @@ extends Area2D
 @onready var shootingpoint = %shootingPoint
 @onready var firerate = %firerate
 @onready var sprite_2d = $weaponPivot/Sprite2D
+var is_shooting = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -11,7 +12,6 @@ func _process(delta):
 		sprite_2d.flip_v = true
 	else:
 		sprite_2d.flip_v = false
-
 func shoot():
 		if firerate.is_stopped():
 			const PROJECTILE = preload("res://guns/pistol/pistolProjectile.tscn")

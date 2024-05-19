@@ -5,7 +5,7 @@ signal TileHit(mouse_pos)
 signal TileBoom(mouse_pos)
 signal TilePlace(mouse_pos, n) 
 
-@export var NORMAL_SPEED = 150.0
+@export var NORMAL_SPEED = 100.0
 @export var SPRINT_MULT = 1.5
 @export var CROUCH_MULT = 0.5
 @export var DODGE_MULTIPLIER = 2.0
@@ -25,6 +25,8 @@ signal TilePlace(mouse_pos, n)
 @onready var pick_up_finder = %PickUpFinder
 @onready var grenade_count_ui = $resource_gui/GrenadeCountUI
 @onready var melee_cooldown = $MeleeCooldown
+@onready var footStepAudio = $AudioStreamPlayer
+@onready var shoot_cooldown = $ShootCooldown
 
 var currentSpeed = NORMAL_SPEED
 var dodging = false
@@ -102,9 +104,14 @@ func _physics_process(delta):
 		velocity = lastDirection * currentSpeed
 	move_and_slide()
 	
+	if sprite_2d.animation != "walk":
+			footStepAudio.play()
 	#shoot gun
-	if Input.is_action_pressed("primary") and inv[sel_n-1] == "gun" and hasGun:
+	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and shoot_cooldown.is_stopped():
 		newGun.shoot()
+		$ShootSound.play()
+		shoot_cooldown.start()
+		
 	
 	#break block
 	if Input.is_action_pressed("primary") and inv[sel_n-1] == "pickaxe":
@@ -210,6 +217,8 @@ func takeDamage(damage):
 		HEALTH -= damage
 		progress_bar.value = HEALTH
 		if HEALTH <= 0.0:
+			footStepAudio.stop()
+			$AudioStreamPlayer2.stop()
 			HealthDepleted.emit(currentScore)
 
 func setCameraLimits(pixel_size):

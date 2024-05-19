@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ckmxcyuy7jenn"]
+[gd_scene load_steps=25 format=3 uid="uid://ckmxcyuy7jenn"]
 
 [ext_resource type="Script" path="res://world/world.gd" id="1_jf2b5"]
 [ext_resource type="Texture2D" uid="uid://oro8upcigrmg" path="res://world/textures/Ground.png" id="2_jvdgo"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://du4yrky6wlehb" path="res://world/player_structures/wood_structure.png" id="6_jbi6w"]
 [ext_resource type="Texture2D" uid="uid://dh03cxg7pjxj5" path="res://world/player_structures/stone_structure.png" id="7_t3wn0"]
 [ext_resource type="Texture2D" uid="uid://dkrol6be5mskf" path="res://world/textures/chest.png" id="8_uf8ew"]
+[ext_resource type="AudioStream" uid="uid://b7gsdrqguxbvr" path="res://sounds/crate-break-1-93926.mp3" id="11_2o2xg"]
+[ext_resource type="AudioStream" uid="uid://vtn7xd8o0tpt" path="res://sounds/rock-destroy-6409.mp3" id="12_353yw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pkv3c"]
 resource_name = "ground"
@@ -150,3 +152,13 @@ shape = SubResource("RectangleShape2D_oq2da")
 [node name="RightBorder" type="CollisionShape2D" parent="Borders"]
 scale = Vector2(1e-05, 1e-05)
 shape = SubResource("RectangleShape2D_ukay7")
+
+[node name="BreakWood" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_2o2xg")
+volume_db = -9.6
+pitch_scale = 1.64
+
+[node name="BreakRock" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_353yw")
+volume_db = -17.6
+pitch_scale = 1.43
