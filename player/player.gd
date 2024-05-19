@@ -129,8 +129,17 @@ func _physics_process(delta):
 			"pistol":
 				if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
 					var beforeReload = newGun.ammo_count
-					newGun.ammo_count += newGun.mag_size - beforeReload
-					lightAmmo -= newGun.mag_size - beforeReload
+					var needToAdd = newGun.mag_size - beforeReload
+					if lightAmmo / newGun.mag_size > 1:
+						newGun.ammo_count += needToAdd
+						lightAmmo -= needToAdd
+					else:
+						if lightAmmo > needToAdd:
+							newGun.ammo_count += needToAdd
+							lightAmmo -= needToAdd
+						else:
+							newGun.ammo_count += lightAmmo
+							lightAmmo = 0
 		if lightAmmo < 0:
 			lightAmmo = 0
 		if mediumAmmo < 0:
