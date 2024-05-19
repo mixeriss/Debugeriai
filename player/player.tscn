@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=36 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="PackedScene" uid="uid://fsfokud4uhyg" path="res://melee.tscn" id="2_18dlc"]
@@ -13,8 +13,11 @@
 [ext_resource type="Texture2D" uid="uid://dwlcwk1ll1mlc" path="res://world/textures/6.png" id="8_n232e"]
 [ext_resource type="Texture2D" uid="uid://cy26hb23hkxeu" path="res://world/textures/7.png" id="9_n3fch"]
 [ext_resource type="Texture2D" uid="uid://dc5mr0xq4hbgk" path="res://world/resource_textures/Wood.png" id="11_6t3po"]
+[ext_resource type="Texture2D" uid="uid://drjk7jajxhcgu" path="res://sprites/gun ammo logo.png" id="14_fxnv8"]
 [ext_resource type="Texture2D" uid="uid://baqe54kromcoq" path="res://player/model/unselectedFrame.png" id="15_cpkas"]
+[ext_resource type="Texture2D" uid="uid://btbnfvrkk35ji" path="res://sprites/bullets1.png" id="15_nreeu"]
 [ext_resource type="Texture2D" uid="uid://jnhtjrsil8ht" path="res://player/model/selectedFrame.png" id="16_in5tk"]
+[ext_resource type="Texture2D" uid="uid://brnjhosqnxb0g" path="res://sprites/bullets2.png" id="16_nglqh"]
 [ext_resource type="Texture2D" uid="uid://bmsor3kmeiono" path="res://player/model/pickaxe.png" id="17_aolme"]
 [ext_resource type="Texture2D" uid="uid://b8g31dg5w38ql" path="res://player/model/Sword.png" id="18_pmjiv"]
 [ext_resource type="Texture2D" uid="uid://cvwsc8ncghr76" path="res://guns/pistol/pistol.png" id="19_450td"]
@@ -166,10 +169,6 @@ limit_top = 0
 position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 
-[node name="ShootCooldown" type="Timer" parent="."]
-wait_time = 0.7
-one_shot = true
-
 [node name="BlockDetectionTimer" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
@@ -280,8 +279,9 @@ text = "0"
 
 [node name="HEALTH" type="Panel" parent="resource_gui"]
 z_index = 1
+texture_filter = 1
 offset_left = 19.0
-offset_top = 557.0
+offset_top = 559.0
 offset_right = 936.0
 offset_bottom = 628.0
 scale = Vector2(0.439292, 1.00304)
@@ -293,9 +293,9 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.00981461
-anchor_top = 0.478873
-anchor_right = 0.990185
-anchor_bottom = 0.929577
+anchor_top = 0.565217
+anchor_right = 0.811341
+anchor_bottom = 0.927536
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_vq7xs")
@@ -306,10 +306,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="GrenadeCountUI" type="Label" parent="resource_gui"]
 z_index = 1
-offset_left = 25.0
-offset_top = 559.0
-offset_right = 143.0
-offset_bottom = 587.0
+offset_left = 28.0
+offset_top = 563.0
+offset_right = 136.0
+offset_bottom = 597.0
 theme_override_font_sizes/font_size = 20
 text = "Grenades: "
 
@@ -332,6 +332,55 @@ vertical_alignment = 1
 amount = 500
 process_material = SubResource("ParticleProcessMaterial_vax70")
 lifetime = 10.0
+
+[node name="GunAmmoCountUI" type="Label" parent="resource_gui"]
+unique_name_in_owner = true
+z_index = 1
+offset_left = 251.0
+offset_top = 553.0
+offset_right = 344.0
+offset_bottom = 603.0
+theme_override_font_sizes/font_size = 36
+
+[node name="TotalLightAmmoCountUI" type="Label" parent="resource_gui"]
+unique_name_in_owner = true
+z_index = 1
+offset_left = 388.0
+offset_top = 563.0
+offset_right = 451.0
+offset_bottom = 592.0
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="TotalMediumAmmoCountUI" type="Label" parent="resource_gui"]
+unique_name_in_owner = true
+z_index = 1
+offset_left = 388.0
+offset_top = 591.0
+offset_right = 464.0
+offset_bottom = 625.0
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="ammoLogoUI" type="Sprite2D" parent="resource_gui"]
+z_index = 1
+texture_filter = 1
+position = Vector2(232, 579)
+texture = ExtResource("14_fxnv8")
+
+[node name="lightAmmoUI" type="Sprite2D" parent="resource_gui"]
+z_index = 1
+texture_filter = 1
+position = Vector2(368, 576)
+scale = Vector2(0.877744, 0.999998)
+texture = ExtResource("15_nreeu")
+
+[node name="mediumAmmoUI" type="Sprite2D" parent="resource_gui"]
+z_index = 1
+texture_filter = 1
+position = Vector2(368, 608)
+scale = Vector2(1.12, 1.12)
+texture = ExtResource("16_nglqh")
 
 [node name="inventory_gui" type="CanvasLayer" parent="."]
 

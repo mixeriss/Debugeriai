@@ -35,7 +35,19 @@ texture_filter = 1
 scale = Vector2(1.125, 0.962963)
 texture = ExtResource("3_vrwvg")
 
-[node name="Label" type="Label" parent="."]
+[node name="ammoCount" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="gunType" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="Label3" type="Label" parent="."]
 unique_name_in_owner = true
 visible = false
 offset_right = 40.0

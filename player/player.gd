@@ -27,6 +27,9 @@ signal TilePlace(mouse_pos, n)
 @onready var melee_cooldown = $MeleeCooldown
 @onready var footStepAudio = $AudioStreamPlayer
 @onready var shoot_cooldown = $ShootCooldown
+@onready var gun_ammo_count_ui = %GunAmmoCountUI
+@onready var total_light_ammo_count_ui = %TotalLightAmmoCountUI
+@onready var total_medium_ammo_count_ui = %TotalMediumAmmoCountUI
 
 var currentSpeed = NORMAL_SPEED
 var dodging = false
@@ -45,11 +48,16 @@ var showingScore = 0
 var gunName = "none"
 var hasGun = false
 var newGun
+var lightAmmo = 16
+var mediumAmmo = 16
+var currentAmmo = 0
 
 const pistolPre = preload("res://guns/pistol/pistol.tscn")
 
 func _ready():
 	grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
+	total_light_ammo_count_ui.text = str(lightAmmo)
+	total_medium_ammo_count_ui.text = str(mediumAmmo)
 	updateScore(0)
 	update_inv()
 	pass
@@ -59,7 +67,9 @@ func _physics_process(delta):
 	if Input.is_action_just_released("interact"):
 		var pickups = pick_up_finder.get_overlapping_areas()
 		if pickups.size() > 0:
-			var gunName = pickups[0].label.text
+			gunName = pickups[0].type
+			currentAmmo = pickups[0].ammoCount
+			gun_ammo_count_ui.text = str(currentAmmo)
 			match gunName:
 				"grenade":
 					GRENADE_COUNT = GRENADE_COUNT + 1;
@@ -69,11 +79,10 @@ func _physics_process(delta):
 					if hasGun == false:
 						inv[2] = "gun"
 						$inventory_gui/inventory_control/inv3item.visible = true
-						gunName = "pistol"
 						hasGun = true
 						newGun = pistolPre.instantiate()
 						add_child(newGun)
-						newGun.visible = false
+						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
 			
 	
@@ -107,11 +116,24 @@ func _physics_process(delta):
 	if sprite_2d.animation != "walk":
 			footStepAudio.play()
 	#shoot gun
-	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and shoot_cooldown.is_stopped():
+	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and currentAmmo > 0:
 		newGun.shoot()
-		#$ShootSound.play()
-		shoot_cooldown.start()
-		
+		gun_ammo_count_ui.text = str(newGun.ammo_count)
+	
+	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun":
+		match gunName:
+			"pistol":
+				if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
+					var beforeReload = newGun.ammo_count
+					newGun.ammo_count = newGun.mag_size
+					lightAmmo -= newGun.mag_size - beforeReload
+		if lightAmmo < 0:
+			lightAmmo = 0
+		if mediumAmmo < 0:
+			mediumAmmo = 0
+		gun_ammo_count_ui.text = str(newGun.ammo_count)
+		total_light_ammo_count_ui.text = str(lightAmmo)
+		total_medium_ammo_count_ui.text = str(mediumAmmo)
 	
 	#break block
 	if Input.is_action_pressed("primary") and inv[sel_n-1] == "pickaxe":
@@ -309,9 +331,10 @@ func throw_gun():
 	var mouse_pos = get_global_mouse_position()
 	thrownGun.global_position = global_position
 	get_parent().add_child(thrownGun)
-	thrownGun.throw(gunName, mouse_pos)
+	thrownGun.throw(gunName, mouse_pos, newGun.ammo_count)
 	$inventory_gui/inventory_control/inv3item.visible = false
 	newGun.queue_free()
+	gun_ammo_count_ui.text = ""
 	
 
 func _on_world__block_breaked(type, amount):

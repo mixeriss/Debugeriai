@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://guns/pistol/pistol.gd" id="1_1dntr"]
 [ext_resource type="Texture2D" uid="uid://cvwsc8ncghr76" path="res://guns/pistol/pistol.png" id="1_tsh1a"]
-[ext_resource type="AudioStream" uid="uid://dqetd7emhfsrs" path="res://sounds/gunshot-sfx-foley-impact-shot-gun-xploson-sound-chakongaudio-182540.mp3" id="3_oqwwh"]
+[ext_resource type="AudioStream" uid="uid://dpf4i2qxn1732" path="res://sounds/gunshot-sfx-foley-impact-shot-gun-xploson-sound-chakongaudio-182540.mp3" id="3_oqwwh"]
 
 [node name="Pistol" type="Area2D"]
 collision_layer = 0
@@ -24,7 +24,7 @@ position = Vector2(8, -3)
 
 [node name="firerate" type="Timer" parent="."]
 unique_name_in_owner = true
-wait_time = 0.2
+wait_time = 0.5
 one_shot = true
 
 [node name="ShootSound" type="AudioStreamPlayer" parent="."]
