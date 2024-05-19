@@ -1,6 +1,7 @@
 extends Area2D
 
 var travelledDistance = 0
+var bulletDamage = 0
 
 func _physics_process(delta):
 	const SPEED = 1000
@@ -13,7 +14,10 @@ func _physics_process(delta):
 	if travelledDistance > RANGE:
 		queue_free()
 
+func setDamage(dmg):
+	bulletDamage = dmg
+
 func _on_body_entered(body):
 	queue_free()
 	if body.has_method("takeDamage"):
-		body.takeDamage(10)
+		body.takeDamage(bulletDamage)
