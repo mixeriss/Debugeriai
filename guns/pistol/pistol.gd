@@ -4,6 +4,7 @@ extends Area2D
 @onready var firerate = %firerate
 @onready var sprite_2d = $weaponPivot/Sprite2D
 var is_shooting = false
+@onready var shoot_sound = %ShootSound
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -19,4 +20,6 @@ func shoot():
 			newProjectile.global_position = shootingpoint.global_position
 			newProjectile.global_rotation = shootingpoint.global_rotation
 			shootingpoint.add_child(newProjectile)
+			shoot_sound.play()
 			firerate.start()
+			

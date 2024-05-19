@@ -109,7 +109,7 @@ func _physics_process(delta):
 	#shoot gun
 	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and shoot_cooldown.is_stopped():
 		newGun.shoot()
-		$ShootSound.play()
+		#$ShootSound.play()
 		shoot_cooldown.start()
 		
 	
