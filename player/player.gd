@@ -70,8 +70,6 @@ func _physics_process(delta):
 		var pickups = pick_up_finder.get_overlapping_areas()
 		if pickups.size() > 0:
 			gunName = pickups[0].type
-			currentAmmo = pickups[0].ammoCount
-			gun_ammo_count_ui.text = str(currentAmmo)
 			match gunName:
 				"grenade":
 					GRENADE_COUNT = GRENADE_COUNT + 1;
@@ -84,9 +82,12 @@ func _physics_process(delta):
 						hasGun = true
 						newGun = pistolPre.instantiate()
 						add_child(newGun)
+						currentAmmo = pickups[0].ammoCount
+						gun_ammo_count_ui.text = str(currentAmmo)
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
 						newGun.visible = false
+						
 				"smg":
 					if hasGun == false:
 						inv[2] = "gun"
@@ -94,9 +95,19 @@ func _physics_process(delta):
 						hasGun = true
 						newGun = smgPre.instantiate()
 						add_child(newGun)
+						currentAmmo = pickups[0].ammoCount
+						gun_ammo_count_ui.text = str(currentAmmo)
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
 						newGun.visible = false
+				"lightAmmo":
+					lightAmmo += 12
+					total_light_ammo_count_ui.text = str(lightAmmo)
+					pickups[0].queue_free()
+				"mediumAmmo":
+					mediumAmmo += 8
+					total_medium_ammo_count_ui.text = str(mediumAmmo)
+					pickups[0].queue_free()
 			
 	
 	#updates score
@@ -132,29 +143,23 @@ func _physics_process(delta):
 	if Input.is_action_pressed("primary") and inv[sel_n-1] == "gun" and hasGun and currentAmmo > 0 and reloading == false:
 		newGun.shoot()
 		gun_ammo_count_ui.text = str(newGun.ammo_count)
-		print("shot!!")
 	
 	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun" and reloading == false:
-		print("reload start")
 		reloading = true
 		await get_tree().create_timer(1).timeout
 		if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
 			var beforeReload = newGun.ammo_count
 			var needToAdd = newGun.mag_size - beforeReload
-			print("1")
 			if lightAmmo / newGun.mag_size > 1:
 				newGun.ammo_count += needToAdd
 				lightAmmo -= needToAdd
-				print("2")
 			else:
 				if lightAmmo > needToAdd:
 					newGun.ammo_count += needToAdd
 					lightAmmo -= needToAdd
-					print("3")
 				else:
 					newGun.ammo_count += lightAmmo
 					lightAmmo = 0
-					print("4")
 		if lightAmmo < 0:
 			lightAmmo = 0
 		if mediumAmmo < 0:
@@ -163,7 +168,6 @@ func _physics_process(delta):
 		total_light_ammo_count_ui.text = str(lightAmmo)
 		total_medium_ammo_count_ui.text = str(mediumAmmo)
 		reloading = false
-		print("reload end")
 	
 	#break block
 	if Input.is_action_pressed("primary") and inv[sel_n-1] == "pickaxe":

@@ -3,13 +3,15 @@ extends Area2D
 @onready var pistol_sprite = %pistolSprite
 @onready var grenade_sprite = $grenadeSprite
 @onready var test = %test
-@onready var smg_sprite = $smgSprite
+@onready var smg_sprite = %smgSprite
+@onready var light_ammo_sprite = %lightAmmoSprite
+@onready var medium_ammo_sprite = %mediumAmmoSprite
 
 var type
 var ammoCount
 
 func generate():
-	var rng = randi_range(2,3)
+	var rng = randi_range(1,5)
 	match rng:
 		1:
 			grenade_sprite.visible = true
@@ -22,6 +24,12 @@ func generate():
 			smg_sprite.visible = true
 			type = "smg"
 			ammoCount = 26
+		4:
+			light_ammo_sprite.visible = true
+			type = "lightAmmo"
+		5:
+			medium_ammo_sprite.visible = true
+			type = "mediumAmmo"
 
 func throw(gunType, pos, ammo):
 	type = gunType

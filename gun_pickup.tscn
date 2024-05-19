@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://d3d12fd1r72as"]
+[gd_scene load_steps=9 format=3 uid="uid://d3d12fd1r72as"]
 
 [ext_resource type="Texture2D" uid="uid://cvwsc8ncghr76" path="res://guns/pistol/pistol.png" id="1_kqbyv"]
 [ext_resource type="Script" path="res://gun_pickup.gd" id="1_tvvcn"]
 [ext_resource type="Texture2D" uid="uid://sf0efqmyku0w" path="res://guns/pistol/tree.png" id="2_ncqkq"]
 [ext_resource type="Texture2D" uid="uid://myagkp73kd4s" path="res://guns/pistol/grenade.png" id="3_vrwvg"]
 [ext_resource type="Texture2D" uid="uid://cp146al7my624" path="res://guns/smg/Uzi.png" id="5_ijr0e"]
+[ext_resource type="Texture2D" uid="uid://btbnfvrkk35ji" path="res://sprites/bullets1.png" id="6_6jddo"]
+[ext_resource type="Texture2D" uid="uid://brnjhosqnxb0g" path="res://sprites/bullets2.png" id="7_ah31k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bds0b"]
 radius = 29.0172
@@ -37,10 +39,25 @@ scale = Vector2(1.125, 0.962963)
 texture = ExtResource("3_vrwvg")
 
 [node name="smgSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
 visible = false
 texture_filter = 1
 scale = Vector2(0.526316, 0.648649)
 texture = ExtResource("5_ijr0e")
+
+[node name="lightAmmoSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+scale = Vector2(0.551724, 0.571429)
+texture = ExtResource("6_6jddo")
+
+[node name="mediumAmmoSprite" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture_filter = 1
+scale = Vector2(0.64, 0.714286)
+texture = ExtResource("7_ah31k")
 
 [node name="ammoCount" type="Label" parent="."]
 unique_name_in_owner = true
