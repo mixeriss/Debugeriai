@@ -51,6 +51,7 @@ var newGun
 var lightAmmo = 16
 var mediumAmmo = 16
 var currentAmmo = 0
+var reloading = false
 
 const pistolPre = preload("res://guns/pistol/pistol.tscn")
 
@@ -84,6 +85,7 @@ func _physics_process(delta):
 						add_child(newGun)
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
+						newGun.visible = false
 			
 	
 	#updates score
@@ -116,16 +118,18 @@ func _physics_process(delta):
 	if sprite_2d.animation != "walk":
 			footStepAudio.play()
 	#shoot gun
-	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and currentAmmo > 0:
+	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and currentAmmo > 0 and reloading == false:
 		newGun.shoot()
 		gun_ammo_count_ui.text = str(newGun.ammo_count)
 	
-	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun":
+	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun" and reloading == false:
+		reloading = true
+		await get_tree().create_timer(1).timeout
 		match gunName:
 			"pistol":
 				if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
 					var beforeReload = newGun.ammo_count
-					newGun.ammo_count = newGun.mag_size
+					newGun.ammo_count += newGun.mag_size - beforeReload
 					lightAmmo -= newGun.mag_size - beforeReload
 		if lightAmmo < 0:
 			lightAmmo = 0
@@ -134,6 +138,7 @@ func _physics_process(delta):
 		gun_ammo_count_ui.text = str(newGun.ammo_count)
 		total_light_ammo_count_ui.text = str(lightAmmo)
 		total_medium_ammo_count_ui.text = str(mediumAmmo)
+		reloading = false
 	
 	#break block
 	if Input.is_action_pressed("primary") and inv[sel_n-1] == "pickaxe":
@@ -161,12 +166,12 @@ func _physics_process(delta):
 		melee_cooldown.start()
 		
 	#throw grenade
-	if Input.is_action_just_pressed("grenade") && GRENADE_COUNT > 0:
+	if Input.is_action_just_pressed("grenade") && GRENADE_COUNT > 0 and reloading == false:
 		throw_grenade()
 		GRENADE_COUNT -= 1
 		grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 	
-	if Input.is_action_just_released("throw") && hasGun:
+	if Input.is_action_just_released("throw") && hasGun and reloading == false:
 		throw_gun()
 		gunName = "none"
 		hasGun = false
@@ -347,6 +352,7 @@ func _on_world__block_breaked(type, amount):
 			newGun = pistolPre.instantiate()
 			add_child(newGun)
 			newGun.visible = false
+			gun_ammo_count_ui.text = str(newGun.mag_size)
 	elif type == "grenade":
 		GRENADE_COUNT = GRENADE_COUNT + amount;
 	else:
