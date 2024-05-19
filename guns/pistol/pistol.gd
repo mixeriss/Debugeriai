@@ -26,6 +26,6 @@ func shoot():
 			newProjectile.global_position = shootingpoint.global_position
 			newProjectile.global_rotation = shootingpoint.global_rotation
 			shootingpoint.add_child(newProjectile)
-			newProjectile.setDamage(10)
+			newProjectile.setDamage(18)
 			shoot_sound.play()
 			

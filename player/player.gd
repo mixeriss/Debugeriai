@@ -45,6 +45,7 @@ var sel_n = 1
 var sel_block_n = 1
 var currentScore = 0
 var showingScore = 0
+var pickup = "none"
 var gunName = "none"
 var hasGun = false
 var newGun
@@ -69,14 +70,15 @@ func _physics_process(delta):
 	if Input.is_action_just_released("interact"):
 		var pickups = pick_up_finder.get_overlapping_areas()
 		if pickups.size() > 0:
-			gunName = pickups[0].type
-			match gunName:
+			pickup = pickups[0].type
+			match pickup:
 				"grenade":
 					GRENADE_COUNT = GRENADE_COUNT + 1;
 					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 					pickups[0].queue_free()
 				"pistol":
 					if hasGun == false:
+						gunName = pickup
 						inv[2] = "gun"
 						$inventory_gui/inventory_control/inv3itemPISTOL.visible = true
 						hasGun = true
@@ -87,9 +89,9 @@ func _physics_process(delta):
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
 						newGun.visible = false
-						
 				"smg":
 					if hasGun == false:
+						gunName = pickup
 						inv[2] = "gun"
 						$inventory_gui/inventory_control/inv3itemSMG.visible = true
 						hasGun = true
@@ -360,6 +362,7 @@ func throw_grenade():
 	TileBoom.emit(mouse_pos)
 
 func throw_gun():
+	print("throw" + str(gunName))
 	const gun = preload("res://gun_pickup.tscn")
 	var thrownGun = gun.instantiate()
 	var mouse_pos = get_global_mouse_position()
