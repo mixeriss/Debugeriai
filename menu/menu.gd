@@ -4,10 +4,14 @@ func _ready():
 	pass
 
 func on_start_button_pressed():
+	$Click.play()
+	await $Click.finished
+	$Click.stop()
 	get_tree().change_scene_to_file("res://Game/Game.tscn")
 	pass
 
 func on_options_button_pressed():
+	$Click.play()
 	$MarginContainer.visible = false
 	$OptionsMenu.set_process(true)
 	$OptionsMenu.visible = true
@@ -15,10 +19,14 @@ func on_options_button_pressed():
 	pass
 
 func on_quit_button_pressed():
+	$Click.play()
+	await $Click.finished
+	$Click.stop()
 	get_tree().quit()
 	pass
 
 func on_exit_options_menu()-> void:
+	$Click.play()
 	$MarginContainer.visible = true
 	$OptionsMenu.visible = false
 	$TextureRect2.visible = true

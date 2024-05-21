@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://docv67bssy33n"]
+[gd_scene load_steps=8 format=3 uid="uid://docv67bssy33n"]
 
 [ext_resource type="Script" path="res://menu/options_menu.gd" id="1_vuc4u"]
 [ext_resource type="PackedScene" uid="uid://bhmmvt2oodcbx" path="res://menu/tab_container.tscn" id="2_3gqq3"]
+[ext_resource type="AudioStream" uid="uid://d2itkaq0lmul8" path="res://sounds/ui-click-43196.mp3" id="3_oywbg"]
 
 [sub_resource type="SystemFont" id="SystemFont_txssa"]
 font_names = PackedStringArray("Elephant")
@@ -68,3 +69,10 @@ auto_translate = false
 theme = SubResource("Theme_rq055")
 action_mode = 0
 text = "Exit"
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_oywbg")
+volume_db = 4.0
+bus = &"Sfx"
+
+[connection signal="visibility_changed" from="MarginContainer/VBoxContainer/TabContainer" to="." method="_on_tab_container_visibility_changed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dael5fsboj5wm"]
+[gd_scene load_steps=8 format=3 uid="uid://dael5fsboj5wm"]
 
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_nsj62"]
 [ext_resource type="Texture2D" uid="uid://cf073dpua63st" path="res://menu/wliv_hcm0_200619.jpg" id="2_5fap5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Theme" uid="uid://dqnnvcqlfco0w" path="res://menu/buttonMenuTheme.tres" id="4_yvmxb"]
 [ext_resource type="PackedScene" uid="uid://docv67bssy33n" path="res://menu/options_menu.tscn" id="5_am23a"]
 [ext_resource type="AudioStream" uid="uid://bmbr66cq86jay" path="res://sounds/mortal-gaming-144000.mp3" id="6_6elvy"]
+[ext_resource type="AudioStream" uid="uid://d2itkaq0lmul8" path="res://sounds/ui-click-43196.mp3" id="7_nvfcf"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -86,6 +87,12 @@ layout_mode = 1
 stream = ExtResource("6_6elvy")
 volume_db = -17.87
 autoplay = true
+bus = &"Music"
+
+[node name="Click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_nvfcf")
+volume_db = -13.245
+bus = &"Sfx"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]

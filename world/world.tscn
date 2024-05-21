@@ -157,8 +157,10 @@ shape = SubResource("RectangleShape2D_ukay7")
 stream = ExtResource("11_2o2xg")
 volume_db = -9.6
 pitch_scale = 1.64
+bus = &"Sfx"
 
 [node name="BreakRock" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12_353yw")
 volume_db = -17.6
 pitch_scale = 1.43
+bus = &"Sfx"

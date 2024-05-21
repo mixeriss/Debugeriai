@@ -1,8 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhmmvt2oodcbx"]
+[gd_scene load_steps=6 format=3 uid="uid://bhmmvt2oodcbx"]
 
+[ext_resource type="PackedScene" uid="uid://bvhic63lxj7ca" path="res://menu/audio_slider.tscn" id="1_aewlk"]
 [ext_resource type="PackedScene" uid="uid://ca5cj3bsjs0tn" path="res://menu/settings_display.tscn" id="1_gyb5v"]
 [ext_resource type="PackedScene" uid="uid://050ou2go34ss" path="res://menu/settings_controls.tscn" id="1_p4sf7"]
 [ext_resource type="PackedScene" uid="uid://b0af6fd4abnu5" path="res://menu/settings_resolution.tscn" id="2_pjid6"]
+
+[sub_resource type="GDScript" id="GDScript_21dng"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [node name="TabContainer" type="Control"]
 layout_mode = 3
@@ -11,6 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_21dng")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 modulate = Color(0.435294, 1, 1, 1)
@@ -25,8 +41,10 @@ offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
+current_tab = 1
 
 [node name="Sound" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Sound"]
@@ -41,32 +59,21 @@ theme_override_constants/margin_top = 24
 theme_override_constants/margin_right = 24
 theme_override_constants/margin_bottom = 24
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Sound/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Sound/MarginContainer/ScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 64
 
-[node name="Label" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+[node name="AudioSlider" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_aewlk")]
 layout_mode = 2
-text = "Sound"
+bus = "Music"
 
-[node name="Label2" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
+[node name="AudioSlider2" parent="TabContainer/Sound/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_aewlk")]
 layout_mode = 2
-text = "Settings"
-
-[node name="Label3" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-
-[node name="Label4" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-
-[node name="Label5" type="Label" parent="TabContainer/Sound/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
 
 [node name="Graphics" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Graphics"]
@@ -205,3 +212,5 @@ action_name = "interact"
 
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
+
+[connection signal="tab_clicked" from="TabContainer/Sound" to="." method="_on_sound_tab_clicked"]

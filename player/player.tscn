@@ -565,13 +565,15 @@ grow_vertical = 2
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_vyd6k")
-volume_db = 14.4
+volume_db = 11.2
 pitch_scale = 1.61
+bus = &"Sfx"
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("23_iw3r1")
 volume_db = -13.6
 autoplay = true
+bus = &"Music"
 
 [connection signal="body_entered" from="WaterDetection" to="." method="_on_water_detection_body_entered"]
 [connection signal="body_exited" from="WaterDetection" to="." method="_on_water_detection_body_exited"]

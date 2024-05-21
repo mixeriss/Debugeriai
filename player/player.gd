@@ -64,6 +64,8 @@ func _ready():
 	pass
 
 func _physics_process(delta):
+	if sprite_2d.animation != "walk":
+		footStepAudio.play()
 	#checks if there are any pickupable guns near the player and picks up the closest one
 	if Input.is_action_just_released("interact"):
 		var pickups = pick_up_finder.get_overlapping_areas()
@@ -98,6 +100,7 @@ func _physics_process(delta):
 	if dodging == false:
 		if direction == Vector2.ZERO:
 			sprite_2d.animation = "default"
+			footStepAudio.stop()
 		else:
 			sprite_2d.animation = "walk"
 			if(direction.x < 0):
@@ -115,8 +118,6 @@ func _physics_process(delta):
 		velocity = lastDirection * currentSpeed
 	move_and_slide()
 	
-	if sprite_2d.animation != "walk":
-			footStepAudio.play()
 	#shoot gun
 	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and currentAmmo > 0 and reloading == false:
 		newGun.shoot()
@@ -192,6 +193,8 @@ func _physics_process(delta):
 		HEALTH -= damageRate * overlappingMobs.size() * delta
 		progress_bar.value = HEALTH
 		if HEALTH <= 0.0:
+			footStepAudio.stop()
+			$AudioStreamPlayer2.stop()
 			HealthDepleted.emit(currentScore)
 
 func dodgeStart():
