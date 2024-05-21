@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=37 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="PackedScene" uid="uid://fsfokud4uhyg" path="res://melee.tscn" id="2_18dlc"]
@@ -24,6 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://du4yrky6wlehb" path="res://world/player_structures/wood_structure.png" id="20_t7dme"]
 [ext_resource type="Texture2D" uid="uid://dh03cxg7pjxj5" path="res://world/player_structures/stone_structure.png" id="21_h2m7y"]
 [ext_resource type="Material" uid="uid://by1w4avt6re86" path="res://menu/blur.tres" id="21_wkymn"]
+[ext_resource type="Texture2D" uid="uid://cp146al7my624" path="res://guns/smg/Uzi.png" id="22_l0jxq"]
 [ext_resource type="AudioStream" uid="uid://bisbk5qpxj1vg" path="res://sounds/footsteps-dirt-gravel-6823.mp3" id="22_vyd6k"]
 [ext_resource type="AudioStream" uid="uid://dh56qjweang1k" path="res://sounds/Asian-Graveyard-Remastered(chosic.com).mp3" id="23_iw3r1"]
 
@@ -475,14 +476,28 @@ offset_right = 160.0
 offset_bottom = 75.0
 texture = ExtResource("18_pmjiv")
 
-[node name="inv3item" type="TextureRect" parent="inventory_gui/inventory_control"]
+[node name="inv3itemPISTOL" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+texture_filter = 1
 layout_mode = 0
-offset_left = 180.0
-offset_top = 25.0
-offset_right = 230.0
-offset_bottom = 75.0
+offset_left = 181.0
+offset_top = 34.0
+offset_right = 229.0
+offset_bottom = 66.0
 texture = ExtResource("19_450td")
+
+[node name="inv3itemSMG" type="TextureRect" parent="inventory_gui/inventory_control"]
+visible = false
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.502857
+anchor_top = 0.186667
+anchor_right = 0.665714
+anchor_bottom = 0.486667
+offset_bottom = 1.52588e-05
+texture = ExtResource("22_l0jxq")
+metadata/_edit_use_anchors_ = true
 
 [node name="inv5" type="TextureRect" parent="inventory_gui/inventory_control"]
 layout_mode = 0

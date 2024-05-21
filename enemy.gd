@@ -26,14 +26,15 @@ func takeDamage(damage):
 	progress_bar.value = HEALTH
 	punchSound.play()
 	if HEALTH <= 0:
+		SPEED = 0.0
+		deathSound.play()
+		await get_tree().create_timer(0.2).timeout
 		var gun = preload("res://gun_pickup.tscn")
 		var newGun = gun.instantiate()
 		newGun.global_position = global_position
 		get_parent().add_child(newGun)
 		newGun.generate()
 		player.currentScore += 10
-		deathSound.play()
-		await get_tree().create_timer(0.2).timeout
 		queue_free()
 
 func _on_water_detection_body_entered(body):

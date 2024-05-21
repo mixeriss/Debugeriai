@@ -45,6 +45,7 @@ var sel_n = 1
 var sel_block_n = 1
 var currentScore = 0
 var showingScore = 0
+var pickup = "none"
 var gunName = "none"
 var hasGun = false
 var newGun
@@ -54,6 +55,7 @@ var currentAmmo = 0
 var reloading = false
 
 const pistolPre = preload("res://guns/pistol/pistol.tscn")
+const smgPre = preload("res://guns/smg/smg.tscn")
 
 func _ready():
 	grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
@@ -70,24 +72,46 @@ func _physics_process(delta):
 	if Input.is_action_just_released("interact"):
 		var pickups = pick_up_finder.get_overlapping_areas()
 		if pickups.size() > 0:
-			gunName = pickups[0].type
-			currentAmmo = pickups[0].ammoCount
-			gun_ammo_count_ui.text = str(currentAmmo)
-			match gunName:
+			pickup = pickups[0].type
+			match pickup:
 				"grenade":
 					GRENADE_COUNT = GRENADE_COUNT + 1;
 					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 					pickups[0].queue_free()
 				"pistol":
 					if hasGun == false:
+						gunName = pickup
 						inv[2] = "gun"
-						$inventory_gui/inventory_control/inv3item.visible = true
+						$inventory_gui/inventory_control/inv3itemPISTOL.visible = true
 						hasGun = true
 						newGun = pistolPre.instantiate()
 						add_child(newGun)
+						currentAmmo = pickups[0].ammoCount
+						gun_ammo_count_ui.text = str(currentAmmo)
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
 						newGun.visible = false
+				"smg":
+					if hasGun == false:
+						gunName = pickup
+						inv[2] = "gun"
+						$inventory_gui/inventory_control/inv3itemSMG.visible = true
+						hasGun = true
+						newGun = smgPre.instantiate()
+						add_child(newGun)
+						currentAmmo = pickups[0].ammoCount
+						gun_ammo_count_ui.text = str(currentAmmo)
+						newGun.ammo_count = currentAmmo
+						pickups[0].queue_free()
+						newGun.visible = false
+				"lightAmmo":
+					lightAmmo += 12
+					total_light_ammo_count_ui.text = str(lightAmmo)
+					pickups[0].queue_free()
+				"mediumAmmo":
+					mediumAmmo += 8
+					total_medium_ammo_count_ui.text = str(mediumAmmo)
+					pickups[0].queue_free()
 			
 	
 	#updates score
@@ -119,28 +143,26 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	#shoot gun
-	if Input.is_action_just_released("primary") and inv[sel_n-1] == "gun" and hasGun and currentAmmo > 0 and reloading == false:
+	if Input.is_action_pressed("primary") and inv[sel_n-1] == "gun" and hasGun and currentAmmo > 0 and reloading == false:
 		newGun.shoot()
 		gun_ammo_count_ui.text = str(newGun.ammo_count)
 	
 	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun" and reloading == false:
 		reloading = true
 		await get_tree().create_timer(1).timeout
-		match gunName:
-			"pistol":
-				if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
-					var beforeReload = newGun.ammo_count
-					var needToAdd = newGun.mag_size - beforeReload
-					if lightAmmo / newGun.mag_size > 1:
-						newGun.ammo_count += needToAdd
-						lightAmmo -= needToAdd
-					else:
-						if lightAmmo > needToAdd:
-							newGun.ammo_count += needToAdd
-							lightAmmo -= needToAdd
-						else:
-							newGun.ammo_count += lightAmmo
-							lightAmmo = 0
+		if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
+			var beforeReload = newGun.ammo_count
+			var needToAdd = newGun.mag_size - beforeReload
+			if lightAmmo / newGun.mag_size > 1:
+				newGun.ammo_count += needToAdd
+				lightAmmo -= needToAdd
+			else:
+				if lightAmmo > needToAdd:
+					newGun.ammo_count += needToAdd
+					lightAmmo -= needToAdd
+				else:
+					newGun.ammo_count += lightAmmo
+					lightAmmo = 0
 		if lightAmmo < 0:
 			lightAmmo = 0
 		if mediumAmmo < 0:
@@ -343,13 +365,15 @@ func throw_grenade():
 	TileBoom.emit(mouse_pos)
 
 func throw_gun():
+	print("throw" + str(gunName))
 	const gun = preload("res://gun_pickup.tscn")
 	var thrownGun = gun.instantiate()
 	var mouse_pos = get_global_mouse_position()
 	thrownGun.global_position = global_position
 	get_parent().add_child(thrownGun)
 	thrownGun.throw(gunName, mouse_pos, newGun.ammo_count)
-	$inventory_gui/inventory_control/inv3item.visible = false
+	$inventory_gui/inventory_control/inv3itemPISTOL.visible = false
+	$inventory_gui/inventory_control/inv3itemSMG.visible = false
 	newGun.queue_free()
 	gun_ammo_count_ui.text = ""
 	
@@ -358,7 +382,7 @@ func _on_world__block_breaked(type, amount):
 	if type == "gun":
 		if hasGun == false and amount == 9:
 			inv[2] = "gun"
-			$inventory_gui/inventory_control/inv3item.visible = true
+			$inventory_gui/inventory_control/inv3itemPISTOL.visible = true
 			gunName = "pistol"
 			hasGun = true
 			newGun = pistolPre.instantiate()
