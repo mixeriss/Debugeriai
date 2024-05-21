@@ -166,17 +166,9 @@ action_name = "dodge"
 layout_mode = 2
 action_name = "primary"
 
-[node name="Rebind11" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
-layout_mode = 2
-action_name = "block detection mode"
-
 [node name="Rebind12" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
 layout_mode = 2
 action_name = "place"
-
-[node name="Rebind13" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
-layout_mode = 2
-action_name = "melee"
 
 [node name="Rebind14" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
 layout_mode = 2
@@ -209,6 +201,14 @@ action_name = "select_stone"
 [node name="Rebind21" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
 layout_mode = 2
 action_name = "interact"
+
+[node name="Rebind22" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "throw"
+
+[node name="Rebind23" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer" instance=ExtResource("1_p4sf7")]
+layout_mode = 2
+action_name = "reload"
 
 [node name="HSeparator2" type="HSeparator" parent="TabContainer/Controls/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2

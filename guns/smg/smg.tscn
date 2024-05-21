@@ -31,3 +31,5 @@ one_shot = true
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_r8ssu")
+volume_db = -0.23
+bus = &"Sfx"

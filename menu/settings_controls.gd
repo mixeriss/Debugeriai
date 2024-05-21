@@ -27,17 +27,13 @@ func set_action_name() -> void:
 		"sprint":
 			label.text = "Sprint"
 		"primary":
-			label.text = "Shoot/Break"
+			label.text = "Shoot/Break/Melee"
 		"zoom in":
 			label.text = "Zoom in"
 		"zoom out":
 			label.text = "Zoom out"
-		"block detection mode":
-			label.text = "Switch to break blocks"
 		"dodge":
 			label.text = "Dodge"
-		"melee":
-			label.text = "Melee"
 		"place":
 			label.text = "Place block"
 		"grenade":
@@ -55,7 +51,11 @@ func set_action_name() -> void:
 		"select_stone":
 			label.text = "Select stone"
 		"interact":
-			label.text = "Pick up gun"
+			label.text = "Pick up items"
+		"throw":
+			label.text = "Throw gun"
+		"reload":
+			label.text = "Reload gun"
 		
 func set_text_for_key() -> void:
 	var action_events = InputMap.action_get_events(action_name)
