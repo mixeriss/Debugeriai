@@ -15,8 +15,8 @@ unique_name_in_owner = true
 [node name="Sprite2D" type="Sprite2D" parent="pivot"]
 unique_name_in_owner = true
 texture_filter = 1
-position = Vector2(22, 3)
-scale = Vector2(0.526316, 0.594595)
+position = Vector2(14, 5)
+scale = Vector2(0.390749, 0.486486)
 texture = ExtResource("2_ou1vd")
 
 [node name="shootingPoint" type="Marker2D" parent="pivot/Sprite2D"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dmo51rmnyy3h4"]
+[gd_scene load_steps=38 format=3 uid="uid://dmo51rmnyy3h4"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_h50mc"]
 [ext_resource type="PackedScene" uid="uid://fsfokud4uhyg" path="res://melee.tscn" id="2_18dlc"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://cp146al7my624" path="res://guns/smg/Uzi.png" id="22_l0jxq"]
 [ext_resource type="AudioStream" uid="uid://bisbk5qpxj1vg" path="res://sounds/footsteps-dirt-gravel-6823.mp3" id="22_vyd6k"]
 [ext_resource type="AudioStream" uid="uid://dh56qjweang1k" path="res://sounds/Asian-Graveyard-Remastered(chosic.com).mp3" id="23_iw3r1"]
+[ext_resource type="Texture2D" uid="uid://6ap6xudjgdwv" path="res://guns/rifle/Ak47.png" id="23_kp6p7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h52xb"]
 radius = 25.02
@@ -498,6 +499,16 @@ anchor_bottom = 0.486667
 offset_bottom = 1.52588e-05
 texture = ExtResource("22_l0jxq")
 metadata/_edit_use_anchors_ = true
+
+[node name="inv3itemRIFLE" type="TextureRect" parent="inventory_gui/inventory_control"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = 169.0
+offset_top = 30.0
+offset_right = 243.0
+offset_bottom = 70.0
+texture = ExtResource("23_kp6p7")
 
 [node name="inv5" type="TextureRect" parent="inventory_gui/inventory_control"]
 layout_mode = 0

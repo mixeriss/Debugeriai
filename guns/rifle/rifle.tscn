@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://busqkr8tb5swx"]
+
+[ext_resource type="Script" path="res://guns/rifle/rifle.gd" id="1_invm5"]
+[ext_resource type="Texture2D" uid="uid://6ap6xudjgdwv" path="res://guns/rifle/Ak47.png" id="2_udo6n"]
+[ext_resource type="AudioStream" uid="uid://dpf4i2qxn1732" path="res://sounds/gunshot-sfx-foley-impact-shot-gun-xploson-sound-chakongaudio-182540.mp3" id="3_du5d4"]
+
+[node name="rifle" type="Node2D"]
+light_mask = 0
+visibility_layer = 4
+script = ExtResource("1_invm5")
+
+[node name="pivot" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="pivot"]
+unique_name_in_owner = true
+texture_filter = 1
+position = Vector2(10, 2)
+scale = Vector2(0.666667, 0.666667)
+texture = ExtResource("2_udo6n")
+
+[node name="shootingPoint" type="Marker2D" parent="pivot/Sprite2D"]
+unique_name_in_owner = true
+position = Vector2(26, -3)
+
+[node name="firerate" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.175
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("3_du5d4")

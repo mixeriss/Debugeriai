@@ -56,6 +56,7 @@ var reloading = false
 
 const pistolPre = preload("res://guns/pistol/pistol.tscn")
 const smgPre = preload("res://guns/smg/smg.tscn")
+const riflePre = preload("res://guns/rifle/rifle.tscn")
 
 func _ready():
 	grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
@@ -104,12 +105,25 @@ func _physics_process(delta):
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
 						newGun.visible = false
+				"rifle":
+					if hasGun == false:
+						gunName = pickup
+						inv[2] = "gun"
+						$inventory_gui/inventory_control/inv3itemRIFLE.visible = true
+						hasGun = true
+						newGun = riflePre.instantiate()
+						add_child(newGun)
+						currentAmmo = pickups[0].ammoCount
+						gun_ammo_count_ui.text = str(currentAmmo)
+						newGun.ammo_count = currentAmmo
+						pickups[0].queue_free()
+						newGun.visible = false
 				"lightAmmo":
 					lightAmmo += 12
 					total_light_ammo_count_ui.text = str(lightAmmo)
 					pickups[0].queue_free()
 				"mediumAmmo":
-					mediumAmmo += 8
+					mediumAmmo += 10
 					total_medium_ammo_count_ui.text = str(mediumAmmo)
 					pickups[0].queue_free()
 			
@@ -150,23 +164,34 @@ func _physics_process(delta):
 	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun" and reloading == false:
 		reloading = true
 		await get_tree().create_timer(1).timeout
-		if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
-			var beforeReload = newGun.ammo_count
-			var needToAdd = newGun.mag_size - beforeReload
-			if lightAmmo / newGun.mag_size > 1:
-				newGun.ammo_count += needToAdd
-				lightAmmo -= needToAdd
-			else:
-				if lightAmmo > needToAdd:
+		if gunName == "rifle":
+			if mediumAmmo > 0 and newGun.ammo_count < newGun.mag_size:
+				var beforeReload = newGun.ammo_count
+				var needToAdd = newGun.mag_size - beforeReload
+				if mediumAmmo / newGun.mag_size > 1:
+					newGun.ammo_count += needToAdd
+					mediumAmmo -= needToAdd
+				else:
+					if mediumAmmo > needToAdd:
+						newGun.ammo_count += needToAdd
+						mediumAmmo -= needToAdd
+					else:
+						newGun.ammo_count += mediumAmmo
+						mediumAmmo = 0
+		if gunName == "pistol" || gunName == "smg":
+			if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
+				var beforeReload = newGun.ammo_count
+				var needToAdd = newGun.mag_size - beforeReload
+				if lightAmmo / newGun.mag_size > 1:
 					newGun.ammo_count += needToAdd
 					lightAmmo -= needToAdd
 				else:
-					newGun.ammo_count += lightAmmo
-					lightAmmo = 0
-		if lightAmmo < 0:
-			lightAmmo = 0
-		if mediumAmmo < 0:
-			mediumAmmo = 0
+					if lightAmmo > needToAdd:
+						newGun.ammo_count += needToAdd
+						lightAmmo -= needToAdd
+					else:
+						newGun.ammo_count += lightAmmo
+						lightAmmo = 0
 		gun_ammo_count_ui.text = str(newGun.ammo_count)
 		total_light_ammo_count_ui.text = str(lightAmmo)
 		total_medium_ammo_count_ui.text = str(mediumAmmo)
@@ -374,6 +399,7 @@ func throw_gun():
 	thrownGun.throw(gunName, mouse_pos, newGun.ammo_count)
 	$inventory_gui/inventory_control/inv3itemPISTOL.visible = false
 	$inventory_gui/inventory_control/inv3itemSMG.visible = false
+	$inventory_gui/inventory_control/inv3itemRIFLE.visible = false
 	newGun.queue_free()
 	gun_ammo_count_ui.text = ""
 	
