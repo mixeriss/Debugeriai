@@ -5,6 +5,8 @@
 [ext_resource type="AudioStream" uid="uid://dpf4i2qxn1732" path="res://sounds/gunshot-sfx-foley-impact-shot-gun-xploson-sound-chakongaudio-182540.mp3" id="3_oqwwh"]
 
 [node name="Pistol" type="Node2D"]
+light_mask = 0
+visibility_layer = 4
 script = ExtResource("1_1dntr")
 
 [node name="weaponPivot" type="Marker2D" parent="."]

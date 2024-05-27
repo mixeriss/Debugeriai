@@ -163,6 +163,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun" and reloading == false:
 		reloading = true
+		#newGun.reloadRotate()
 		await get_tree().create_timer(1).timeout
 		if gunName == "rifle":
 			if mediumAmmo > 0 and newGun.ammo_count < newGun.mag_size:
@@ -390,7 +391,7 @@ func throw_gun():
 	var mouse_pos = get_global_mouse_position()
 	thrownGun.global_position = global_position
 	get_parent().add_child(thrownGun)
-	thrownGun.throw(gunName, mouse_pos, newGun.ammo_count)
+	thrownGun.throw(gunName, mouse_pos, newGun.ammo_count, false)
 	$inventory_gui/inventory_control/inv3itemPISTOL.visible = false
 	$inventory_gui/inventory_control/inv3itemSMG.visible = false
 	$inventory_gui/inventory_control/inv3itemRIFLE.visible = false
@@ -400,15 +401,30 @@ func throw_gun():
 
 func _on_world__block_breaked(type, amount):
 	if type == "gun":
-		if hasGun == false and amount == 9:
-			inv[2] = "gun"
-			$inventory_gui/inventory_control/inv3itemPISTOL.visible = true
-			gunName = "pistol"
-			hasGun = true
-			newGun = pistolPre.instantiate()
-			add_child(newGun)
-			newGun.visible = false
-			gun_ammo_count_ui.text = str(newGun.mag_size)
+		if amount == 9:
+			var a = randi_range(1,3)
+			match a:
+				1:
+					const gun = preload("res://gun_pickup.tscn")
+					var thrownGun = gun.instantiate()
+					var mouse_pos = get_global_mouse_position()
+					thrownGun.global_position = mouse_pos
+					get_parent().add_child(thrownGun)
+					thrownGun.throw("pistol", mouse_pos, 14, true)
+				2:
+					const gun = preload("res://gun_pickup.tscn")
+					var thrownGun = gun.instantiate()
+					var mouse_pos = get_global_mouse_position()
+					thrownGun.global_position = mouse_pos
+					get_parent().add_child(thrownGun)
+					thrownGun.throw("smg", mouse_pos, 26, true)
+				3:
+					const gun = preload("res://gun_pickup.tscn")
+					var thrownGun = gun.instantiate()
+					var mouse_pos = get_global_mouse_position()
+					thrownGun.global_position = mouse_pos
+					get_parent().add_child(thrownGun)
+					thrownGun.throw("rifle", mouse_pos, 31, true)
 	elif type == "grenade":
 		GRENADE_COUNT = GRENADE_COUNT + amount;
 	else:

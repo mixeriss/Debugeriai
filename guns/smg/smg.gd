@@ -32,3 +32,9 @@ func shoot():
 			newProjectile.setDamage(8)
 			audio_stream_player_2d.play()
 			
+
+func reloadRotate():
+	var tween = create_tween()
+	tween.parallel().tween_property(sprite_2d, "rotation_degrees", 360, 1).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	await get_tree().create_timer(1).timeout
+	tween.kill()

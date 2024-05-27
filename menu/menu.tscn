@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://menu/menu.gd" id="1_nsj62"]
 [ext_resource type="Texture2D" uid="uid://cf073dpua63st" path="res://menu/wliv_hcm0_200619.jpg" id="2_5fap5"]
 [ext_resource type="Texture2D" uid="uid://c08tvx4mjk8rf" path="res://menu/cooltext453444100061905.png" id="4_7rshv"]
-[ext_resource type="Theme" uid="uid://dqnnvcqlfco0w" path="res://menu/buttonMenuTheme.tres" id="4_yvmxb"]
+[ext_resource type="Theme" uid="uid://oyv4tgg8xy5v" path="res://menu/buttonMenuTheme.tres" id="4_yvmxb"]
 [ext_resource type="PackedScene" uid="uid://docv67bssy33n" path="res://menu/options_menu.tscn" id="5_am23a"]
 [ext_resource type="AudioStream" uid="uid://bmbr66cq86jay" path="res://sounds/mortal-gaming-144000.mp3" id="6_6elvy"]
 [ext_resource type="AudioStream" uid="uid://d2itkaq0lmul8" path="res://sounds/ui-click-43196.mp3" id="7_nvfcf"]

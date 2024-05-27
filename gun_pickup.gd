@@ -12,31 +12,35 @@ var type
 var ammoCount
 
 func generate():
-	var rng = randi_range(1,6)
-	match rng:
-		1:
-			grenade_sprite.visible = true
-			type = "grenade"
-		2:
-			pistol_sprite.visible = true
-			type = "pistol"
-			ammoCount = 14
-		3:
-			smg_sprite.visible = true
-			type = "smg"
-			ammoCount = 26
-		4:
+	var rng = randi_range(1,7)
+	if rng == 5:
+		grenade_sprite.visible = true
+		type = "grenade"
+	else:
+		if rng <= 2:
 			light_ammo_sprite.visible = true
 			type = "lightAmmo"
-		5:
-			medium_ammo_sprite.visible = true
-			type = "mediumAmmo"
-		6:
+		else:
+			if rng >= 6:
+				var uh = "rip"
+			else:
+				medium_ammo_sprite.visible = true
+				type = "mediumAmmo"
+	match rng:
+		10:
 			type = "rifle"
 			rifle_sprite.visible = true
 			ammoCount = 31
+		11:
+			pistol_sprite.visible = true
+			type = "pistol"
+			ammoCount = 14
+		12:
+			smg_sprite.visible = true
+			type = "smg"
+			ammoCount = 26
 
-func throw(gunType, pos, ammo):
+func throw(gunType, pos, ammo, chest):
 	type = gunType
 	ammoCount = ammo
 	match gunType:
@@ -47,5 +51,6 @@ func throw(gunType, pos, ammo):
 		"rifle":
 			rifle_sprite.visible = true
 	var tween = create_tween()
-	tween.tween_property(self, "position", pos, 1.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(self, "rotation_degrees", randi_range(180,360), 1.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "rotation_degrees", randi_range(180,360), 1.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	if(chest == false):
+		tween.parallel().tween_property(self, "position", pos, 1.5).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)

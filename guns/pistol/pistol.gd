@@ -29,3 +29,11 @@ func shoot():
 			newProjectile.setDamage(10)
 			shoot_sound.play()
 			
+
+#DOESNT WORK IDK
+func reloadRotate():
+	var tween = create_tween()
+	tween.parallel().tween_property(sprite_2d, "rotation_degrees", 360, 1).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	tween.play()
+	await get_tree().create_timer(1).timeout
+	
