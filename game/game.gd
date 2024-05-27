@@ -77,7 +77,7 @@ func _on_enemy_kill():
 	killed = killed + 1
 	if killed >= kills_per_wave:
 		killed = 0;
-		kills_per_wave = kills_per_wave + 4
+		kills_per_wave = kills_per_wave + 5
 		wave = wave + 1
 		$MobSpawnTimer.wait_time = 3/log(wave+1)
 		$CanvasLayer2/wave_ind.text = "Wave " + str(wave)

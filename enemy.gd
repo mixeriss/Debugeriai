@@ -55,7 +55,7 @@ func _on_water_detection_body_exited(body):
 	pass
 
 func make_harder_enemy():
-	SPEED = 50
+	SPEED = 25
 	HEALTH = 10000
 	score_g = 100
 	$AnimatedSprite2D.scale.x = 1.25
