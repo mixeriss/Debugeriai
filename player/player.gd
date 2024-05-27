@@ -179,6 +179,7 @@ func _physics_process(delta):
 					else:
 						newGun.ammo_count += mediumAmmo
 						mediumAmmo = 0
+		$ReloadSound.play()
 		if gunName == "pistol" || gunName == "smg":
 			if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
 				var beforeReload = newGun.ammo_count
@@ -193,6 +194,7 @@ func _physics_process(delta):
 					else:
 						newGun.ammo_count += lightAmmo
 						lightAmmo = 0
+		$ReloadSound.play()
 		gun_ammo_count_ui.text = str(newGun.ammo_count)
 		total_light_ammo_count_ui.text = str(lightAmmo)
 		total_medium_ammo_count_ui.text = str(mediumAmmo)

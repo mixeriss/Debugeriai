@@ -30,3 +30,4 @@ one_shot = true
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_du5d4")
+bus = &"Sfx"

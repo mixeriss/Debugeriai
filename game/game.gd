@@ -23,6 +23,7 @@ func pauseMenu():
 		$Player/inventory_gui/Blur.visible = false
 		$Player.set_physics_process(true)
 		$Player/resource_gui/Score/GPUParticles2D.visible = true
+		$CanvasLayer2/wave_ind.visible = true
 		Engine.time_scale = 1
 	else:
 		pause_menu.show()
@@ -33,6 +34,7 @@ func pauseMenu():
 		$Player/inventory_gui/Blur.visible = true
 		$Player/resource_gui/Score/GPUParticles2D.visible = false
 		$Player.set_physics_process(false)
+		$CanvasLayer2/wave_ind.visible = false
 		Engine.time_scale = 0
 	paused = !paused
 
