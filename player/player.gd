@@ -10,7 +10,7 @@ signal TilePlace(mouse_pos, n)
 @export var CROUCH_MULT = 0.5
 @export var DODGE_MULTIPLIER = 2.0
 @export var HEALTH = 100
-@export var GRENADE_COUNT = 5
+@export var GRENADE_COUNT = 2
 
 @onready var melee = %Melee
 @onready var camera_2d = %Camera2D
@@ -91,7 +91,6 @@ func _physics_process(delta):
 						gun_ammo_count_ui.text = str(currentAmmo)
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
-						newGun.visible = false
 				"smg":
 					if inv[sel_n-1] == "":
 						gunName = pickup
@@ -104,7 +103,6 @@ func _physics_process(delta):
 						gun_ammo_count_ui.text = str(currentAmmo)
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
-						newGun.visible = false
 				"rifle":
 					if inv[sel_n-1] == "":
 						gunName = pickup
@@ -117,7 +115,6 @@ func _physics_process(delta):
 						gun_ammo_count_ui.text = str(currentAmmo)
 						newGun.ammo_count = currentAmmo
 						pickups[0].queue_free()
-						newGun.visible = false
 				"lightAmmo":
 					lightAmmo += 12
 					total_light_ammo_count_ui.text = str(lightAmmo)
@@ -163,7 +160,7 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_released("reload") and hasGun and inv[sel_n-1] == "gun" and reloading == false:
 		reloading = true
-		#newGun.reloadRotate()
+		newGun.reloadRotate()
 		await get_tree().create_timer(1).timeout
 		if gunName == "rifle":
 			if mediumAmmo > 0 and newGun.ammo_count < newGun.mag_size:
@@ -179,7 +176,8 @@ func _physics_process(delta):
 					else:
 						newGun.ammo_count += mediumAmmo
 						mediumAmmo = 0
-		$ReloadSound.play()
+				currentAmmo = newGun.ammo_count
+				$ReloadSound.play()
 		if gunName == "pistol" || gunName == "smg":
 			if lightAmmo > 0 and newGun.ammo_count < newGun.mag_size:
 				var beforeReload = newGun.ammo_count
@@ -194,7 +192,9 @@ func _physics_process(delta):
 					else:
 						newGun.ammo_count += lightAmmo
 						lightAmmo = 0
-		$ReloadSound.play()
+				currentAmmo = newGun.ammo_count
+				$ReloadSound.play()
+		
 		gun_ammo_count_ui.text = str(newGun.ammo_count)
 		total_light_ammo_count_ui.text = str(lightAmmo)
 		total_medium_ammo_count_ui.text = str(mediumAmmo)
@@ -207,7 +207,7 @@ func _physics_process(delta):
 			TileHit.emit(get_global_mouse_position())
 	
 	#place block
-	if Input.is_action_pressed("place"):
+	if Input.is_action_pressed("place") and inv[sel_n-1] == "pickaxe":
 		var mp = get_global_mouse_position()
 		if abs(position.x - mp.x) <= range.x and abs(position.y - mp.y) <= range.y:
 			if sel_block_n == 1 and resource_inv["wood"] >= 5:

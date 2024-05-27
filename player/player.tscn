@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cvwsc8ncghr76" path="res://guns/pistol/pistol.png" id="19_450td"]
 [ext_resource type="Texture2D" uid="uid://du4yrky6wlehb" path="res://world/player_structures/wood_structure.png" id="20_t7dme"]
 [ext_resource type="Texture2D" uid="uid://dh03cxg7pjxj5" path="res://world/player_structures/stone_structure.png" id="21_h2m7y"]
-[ext_resource type="Material" path="res://menu/blur.tres" id="21_wkymn"]
+[ext_resource type="Material" uid="uid://by1w4avt6re86" path="res://menu/blur.tres" id="21_wkymn"]
 [ext_resource type="Texture2D" uid="uid://cp146al7my624" path="res://guns/smg/Uzi.png" id="22_l0jxq"]
 [ext_resource type="AudioStream" uid="uid://bisbk5qpxj1vg" path="res://sounds/footsteps-dirt-gravel-6823.mp3" id="22_vyd6k"]
 [ext_resource type="AudioStream" uid="uid://dh56qjweang1k" path="res://sounds/Asian-Graveyard-Remastered(chosic.com).mp3" id="23_iw3r1"]
@@ -198,6 +198,7 @@ autostart = true
 [node name="resource_gui" type="CanvasLayer" parent="."]
 
 [node name="wood_texture" type="TextureRect" parent="resource_gui"]
+texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -226,6 +227,7 @@ grow_vertical = 0
 text = "0"
 
 [node name="stone_texture" type="TextureRect" parent="resource_gui"]
+texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -254,6 +256,7 @@ grow_vertical = 0
 text = "0"
 
 [node name="iron_texture" type="TextureRect" parent="resource_gui"]
+texture_filter = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -310,10 +313,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="GrenadeCountUI" type="Label" parent="resource_gui"]
 z_index = 1
-offset_left = 28.0
-offset_top = 563.0
-offset_right = 136.0
-offset_bottom = 597.0
+offset_left = 29.0
+offset_top = 564.0
+offset_right = 142.0
+offset_bottom = 602.0
 theme_override_font_sizes/font_size = 20
 text = "Grenades: "
 
@@ -360,9 +363,9 @@ text = "0"
 unique_name_in_owner = true
 z_index = 1
 offset_left = 388.0
-offset_top = 591.0
+offset_top = 595.0
 offset_right = 464.0
-offset_bottom = 625.0
+offset_bottom = 629.0
 theme_override_font_sizes/font_size = 20
 text = "0"
 
@@ -396,80 +399,88 @@ offset_right = 1150.0
 offset_bottom = 150.0
 
 [node name="inv1" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 40.0
-offset_top = 25.0
-offset_right = 90.0
-offset_bottom = 75.0
+offset_left = -340.0
+offset_top = 568.0
+offset_right = -290.0
+offset_bottom = 618.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv2" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 110.0
-offset_top = 25.0
-offset_right = 160.0
-offset_bottom = 75.0
+offset_left = -270.0
+offset_top = 568.0
+offset_right = -220.0
+offset_bottom = 618.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv3" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 180.0
-offset_top = 25.0
-offset_right = 230.0
-offset_bottom = 75.0
+offset_left = -202.0
+offset_top = 555.0
+offset_right = -68.0
+offset_bottom = 631.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv1s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+texture_filter = 1
 layout_mode = 0
-offset_left = 40.0
-offset_top = 25.0
-offset_right = 90.0
-offset_bottom = 75.0
+offset_left = -340.0
+offset_top = 568.0
+offset_right = -290.0
+offset_bottom = 618.0
 texture = ExtResource("16_in5tk")
 
 [node name="inv2s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+texture_filter = 1
 layout_mode = 0
-offset_left = 110.0
-offset_top = 25.0
-offset_right = 160.0
-offset_bottom = 75.0
+offset_left = -270.0
+offset_top = 568.0
+offset_right = -220.0
+offset_bottom = 618.0
 texture = ExtResource("16_in5tk")
 
 [node name="inv3s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
+texture_filter = 1
 layout_mode = 0
-offset_left = 180.0
-offset_top = 25.0
-offset_right = 230.0
-offset_bottom = 75.0
+offset_left = -202.0
+offset_top = 555.0
+offset_right = -68.0
+offset_bottom = 631.0
 texture = ExtResource("16_in5tk")
 
 [node name="inv1item" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 40.0
-offset_top = 25.0
-offset_right = 90.0
-offset_bottom = 75.0
+offset_left = -340.0
+offset_top = 568.0
+offset_right = -290.0
+offset_bottom = 618.0
 texture = ExtResource("17_aolme")
 
 [node name="inv2item" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 110.0
-offset_top = 25.0
-offset_right = 160.0
-offset_bottom = 75.0
+offset_left = -279.0
+offset_top = 559.0
+offset_right = -211.0
+offset_bottom = 627.0
 texture = ExtResource("18_pmjiv")
 
 [node name="inv3itemPISTOL" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
 texture_filter = 1
 layout_mode = 0
-offset_left = 181.0
-offset_top = 34.0
-offset_right = 229.0
-offset_bottom = 66.0
+offset_left = -167.0
+offset_top = 569.0
+offset_right = -100.0
+offset_bottom = 615.0
 texture = ExtResource("19_450td")
 
 [node name="inv3itemSMG" type="TextureRect" parent="inventory_gui/inventory_control"]
@@ -477,11 +488,14 @@ visible = false
 texture_filter = 1
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.502857
-anchor_top = 0.186667
-anchor_right = 0.665714
-anchor_bottom = 0.486667
-offset_bottom = 1.52588e-05
+anchor_left = 0.605714
+anchor_top = 0.16
+anchor_right = 0.825714
+anchor_bottom = 0.513333
+offset_left = -380.0
+offset_top = 543.0
+offset_right = -380.0
+offset_bottom = 543.0
 texture = ExtResource("22_l0jxq")
 metadata/_edit_use_anchors_ = true
 
@@ -489,63 +503,77 @@ metadata/_edit_use_anchors_ = true
 visible = false
 texture_filter = 1
 layout_mode = 0
-offset_left = 169.0
-offset_top = 30.0
-offset_right = 243.0
-offset_bottom = 70.0
+offset_left = -192.0
+offset_top = 575.0
+offset_right = -78.0
+offset_bottom = 615.0
 texture = ExtResource("23_kp6p7")
 
 [node name="inv5" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 40.0
-offset_top = 85.0
-offset_right = 90.0
-offset_bottom = 135.0
+offset_left = 113.0
+offset_top = 574.0
+offset_right = 163.0
+offset_bottom = 624.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv6" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 110.0
-offset_top = 85.0
-offset_right = 160.0
-offset_bottom = 135.0
+offset_left = 183.0
+offset_top = 574.0
+offset_right = 233.0
+offset_bottom = 624.0
 texture = ExtResource("15_cpkas")
 
 [node name="inv5s" type="TextureRect" parent="inventory_gui/inventory_control"]
-visible = false
+texture_filter = 1
 layout_mode = 0
-offset_left = 40.0
-offset_top = 85.0
-offset_right = 90.0
-offset_bottom = 135.0
+offset_left = 113.0
+offset_top = 574.0
+offset_right = 163.0
+offset_bottom = 624.0
 texture = ExtResource("16_in5tk")
 
 [node name="inv6s" type="TextureRect" parent="inventory_gui/inventory_control"]
-visible = false
+texture_filter = 1
 layout_mode = 0
-offset_left = 110.0
-offset_top = 85.0
-offset_right = 160.0
-offset_bottom = 135.0
+offset_left = 183.0
+offset_top = 574.0
+offset_right = 233.0
+offset_bottom = 624.0
 texture = ExtResource("16_in5tk")
 
 [node name="inv5item" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 48.0
-offset_top = 92.0
-offset_right = 82.0
-offset_bottom = 126.0
+offset_left = 121.0
+offset_top = 581.0
+offset_right = 155.0
+offset_bottom = 615.0
 texture = ExtResource("20_t7dme")
 expand_mode = 1
 
 [node name="inv6item" type="TextureRect" parent="inventory_gui/inventory_control"]
+texture_filter = 1
 layout_mode = 0
-offset_left = 118.0
-offset_top = 92.0
-offset_right = 152.0
-offset_bottom = 126.0
+offset_left = 191.0
+offset_top = 581.0
+offset_right = 225.0
+offset_bottom = 615.0
 texture = ExtResource("21_h2m7y")
 expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="inventory_gui/inventory_control/inv6item"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.227451, 0.227451, 0.227451, 0.486275)
 
 [node name="Blur" type="ColorRect" parent="inventory_gui/inventory_control"]
 visible = false
@@ -567,10 +595,10 @@ material = ExtResource("21_wkymn")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 216.0
-offset_top = -67.0
-offset_right = 952.0
-offset_bottom = -508.0
+offset_left = 273.0
+offset_top = -52.0
+offset_right = 1009.0
+offset_bottom = -493.0
 grow_horizontal = 2
 grow_vertical = 2
 

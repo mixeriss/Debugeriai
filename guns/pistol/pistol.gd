@@ -15,6 +15,7 @@ func _process(delta):
 		sprite_2d.flip_v = true
 	else:
 		sprite_2d.flip_v = false
+
 func shoot():
 		if firerate.is_stopped():
 			if ammo_count <= 0:
@@ -30,10 +31,9 @@ func shoot():
 			shoot_sound.play()
 			
 
-#DOESNT WORK IDK
+var rotating = 360
+
 func reloadRotate():
 	var tween = create_tween()
-	tween.parallel().tween_property(sprite_2d, "rotation_degrees", 360, 1).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
-	tween.play()
-	await get_tree().create_timer(1).timeout
-	
+	tween.parallel().tween_property(sprite_2d, "rotation_degrees", 0+rotating, 1).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	rotating = rotating * (-1)

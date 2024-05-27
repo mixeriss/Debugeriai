@@ -62,7 +62,7 @@ visible = false
 
 [node name="PointLight2D" type="PointLight2D" parent="Player"]
 scale = Vector2(0.671875, 0.671875)
-color = Color(0.992157, 1, 0.917647, 1)
+color = Color(1, 0.74902, 0.752941, 0.956863)
 energy = 0.75
 texture = ExtResource("5_n5c4u")
 

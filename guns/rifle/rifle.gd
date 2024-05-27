@@ -31,8 +31,9 @@ func shoot():
 			audio_stream_player.play()
 			
 
+var rotating = 360
+
 func reloadRotate():
 	var tween = create_tween()
-	tween.parallel().tween_property(sprite_2d, "rotation_degrees", 360, 1).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
-	await get_tree().create_timer(1).timeout
-	tween.kill()
+	tween.parallel().tween_property(sprite_2d, "rotation_degrees", 0+rotating, 1).set_trans(Tween.TRANS_CIRC).set_ease(Tween.EASE_OUT)
+	rotating = rotating * (-1)

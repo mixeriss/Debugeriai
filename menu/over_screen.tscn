@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cds7b1eobo76o"]
+[gd_scene load_steps=7 format=3 uid="uid://cds7b1eobo76o"]
 
 [ext_resource type="Script" path="res://menu/over_screen.gd" id="1_7io82"]
+[ext_resource type="Theme" uid="uid://ouqenyw5hdfj" path="res://buttontheme.tres" id="2_s2ldo"]
 
 [sub_resource type="SystemFont" id="SystemFont_jpr0r"]
 subpixel_positioning = 0
@@ -8,9 +9,14 @@ subpixel_positioning = 0
 [sub_resource type="LabelSettings" id="LabelSettings_fjp00"]
 font = SubResource("SystemFont_jpr0r")
 font_size = 57
+font_color = Color(0.772549, 0, 0.027451, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ceef1"]
+font_size = 30
 
 [sub_resource type="LabelSettings" id="LabelSettings_4j4yf"]
 font_size = 30
+font_color = Color(0.996078, 0.784314, 0, 1)
 outline_size = 10
 outline_color = Color(0.105882, 0.329412, 0.105882, 1)
 shadow_size = 5
@@ -25,7 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.145098, 0.380392, 0.529412, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
 layout_mode = 1
@@ -60,7 +66,7 @@ offset_bottom = 24.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Score:"
-label_settings = SubResource("LabelSettings_4j4yf")
+label_settings = SubResource("LabelSettings_ceef1")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -95,6 +101,7 @@ offset_right = 125.0
 offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_s2ldo")
 text = "Back to the menu"
 
 [node name="Exit" type="Button" parent="ColorRect"]
@@ -110,6 +117,7 @@ offset_right = 109.0
 offset_bottom = 201.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_s2ldo")
 text = "Exit to desktop"
 
 [connection signal="pressed" from="ColorRect/Menu" to="." method="_on_menu_pressed"]
