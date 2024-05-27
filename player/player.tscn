@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cvwsc8ncghr76" path="res://guns/pistol/pistol.png" id="19_450td"]
 [ext_resource type="Texture2D" uid="uid://du4yrky6wlehb" path="res://world/player_structures/wood_structure.png" id="20_t7dme"]
 [ext_resource type="Texture2D" uid="uid://dh03cxg7pjxj5" path="res://world/player_structures/stone_structure.png" id="21_h2m7y"]
-[ext_resource type="Material" uid="uid://by1w4avt6re86" path="res://menu/blur.tres" id="21_wkymn"]
+[ext_resource type="Material" path="res://menu/blur.tres" id="21_wkymn"]
 [ext_resource type="Texture2D" uid="uid://cp146al7my624" path="res://guns/smg/Uzi.png" id="22_l0jxq"]
 [ext_resource type="AudioStream" uid="uid://bisbk5qpxj1vg" path="res://sounds/footsteps-dirt-gravel-6823.mp3" id="22_vyd6k"]
 [ext_resource type="AudioStream" uid="uid://dh56qjweang1k" path="res://sounds/Asian-Graveyard-Remastered(chosic.com).mp3" id="23_iw3r1"]
@@ -417,14 +417,6 @@ offset_right = 230.0
 offset_bottom = 75.0
 texture = ExtResource("15_cpkas")
 
-[node name="inv4" type="TextureRect" parent="inventory_gui/inventory_control"]
-layout_mode = 0
-offset_left = 250.0
-offset_top = 25.0
-offset_right = 300.0
-offset_bottom = 75.0
-texture = ExtResource("15_cpkas")
-
 [node name="inv1s" type="TextureRect" parent="inventory_gui/inventory_control"]
 visible = false
 layout_mode = 0
@@ -449,15 +441,6 @@ layout_mode = 0
 offset_left = 180.0
 offset_top = 25.0
 offset_right = 230.0
-offset_bottom = 75.0
-texture = ExtResource("16_in5tk")
-
-[node name="inv4s" type="TextureRect" parent="inventory_gui/inventory_control"]
-visible = false
-layout_mode = 0
-offset_left = 250.0
-offset_top = 25.0
-offset_right = 300.0
 offset_bottom = 75.0
 texture = ExtResource("16_in5tk")
 

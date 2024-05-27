@@ -40,7 +40,7 @@ var range = Vector2(68, 68)
 var mirr_footprint = false
 var direction
 var resource_inv = {"wood": 0, "stone": 0, "iron": 0}
-var inv = ["pickaxe", "melee", "", ""]
+var inv = ["pickaxe", "melee", ""]
 var sel_n = 1
 var sel_block_n = 1
 var currentScore = 0
@@ -80,9 +80,9 @@ func _physics_process(delta):
 					grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 					pickups[0].queue_free()
 				"pistol":
-					if hasGun == false:
+					if inv[sel_n-1] == "":
 						gunName = pickup
-						inv[2] = "gun"
+						inv[sel_n-1] = "gun"
 						$inventory_gui/inventory_control/inv3itemPISTOL.visible = true
 						hasGun = true
 						newGun = pistolPre.instantiate()
@@ -93,9 +93,9 @@ func _physics_process(delta):
 						pickups[0].queue_free()
 						newGun.visible = false
 				"smg":
-					if hasGun == false:
+					if inv[sel_n-1] == "":
 						gunName = pickup
-						inv[2] = "gun"
+						inv[sel_n-1] = "gun"
 						$inventory_gui/inventory_control/inv3itemSMG.visible = true
 						hasGun = true
 						newGun = smgPre.instantiate()
@@ -106,9 +106,9 @@ func _physics_process(delta):
 						pickups[0].queue_free()
 						newGun.visible = false
 				"rifle":
-					if hasGun == false:
+					if inv[sel_n-1] == "":
 						gunName = pickup
-						inv[2] = "gun"
+						inv[sel_n-1] = "gun"
 						$inventory_gui/inventory_control/inv3itemRIFLE.visible = true
 						hasGun = true
 						newGun = riflePre.instantiate()
@@ -228,9 +228,9 @@ func _physics_process(delta):
 		GRENADE_COUNT -= 1
 		grenade_count_ui.text = "Grenades: " + str(GRENADE_COUNT)
 	
-	if Input.is_action_just_released("throw") && hasGun and reloading == false:
+	if Input.is_action_just_released("throw") && inv[sel_n-1] == "gun" and reloading == false:
 		throw_gun()
-		gunName = "none"
+		inv[sel_n-1] = ""
 		hasGun = false
 	
 	#calculates number of enemies on player and deals damage
@@ -333,11 +333,9 @@ func update_inv():
 	$inventory_gui/inventory_control/inv1.visible = true
 	$inventory_gui/inventory_control/inv2.visible = true
 	$inventory_gui/inventory_control/inv3.visible = true
-	$inventory_gui/inventory_control/inv4.visible = true
 	$inventory_gui/inventory_control/inv1s.visible = false
 	$inventory_gui/inventory_control/inv2s.visible = false
 	$inventory_gui/inventory_control/inv3s.visible = false
-	$inventory_gui/inventory_control/inv4s.visible = false
 	match sel_n:
 		1:
 			$inventory_gui/inventory_control/inv1.visible = false
@@ -352,10 +350,6 @@ func update_inv():
 			$inventory_gui/inventory_control/inv3s.visible = true
 			if hasGun:
 				newGun.visible = true
-			pass
-		4:
-			$inventory_gui/inventory_control/inv4.visible = false
-			$inventory_gui/inventory_control/inv4s.visible = true
 			pass
 		_:
 			pass

@@ -4,10 +4,15 @@ extends Node2D
 @onready var game_over = %GameOver
 @onready var pause_menu = $CanvasLayer/PauseMenu
 var paused = false
+var wave = 1
+var kills_per_wave = 5
+var killed = 0
 
 func _process(delta):
 	if Input.is_action_just_pressed('pause'):
 		pauseMenu()
+	pass
+
 func pauseMenu():
 	if paused:
 		pause_menu.hide()
@@ -43,7 +48,20 @@ func spawn_mob():
 	var ENEMY = preload("res://enemy.tscn").instantiate()
 	path_follow_2d.progress_ratio = randf()
 	ENEMY.global_position = path_follow_2d.global_position
+	ENEMY.change_multiplier(wave)
+	ENEMY.on_death.connect(_on_enemy_kill)
 	add_child(ENEMY)
+	if wave >= 10:
+		var c = round(wave/10)
+		for i in c:
+			ENEMY = preload("res://enemy.tscn").instantiate()
+			path_follow_2d.progress_ratio = randf()
+			ENEMY.global_position = path_follow_2d.global_position
+			ENEMY.make_harder_enemy()
+			ENEMY.change_multiplier(wave)
+			ENEMY.on_death.connect(_on_enemy_kill)
+			add_child(ENEMY)
+	pass
 
 func _on_mob_spawn_timer_timeout():
 	spawn_mob()
@@ -54,4 +72,13 @@ func _on_player_health_depleted(points):
 	await get_tree().create_timer(1.5).timeout
 	$Player/overScreen.visible = true
 	$Player/overScreen.showScore(points)
-	
+
+func _on_enemy_kill():
+	killed = killed + 1
+	if killed >= kills_per_wave:
+		killed = 0;
+		kills_per_wave = kills_per_wave + 4
+		wave = wave + 1
+		$MobSpawnTimer.wait_time = 3/log(wave+1)
+		$CanvasLayer2/wave_ind.text = "Wave " + str(wave)
+	pass

@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_npnxe"]
 [ext_resource type="PackedScene" uid="uid://ckmxcyuy7jenn" path="res://world/world.tscn" id="2_dd7tk"]
-[ext_resource type="Material" uid="uid://by1w4avt6re86" path="res://menu/blur.tres" id="3_ao3bf"]
+[ext_resource type="Material" path="res://menu/blur.tres" id="3_ao3bf"]
 [ext_resource type="PackedScene" uid="uid://cds7b1eobo76o" path="res://menu/over_screen.tscn" id="3_cxuaw"]
 [ext_resource type="PackedScene" uid="uid://dmo51rmnyy3h4" path="res://player/player.tscn" id="3_f55k7"]
 [ext_resource type="Texture2D" uid="uid://mauj3ijqr7fg" path="res://sprites/light.png" id="5_n5c4u"]
-[ext_resource type="PackedScene" uid="uid://bplu78msqxbxp" path="res://menu/pause_menu.tscn" id="6_l553b"]
+[ext_resource type="PackedScene" path="res://menu/pause_menu.tscn" id="6_l553b"]
 
 [sub_resource type="Curve2D" id="Curve2D_n6lss"]
 _data = {
@@ -62,11 +62,18 @@ energy = 0.75
 texture = ExtResource("5_n5c4u")
 
 [node name="MobSpawnTimer" type="Timer" parent="."]
-wait_time = 2.019
+wait_time = 3.0
 autostart = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="wave_ind" type="Label" parent="CanvasLayer2"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Wave 1"
 
 [connection signal="_block_breaked" from="World" to="Player" method="_on_world__block_breaked"]
 [connection signal="_block_placed" from="World" to="Player" method="_on_world__block_placed"]
