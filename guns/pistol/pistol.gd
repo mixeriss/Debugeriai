@@ -5,8 +5,8 @@ extends Node2D
 @onready var shoot_sound = %ShootSound
 @onready var sprite_2d = %Sprite2D
 
-var mag_size = 14
-var ammo_count = 14
+var mag_size = 8
+var ammo_count = 8
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

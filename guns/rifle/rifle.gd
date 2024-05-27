@@ -5,8 +5,8 @@ extends Node2D
 @onready var firerate = %firerate
 @onready var audio_stream_player = %AudioStreamPlayer
 
-var mag_size = 31
-var ammo_count = 31
+var mag_size = 32
+var ammo_count = 32
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -27,7 +27,7 @@ func shoot():
 			newProjectile.global_position = shooting_point.global_position
 			newProjectile.global_rotation = shooting_point.global_rotation
 			shooting_point.add_child(newProjectile)
-			newProjectile.setDamage(12)
+			newProjectile.setDamage(14)
 			audio_stream_player.play()
 			
 

@@ -49,7 +49,7 @@ var pickup = "none"
 var gunName = "none"
 var hasGun = false
 var newGun
-var lightAmmo = 16
+var lightAmmo = 24
 var mediumAmmo = 16
 var currentAmmo = 0
 var reloading = false
@@ -120,7 +120,7 @@ func _physics_process(delta):
 					total_light_ammo_count_ui.text = str(lightAmmo)
 					pickups[0].queue_free()
 				"mediumAmmo":
-					mediumAmmo += 10
+					mediumAmmo += 8
 					total_medium_ammo_count_ui.text = str(mediumAmmo)
 					pickups[0].queue_free()
 			
@@ -412,21 +412,21 @@ func _on_world__block_breaked(type, amount):
 					var mouse_pos = get_global_mouse_position()
 					thrownGun.global_position = mouse_pos
 					get_parent().add_child(thrownGun)
-					thrownGun.throw("pistol", mouse_pos, 14, true)
+					thrownGun.throw("pistol", mouse_pos, 8, true)
 				2:
 					const gun = preload("res://gun_pickup.tscn")
 					var thrownGun = gun.instantiate()
 					var mouse_pos = get_global_mouse_position()
 					thrownGun.global_position = mouse_pos
 					get_parent().add_child(thrownGun)
-					thrownGun.throw("smg", mouse_pos, 26, true)
+					thrownGun.throw("smg", mouse_pos, 24, true)
 				3:
 					const gun = preload("res://gun_pickup.tscn")
 					var thrownGun = gun.instantiate()
 					var mouse_pos = get_global_mouse_position()
 					thrownGun.global_position = mouse_pos
 					get_parent().add_child(thrownGun)
-					thrownGun.throw("rifle", mouse_pos, 31, true)
+					thrownGun.throw("rifle", mouse_pos, 32, true)
 	elif type == "grenade":
 		GRENADE_COUNT = GRENADE_COUNT + amount;
 	else:

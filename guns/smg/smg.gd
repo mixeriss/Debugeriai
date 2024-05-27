@@ -7,8 +7,8 @@ extends Node2D
 @onready var shooting_point = %shootingPoint
 @onready var audio_stream_player_2d = %AudioStreamPlayer2D
 
-var mag_size = 26
-var ammo_count = 26
+var mag_size = 24
+var ammo_count = 24
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
