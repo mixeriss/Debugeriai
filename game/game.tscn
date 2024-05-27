@@ -1,18 +1,23 @@
-[gd_scene load_steps=9 format=3 uid="uid://ch7snygft3665"]
+[gd_scene load_steps=10 format=3 uid="uid://ch7snygft3665"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_npnxe"]
 [ext_resource type="PackedScene" uid="uid://ckmxcyuy7jenn" path="res://world/world.tscn" id="2_dd7tk"]
-[ext_resource type="Material" path="res://menu/blur.tres" id="3_ao3bf"]
+[ext_resource type="Material" uid="uid://by1w4avt6re86" path="res://menu/blur.tres" id="3_ao3bf"]
 [ext_resource type="PackedScene" uid="uid://cds7b1eobo76o" path="res://menu/over_screen.tscn" id="3_cxuaw"]
 [ext_resource type="PackedScene" uid="uid://dmo51rmnyy3h4" path="res://player/player.tscn" id="3_f55k7"]
 [ext_resource type="Texture2D" uid="uid://mauj3ijqr7fg" path="res://sprites/light.png" id="5_n5c4u"]
-[ext_resource type="PackedScene" path="res://menu/pause_menu.tscn" id="6_l553b"]
+[ext_resource type="PackedScene" uid="uid://bplu78msqxbxp" path="res://menu/pause_menu.tscn" id="6_l553b"]
 
 [sub_resource type="Curve2D" id="Curve2D_n6lss"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 400, 260, 0, 0, 0, 0, -400, 260, 0, 0, 0, 0, -400, -260, 0, 0, 0, 0, 400, -260, 0, 0, 0, 0, 400, 260)
 }
 point_count = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6hqb"]
+font_size = 20
+outline_size = 15
+outline_color = Color(0.109804, 0.109804, 0.109804, 1)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_npnxe")
@@ -71,9 +76,12 @@ color = Color(0.180392, 0.180392, 0.180392, 1)
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="wave_ind" type="Label" parent="CanvasLayer2"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 9.0
+offset_top = 5.0
+offset_right = 65.0
+offset_bottom = 28.0
 text = "Wave 1"
+label_settings = SubResource("LabelSettings_y6hqb")
 
 [connection signal="_block_breaked" from="World" to="Player" method="_on_world__block_breaked"]
 [connection signal="_block_placed" from="World" to="Player" method="_on_world__block_placed"]
