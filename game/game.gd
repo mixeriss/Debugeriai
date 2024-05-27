@@ -8,6 +8,14 @@ var wave = 1
 var kills_per_wave = 5
 var killed = 0
 
+func _ready():
+	$World.generate_map()
+	var coords = $World.find_spawn_point()
+	$Player.set_pos(coords)
+	var px_size = $World.get_pixel_size()
+	$Player.setCameraLimits(px_size)
+	pass
+
 func _process(delta):
 	if Input.is_action_just_pressed('pause'):
 		pauseMenu()
@@ -35,14 +43,6 @@ func pauseMenu():
 		$Player.set_physics_process(false)
 		Engine.time_scale = 0
 	paused = !paused
-
-func _ready():
-	$World.generate_map()
-	var coords = $World.find_spawn_point()
-	$Player.set_pos(coords)
-	var px_size = $World.get_pixel_size()
-	$Player.setCameraLimits(px_size)
-	pass
 
 func spawn_mob():
 	var ENEMY = preload("res://enemy.tscn").instantiate()

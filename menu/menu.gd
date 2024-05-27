@@ -1,4 +1,5 @@
 extends Control
+
 func _ready():
 	handle_connecting_signals()
 	pass
@@ -25,7 +26,7 @@ func on_quit_button_pressed():
 	get_tree().quit()
 	pass
 
-func on_exit_options_menu()-> void:
+func on_exit_options_menu() -> void:
 	$Click.play()
 	$MarginContainer.visible = true
 	$OptionsMenu.visible = false
